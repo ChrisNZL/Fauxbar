@@ -1,0 +1,17 @@
+<html>
+<!--
+	Because Fauxbar's proper Options page is just Fauxbar's normal page with a hash value added on, this page "launches" the proper Options page.
+	Without this launch page, Chrome would sometimes switch to the Options page tab even if the Options had been closed by the user, which wasn't ideal.
+	So, by opening the launch page, then launching a new Options tab, and then closing the launch page, Chrome *has* to open the launch page every time.
+	This means the Options page definitely gets shown every time. The quick open/close behaviour isn't ideal but at least it's consistent.
+-->
+<head>
+<title>Loading...</title>
+<script type="text/javascript" src="/js/jquery-1.7.min.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<script type="text/javascript" src="/js/common-1.js"></script>
+<script type="text/javascript" src="/js/logerror.js"></script>
+<script type="text/javascript" src="/js/launchOptions.js"></script>
+</head>
+<body></body>
+</html>

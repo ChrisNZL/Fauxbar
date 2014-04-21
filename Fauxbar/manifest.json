@@ -1,0 +1,118 @@
+{
+
+
+	"name": "Fauxbar", 
+
+	"version": "1.4.0",
+	"description": "An alternative to Chrome's Omnibox. Replaces the New Tab page.",
+
+	"minimum_chrome_version": "28",
+
+	"background": {
+		"scripts": [
+			"/js/jquery-1.7.min.js",
+			"/js/common.js",
+			"/js/common-1.js",
+			"/js/logerror.js",
+			"/js/md5-min.js",
+			"/js/background-new.js"
+		],
+		"persistent": true
+	},
+
+	"options_page": "html/launchoptions.html",
+
+	"chrome_url_overrides": {
+		"newtab": "html/fauxbar.html#newTab"
+	},
+
+	"browser_action": {
+		"default_title": "Open Fauxbar", 
+		"default_icon": "img/fauxbar19.png"
+	},
+	
+	"commands": {
+		"addressBoxCurrentTab": { 
+			"suggested_key": {
+				"default": "Alt+D"
+			},
+			"description": "Open Fauxbar's Address Box in the current tab"
+		},
+		"addressBoxNewTab": {
+			"suggested_key": {
+				"default": "Ctrl+T" 
+			},
+			"description": "Open Fauxbar's Address Box in a new tab"
+		},
+		"searchBoxCurrentTab": {
+			"suggested_key": {
+				"default": "Ctrl+K"
+			},
+			"description": "Open Fauxbar's Search Box in the current tab"
+		},
+		"searchBoxNewTab": {
+			"suggested_key": {
+				"default": "Ctrl+Shift+K" 
+			},
+			"description": "Open Fauxbar's Search Box in a new tab" 
+		}
+	},
+	
+	"manifest_version": 2,
+	
+	"content_security_policy": "default-src 'self';   script-src 'self' https://platform.twitter.com;   style-src 'self' 'unsafe-inline';   img-src 'self' data: chrome: filesystem:;   connect-src 'self' http: https: chrome-extension:;   frame-src http: https:",
+
+	"content_scripts": [
+		{
+			"matches": ["<all_urls>"],
+			"exclude_matches": ["https://chrome.google.com/webstore*"],
+			"js": ["js/jquery-1.7.min.js"],
+			"run_at": "document_start",
+			"all_frames": true
+		},
+		{
+			"matches": ["<all_urls>"],
+			"exclude_matches": ["https://chrome.google.com/webstore*"],
+			"include_globs": ["http*"],
+			"js": ["js/contextMenu-hoverToggle.js"],
+			"run_at": "document_end",
+			"all_frames": true
+		},
+		{
+			"matches": ["<all_urls>"],
+			"exclude_matches": ["https://chrome.google.com/webstore*"],
+			"js": ["js/updatetitle.js"],
+			"run_at": "document_end"
+		}
+	],
+
+	"permissions": [
+		"<all_urls>",
+		"tabs",
+		"history",
+		"bookmarks",
+		"chrome://favicon/*",
+		"unlimitedStorage",
+		"management",
+		"clipboardWrite",
+		"clipboardRead",
+		"contextMenus",
+		"notifications",
+		"storage"
+	],
+
+	"icons": {
+		"16": "img/fauxbar16.png",
+		"19": "img/fauxbar19.png",
+		"48": "img/fauxbar48.png",
+		"128": "img/fauxbar128.png"
+	},
+
+	"omnibox": {
+		"keyword": "f"
+	},
+	
+	"web_accessible_resources": [
+		"html/fauxbar.html"
+	]
+}

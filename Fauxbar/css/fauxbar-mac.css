@@ -1,0 +1,17 @@
+/* Mac-specific default styling */
+body { font-family:Lucida Grande, Segoe UI, Arial, sans-serif; font-size:13px; }
+#results *, #opensearch_results *, #awesomeinput, #opensearchinput, #opensearchmenu { font-family:Lucida Grande, Segoe UI, Arial, sans-serif; }
+#options *, #dragging_os_row * { font-family:Lucida Grande, Segoe UI, Arials, sans-serif; font-size:13px; }
+.switchtext { font-family:Lucida Grande, Segoe UI, Arial, sans-serif; }
+#indexinginfo { font-family:Lucida Grande, Segoe UI, Arial, sans-serif; font-size:13px; }
+#topthumbs, #apps { font-family:Lucida Grande, Segoe UI, Arial, sans-serif; }
+#sapps button { font-family:Lucida Grande, Segoe UI, Arial, sans-serif; font-size:12px; }
+.description { font-style:normal; }
+#options input[type="number"] { padding-right:0px; }
+#options select, #options option { font-size:16px; }
+#options button img { height:13px; width:13px; padding-left:2px; }
+#options .color { padding-right:2px; width:70px; }
+.result_favicon { margin-top:-2px; }
+input::-webkit-input-placeholder { font-style:normal; }
+
+div#menubar menu items { font-size:12px; }

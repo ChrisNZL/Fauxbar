@@ -1,0 +1,60 @@
+<html> <!-- Fauxbar Error Log -->
+<head>
+	<title>Fauxbar: Error Log</title>
+	<link href="/css/fauxbar.css" media="screen" rel="stylesheet" type="text/css" />
+	<style type="text/css">
+		table * { font-size:12px; border:0px solid rgba(0,0,0,.02); background-color:#fff; color:#000; }
+		th { text-align:left; }
+		td, th { padding:5px; vertical-align:top; }
+		th { padding:4px 5px 5px 5px; }
+
+		body { background-color:#fff; color:#000; }
+		tr:hover td, tr.odd:hover td { background-color:rgba(0,102,204,.1); }
+		tr.odd td { background-color:rgba(0,0,0,.02); }
+		th { background-color:rgba(0,0,0,.7); color:#fff; text-shadow:1px 1px 0 black; box-shadow:inset 0px 12px 2px rgba(255,255,255,.12), inset 0 0 0px 1px rgba(0,0,0,.5); }
+		button { font-family:inherit; font-size:12px; float:right; position:relative; top:4px; right:2px; }
+
+		#errorReport { display:none; position:fixed; width:100%; top:20%; left:0; z-index:110; }
+		#errorFade { display:none; top:0; position:fixed; width:100%; height:100%; z-index:100; background-color:#000; opacity:.2; }
+		textarea { width:100%; height:250px; font-size:11px; font-family:Ubuntu, Lucida Grande, Segoe UI, Arial, sans-serif; }
+		#cross { opacity:.5; }
+		#cross:hover { opacity:1; }
+
+		#errorInner { width:66%; text-align:left; display:inline-block; margin:0 auto; padding:20px; background-color:#fff; color:#000; box-shadow:0 5px 20px rgba(0,0,0,.8); }
+	</style>
+	<script type="text/javascript" src="/js/jquery-1.7.min.js"></script>
+	<script type="text/javascript" src="/js/common.js"></script>
+	<script type="text/javascript" src="/js/common-1.js"></script>
+	<script type="text/javascript" src="/js/logerror.js"></script>
+	<script type="text/javascript" src="/js/loadErrorLog.js"></script>
+</head>
+<body>
+<div style="padding:2px 5px 5px 8px; font-size:26px; color:#fff; font-weight:bold; text-shadow:2px 2px 0 rgba(0,0,0,.3); background-image:url(/img/dev-bg.png);">
+	<button id="clear">Clear...</button>
+	<button id="sendReport">Send Report...</button>
+	<img src="/img/fauxbar48sad.png" id="sadlogo" style="width:34px; vertical-align:text-bottom;" />
+	<span class="extensionName">Fauxbar</span> Error Log
+</div>
+<table>
+	<tr>
+		<th style="text-align:right">#&nbsp;</th><th>Date</th><th>Ver.</th><th>URL</td><th>File</th><th>Line</th><th>Error Message</th><th style="text-align:right">Count</th>
+	</tr>
+</table>
+<div id="errorFade">&nbsp;</div>
+<div id="errorReport" style="text-align:center;">
+	<div id="errorInner">
+		<img id="cross" src="/img/cross.png" style="float:right; position:relative; top:-10px; right:-10px" />
+		<img src="/img/fauxbar48.png" style="float:left; height:30px; position:relative; top:-5px; left:-1px; padding-right:6px" />
+		To help improve Fauxbar, please report these errors by following the steps below. Thank you!<br /><br />
+		<div style="font-size:120%; font-weight:bold">To send an error report:</div>
+		1. Copy the text from the box below to your clipboard.<br />
+		2. Create a new email addressed to <b>fauxbar.org@gmail.com</b><br />
+		3. Paste the text into the email's body, then send it on its way.<br />
+		4. Once sent, click the <b>Clear</b> button on this page to avoid sending duplicate reports.<br />
+		<br />
+		<div style="font-size:12px; opacity:.55">The data below contains your operating system name, Chrome version number, and all the error info displayed on this page.</div>
+		<div id="text" style="padding:10px"><textarea disabled></textarea></div>
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<html>
+<head>
+	<title>Fauxbar: Add Search Engine</title>
+	<script type="text/javascript" src="/js/jquery-1.7.min.js"></script>
+	<script type="text/javascript" src="/js/logerror.js"></script>
+	<script type="text/javascript" src="/js/common.js"></script>
+	<script type="text/javascript" src="/js/common-1.js"></script>
+	<script type="text/javascript" src="/js/addSearchEngine.js"></script>
+	<link href="/css/fauxbar.css" rel="stylesheet" type="text/css" />
+	<style type="text/css">
+		* { color:#000; }
+		body { font-size:100%; padding:15px 15px 0 15px; background-color:#f0f0f0; }
+		td.left { width:1px; white-space:nowrap; padding-right:10px; }
+		td.right { width:100%; }
+		td.right input { width:100%; }
+		td.left, td.right { font-size:13px; }
+		table { width:100%; }
+		td { padding-bottom:10px; }
+		button { font-size:12px; }
+		#searchEngineName { background-repeat:no-repeat; padding-left:21px; background-position:3px center; }
+		input { border:1px solid rgba(0,0,0,.3); padding:1px 1px 2px 1px; border-radius:1px; }
+		.error { color:#c00; border-color:#c00; box-shadow:0 0 2px #c00; outline:none; cursor:help; }
+	</style>
+</head>
+<body>
+	<table cellpadding="0" cellspacing="0">
+		<tr>
+			<td class="left">
+				Name:
+			</td>
+			<td class="right">
+				<input id="searchEngineName" spellcheck="false" autocomplete="off" />
+			</td>
+		</tr>
+		<tr>
+			<td class="left">
+				Keyword:
+			</td>
+			<td class="right">
+				<input id="keyword" spellcheck="false" autocomplete="off" />
+			</td>
+		</tr>
+		<tr>
+			<td class="left">
+				<span>Search </span>URL:
+			</td>
+			<td class="right">
+				<input id="url" spellcheck="false" autocomplete="off" />
+			</td>
+		</tr>
+		<tr id="suggestions">
+			<td class="left">
+				Suggestions URL:
+			</td>
+			<td class="right">
+				<input id="suggestionsUrl" spellcheck="false" autocomplete="off" placeholder="This search engine does not support search suggestions"/>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" style="text-align:right">
+				<button id="add">Add to Fauxbar</button>
+				<button id="cancel">Cancel</button>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>

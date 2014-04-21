@@ -1,0 +1,246 @@
+/* Fauxbar Main CSS File */
+
+/* Some generic defaults */
+img { border:0; }
+body { cursor:default; font-family:Ubuntu, Lucida Grande, Segoe UI, Arial, sans-serif; font-size:13px; padding:0; margin:0; }
+a, a:visited, a:link, a:active, a:hover { text-decoration:none; }
+
+/* Address Box results are divs, so make sure they clear each other */
+.result { clear:both; }
+
+/* Address and Search Boxes' inner input boxes are just a sub part of their parent div, so make them have a transparent background */
+.inputwrapper input { background-color:transparent; }
+
+/* Slightly faded text color if the input box has generic text, like "Go to a web site" or "Google" */
+.inputwrapper input.description { opacity:.5; }
+
+/* Fauxbar's supposed to look a bit more like part of the UI, not a webpage, so try to not show any selected text from Fauxbar's UI */
+/* *::selection { background:rgba(0,0,0,0); color:inherit; } */
+
+/* Rounded-corner input "boxes" - parent wrappers for the actual input boxes and icons within */
+.inputwrapper { border-radius:4px;
+	padding:3px 4px 3px 4px; padding:0;
+	background-color:#fff;
+	box-shadow: inset 0 0px 2px rgba(0,0,0,.4), 0 0 0 1px rgba(0,0,0,.2), 0 2px 0px rgba(255,255,255,.35);
+}
+.inputwrapper2 { border-radius:0 4px 4px 0; padding:2px 4px 2px 1px; }
+
+.insetButton {
+	background-color:rgba(0,0,0,.00);
+	padding:2px 4px 2px 2px;
+	border-radius:4px 0 0 4px;
+	border-radius:3px;
+	           /*        border                          shading             */
+	box-shadow:inset 0 0 0 1px rgba(0,0,0,.15), inset 0 -1px 5px rgba(0,0,0,.2);
+	font-size:inherit;
+}
+.insetButton:hover {
+	box-shadow:inset 0 0 0 1px rgba(0,102,204,.3), inset 0 -1px 5px rgba(0,102,204,.2);
+	background-color:rgba(0,102,204,.02);
+	background-color:#fff;
+}
+.noInsetButton { padding-left:2px; margin-right:-1px; }
+
+/* Default font name for the main Fauxbar elements */
+#results *, #opensearch_results *, #awesomeinput, #opensearchinput, #opensearchmenu { font-family:Ubuntu, Lucida Grande, Segoe UI, Arial, sans-serif; }
+
+/* Make the background container take up the whole page */
+#background { width:100%; height:100%; position:absolute; z-index:0;}
+
+/* Address Box and Search Box inputs */
+#awesomeinput, #opensearchinput { border:0; width:100%; font-size:15px; padding:0; }
+/* Get rid of Chrome's orange focus glow */
+#awesomeinput:focus, #opensearchinput:focus { outline:none; }
+
+/* Default button */
+button { padding:3px 12px; }
+
+/* The wrapper is the Fauxbar, if you will; wraps around the two Boxes. */
+.wrapper {
+	max-width:1000px; margin:0 auto 0 auto; text-align:center; padding:8px; border-radius:9px;
+	background:-webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,.12)), to(rgba(0,0,0,.50)));
+	position:relative; box-shadow:0 5px 7px rgba(0,0,0,.27);
+}
+
+/* Address Box results and Search Box suggestions/queries */
+#results, #opensearch_results { width:100%; max-height:66%; border:1px solid rgba(0,0,0,.55); margin:0 auto; text-align:left; overflow-y:auto; overflow-x:hidden;
+	box-shadow:3px 3px 3px rgba(0,0,0,.3); display:none; position:absolute; z-index:10000; background-color:#fff; margin-left:2px; margin-top:1px;
+}
+#opensearch_results { height:auto; width:300px; height:auto; max-height:none;  }
+#opensearch_results .result { border:0; padding-left:14px; white-space:nowrap; }
+
+/* Options page and its contents */
+#options *, #dragging_os_row * { font-family:Ubuntu, Lucida Grande, Segoe UI, Arials, sans-serif; font-size:13px; }
+#options { position:absolute; display:none; }
+
+/* More Address Box results and Search Box suggestions/queries */
+/* .arrowed is for hovered/highlighted/selected results */
+.result, .resultpreview { border-bottom:1px solid rgba(0,0,0,.11); padding: 3px 5px 4px 5px; display:block; }
+.arrowed, .rightClickedResult { background-color:#3399ff; color:#fff; }
+.result_url, #options .result_url { padding-left:21px; white-space:nowrap; font-size:12px; overflow:hidden; display:inline-block; }
+.result_title, #options .result_title { font-size:14px; line-height:140%; white-space:nowrap; overflow:hidden; display:inline-block; }
+.result_favicon { height:16px; width:16px; padding-right:5px; vertical-align:middle; margin-top:-4px; }
+
+/* Search Box suggestions/queries */
+.historyresult, .jsonresult { font-size:12px; padding-top:5px; }
+
+/* Generic underlining, mainly for matched words within results */
+.underline { text-decoration:underline; }
+
+/* Bookmark icon */
+.favstar { float:right; margin-top:2px; margin-right:-1px; }
+
+/* "Truncated" dotting for Address Box result titles and URLs */
+.dotdotdot { position:relative; float:right; }
+.arrowed .result_title .dotdotdot, .arrowed .result_url .dotdotdot, .rightClickedResult .result_title .dotdotdot, .rightClickedResult .result_url .dotdotdot { background-color:rgba(0,0,0,0); }
+
+/* Generic placeholder text for Address Box and Search Box, like "Go to a web site" or "Google" */
+.description { font-style:italic; color:rgba(0,0,0,.5); }
+
+/* The down-arrow/upside-down triangle in the Address Box and Search Box */
+.triangle { font-family:Times New Roman, Arial, sans-serif; font-size:13px; display:inline-block; -webkit-transform:scale(.8, .45); color:rgba(0,0,0,.5); position:relative; }
+#addressbox_triangle:hover .triangle, #opensearch_triangle:hover .triangle, #super_triangle:hover .triangle { color:rgba(0,0,0,.59);}
+#addressbox_triangle .glow, #opensearch_triangle .glow, #super_triangle .glow { text-shadow:0 1px 15px rgba(0,204,255,.5); }
+
+/* Generic default table */
+table { border:0; border-collapse:collapse; width:100%; display:table; }
+
+/* Search engine menu that gets shown when user clicks the icon in the Search Box */
+#opensearchmenu { box-shadow:3px 3px 3px rgba(0,0,0,.3); display:none; background-color:#f0f0f0; position:absolute; z-index:10000; font-size:12px; border:1px solid #979797; padding:2px; margin-top:2px; }
+.vertline { padding:4px 0 4px 4px; display:inline-block; border-left:1px solid #fff; }
+.vertline2 { display:inline-block; border-left:1px solid #e2e3e3; }
+.menuitem, .menuitemline { padding:0px 27px 0px 25px; }
+.menuitem:hover { padding:0 26px 0 24px; border:1px solid #aecff7; border-radius:3px; background:-webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,.4)), to(rgba(174,207,247,.1))); box-shadow:inset 0 0 1px #fff; }
+.menuitem:hover .vertline2 .vertline { padding:3px 0 3px 4px; border-color:rgba(255,255,255,.65);}
+.menuitem:hover .vertline2  { border-color:rgba(226,227,227,.65);}
+.menuitem img { position:absolute; margin-left:-21px; margin-top:4px; }
+.menuitem:hover img { margin-top:3px; }
+.opensearch_selectedicon { height:16px; width:16px; padding-right:1px; }
+#opensearch_triangle { padding:0 17px 0 2px; }
+.static { position:static; }
+.bold, .bold * { font-weight:bold; }
+
+/* The draggable handle between the Address Box and Search Box */
+#handle { cursor:col-resize; width:5px; min-width:5px; display:inline-block; position:relative; font-size:1px; }
+
+/* Both boxes within the Fauxbar wrapper. Don't want them getting *too* small */
+#leftcell, #rightcell { min-width:150px; }
+
+/* Hidden input box. Gets focused when the search engine menu is shown. Then, when the user clicks something, this hidden box gets blurred, and the menu gets hidden. */
+#opensearch_menufocus { position:absolute; z-index:-999; opacity:0; display:none; }
+
+/* "Switch to tab" text in front of the Address Box's input box, used when user has navigated to a "Switch to tab"-laden result */
+.switchtext, td.addtile { white-space:nowrap; border-right:0px solid rgba(0,0,0,.2); font-family:Ubuntu, Lucida Grande, Segoe UI, Arial, sans-serif; padding-right:2px; padding-left:3px; display:none; width:1px;
+	color:rgba(0,0,0,.6); color:rgba(0,0,0,.6); text-shadow:0 1px 0 #fff;
+}
+
+/* The hidden URL of a "Switch to tab" replacement text */
+.result_url_hidden { display:none; }
+
+/* Indexing progress info box container */
+#indexinginfo { background-color:#fff; padding:20px 20px 20px 20px; border-radius:7px;
+	box-shadow:3px 3px 3px rgba(0,0,0,.3); font-family:Ubuntu, Lucida Grande, Segoe UI, Arial, sans-serif; font-size:13px;
+	display:block; margin:0 auto; width:500px; display:none;
+}
+#indexinginfo img { }
+progress { width:100%; margin-top:6px; }
+
+/* Tiles for top sites and Chrome apps */
+#topthumbs, #apps { text-align:center; margin-top:25px; font-family:Ubuntu, Lucida Grande, Segoe UI, Arial, sans-serif; display:block; margin:25px auto 0 auto; }
+#topthumbs a, #apps a { display:inline-block; width:212px; margin:10px; text-align:left; position:relative; z-index:90; text-decoration:none; overflow-x:hidden; padding:5px;
+	border-radius:3px; background-color:rgba(255,255,255,1);
+	box-shadow:0 2px 6px -1px rgba(0,0,0,.35);
+}
+
+/* Top site tiles */
+#topthumbs div.thumb { display:inline-block; overflow:hidden; height:132px; width:212px; margin-bottom:4px; background-image:url(/img/nopic.png); background-position:center center; }
+#topthumbs div.thumb img { width:215px; border:0px solid rgba(0,0,0,.12); padding-bottom:200px; background-color:#fff; }
+#topthumbs .toptitle { white-space:nowrap; overflow:hidden; display:inline-block; }
+#topthumbs .toptitle img { height:16px; width:16px; vertical-align:middle; margin-top:-4px; }
+#topthumbs a, #topthumbs a * { white-space:normal; position:relative; }
+#topthumbs a:hover, #apps a:hover, #topthumbs a.draggingTile, #topthumbs a.rightClickedTile { box-shadow:0 2px 12px -1px rgba(0,0,0,.85); background-color:#3399FF; color:#fff; }
+
+/* App tiles */
+#apps { display:none; }
+#apps a { display:inline-block; max-width:128px; min-width:128px; position:relative; z-index:99; background-color:#fff; border-radius:7px; margin:10px; padding:10px; overflow:hidden; white-space:nowrap; }
+#apps a img { padding-bottom:7px; }
+#apps a { width:auto; text-align:center; }
+#apps img.unin { display:none; float:right; position:relative; z-index:100; top:-8px; left:8px; height:12px; width:12px; opacity:.65; cursor:default; }
+#apps img.unin:hover { opacity:1; }
+
+/* Sites/Apps switcher buttons at the bottom of the page */
+#sapps { position:fixed; z-index:90002; bottom:40px; background-color:#fff; border-radius:3px; text-align:center; left:50%; padding:5px; box-shadow:0 2px 6px -1px rgba(0,0,0,.35); opacity:0; }
+#sapps:hover { opacity:1; }
+#sapps button { font-family:Ubuntu, Lucida Grande, Segoe UI, Arial, sans-serif; font-size:12px; margin:0; }
+#sapps div { padding:5px 10px 6px 10px; display:inline-block; }
+#sapps_sites { border-right:1px solid rgba(0,0,0,.12); }
+
+/* Blue options info bar at the top of the page that apppears after first indexing */
+#optionsintro { padding:7px 10px 7px 10px; font-family:Ubuntu, Lucida Grande, Segoe UI, Arial, sans-serif; font-size:12px; background-color:#c9e6ff; border-bottom:0px solid rgba(255,255,255,.5);
+	background:-webkit-gradient(linear, left top, left bottom, from(rgba(211,235,253,1)), to(rgba(155,211,255,1)));
+	box-shadow:0px 1px 5px rgba(0,0,0,.5);
+	display:none;
+}
+
+/* Manual site tile edit mode */
+#manualmode { font-size:14px; padding:6px 7px 7px 7px;  background-color:#fcef80; color:#000; padding-left:38px; }
+#manualmode img { position:absolute; top:3px; left:7px; height:25px; }
+#topthumbs a.draggingTile { position:absolute; margin:0; z-index:1000; }
+#topthumbs span.tileCross { background-color:#fff; position:absolute; z-index:2000; margin-left:196px; margin-top:-3px; border-radius:3px; cursor:default; display:none; }
+#topthumbs span.tileCross img { opacity:.5; padding:2px; float:right;}
+#topthumbs span.tileCross:hover img { opacity:1; }
+#topthumbs a:hover span.tileCross { display:inline; }
+#cursorbox { display:inline-block;height:1px;width:1px;position:absolute;z-index:1400; }
+#topthumbs .holderTile { background:#fff; border:4px dashed #000; margin:6px; opacity:.2; box-shadow:none; }
+#editModeButtons {float:right; position:relative; right:1px; top:1px; padding-left:10px; }
+#editModeButtons button { font-size:12px; }
+
+/* Error display box */
+#errorBox { width:auto; background-color:#fff; color:#000; position:absolute; right:15px; bottom:15px; padding:2px; border:1px solid rgba(0,0,0,.5); box-shadow:3px 3px 3px rgba(0,0,0,.3); border-radius:4px;
+	z-index:10000; display:inline-block;
+}
+#errorBox, #errorBox * { font-size:inherit; font-family:inherit; }
+#errorBox td { vertical-align:top; }
+#errorBox img { padding-right:5px; }
+.errorBoxCross { opacity:.3; }
+.errorBoxCross:hover { opacity:1; }
+
+#contextMenu { background-color:#fff; padding:3px; border-radius:1px; box-shadow:0px 3px 6px rgba(0,0,0,.4); position:absolute; z-index:4000000; display:inline-block; border:1px solid rgba(0,0,0,.3); }
+#contextMenu .menuOption { padding:3px 30px 3px 25px; font-size:12px; border-radius:2px; white-space:nowrap; }
+#contextMenu .menuOption:hover { background-color:#3399FF; color:#fff; box-shadow:inset 0 -15px 15px -5px rgba(0,0,0,.12); }
+#contextMenu .menuHr { font-size:1px; line-height:1px; height:1px; background-color:#f0f0f0; margin:3px 0 3px 0; }
+#contextMenu .disabled { opacity:.3;}
+#contextMenu .disabled:hover { background:none; color:#000; box-shadow:none; }
+
+input::-webkit-input-placeholder { color:rgba(0,0,0,.5); font-style:italic; }
+input:focus::-webkit-input-placeholder { color:transparent; }
+
+.resultTag { padding:2px 5px 0 8px; text-decoration:none; }
+
+#addressbaricon { margin-top:1px; height:16px; width:16px; }
+
+#menubar { background:-webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,.08)), to(rgba(0,0,0,.06))); position:relative; z-index:3000000; font-size:12px; padding:0 4px; 
+		   border-bottom:1px solid rgba(0,0,0,.15); border-top:1px solid rgba(255,255,255,.65); border-bottom:1px solid rgba(0,0,0,.25);
+		   box-shadow:0 1px 0 rgba(255,255,255,.6); }
+
+#menubar *::selection { background:rgba(0,0,0,0); color:inherit; }
+menu, menuDate { opacity:.85; display:inline-block; padding:5px 6px 6px 6px; margin:0; }
+menuDate { float:right; }
+menu:hover { background:-webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,.6)), to(rgba(255,255,255,.4))); }
+menu.selected { opacity:1; background-color:#fff; }
+menu items { display:none; position:fixed; z-index:1; margin:1px 0 0 -1px; background-color:#fff; box-shadow:0 3px 8px rgba(0,0,0,.45); padding:3px; border-radius:1px; border:1px solid rgba(0,0,0,.3); }
+
+menu.selected > items { display:inline-block; }
+menu item.expanded > items { display:inline-block; }
+
+menu items item { display:block; background-position:3px 49%; background-repeat:no-repeat; background-size:16px 16px; border-radius:2px;  }
+menu item a { white-space:nowrap; display:block; min-width:110px; padding:4px 28px 4px 24px; color:inherit; }
+menu items item:not([faded]):hover > a, menu item:not([faded]).hovering > a { background:-webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0,0,0,.06))); }
+menu items group { display:block; }
+menu item > items { margin:-3px 0 0 2px; }
+#menubar hr { font-size:1px; line-height:1px; border:0 solid rgba(0,0,0,.1); border-top-width:1px; margin:3px 0; }
+#menubar item[faded] { background-color:transparent; opacity:.5; }
+
+menu items arrow { display:inline-block; float:right; -webkit-transform:rotate(-90deg) scale(.75,.45); margin-right:-25px; }
+
+menu items.displayNone { display:none; }

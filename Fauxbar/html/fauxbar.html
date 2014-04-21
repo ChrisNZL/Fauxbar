@@ -1,0 +1,180 @@
+<html> <!-- Main Fauxbar page -->
+<head id="head">
+	<title>Fauxbar</title>
+	<script type="text/javascript" src="/js/newTabCheck.js"></script>
+	<script type="text/javascript" src="/js/jquery-1.7.min.js"></script>
+	<script type="text/javascript" src="/js/finishLoadingFauxbar.js"></script>
+
+	<link href="/css/fauxbar.css" rel="stylesheet" type="text/css" />
+	<style type="text/css" id="customstyle"></style>
+	<style type="text/css" id="editTileStyle"></style>
+
+	<script type="text/javascript" src="/js/common.js"></script>
+	<script type="text/javascript" src="/js/logerror.js"></script>
+	<script type="text/javascript" src="/js/md5-min.js"></script>
+	<script type="text/javascript" src="/js/fauxbar.js"></script>
+	<script type="text/javascript" src="/js/jquery.rangyinputs.js"></script>
+</head>
+<body id="body">
+
+	<!-- Background container -->
+	<div id="background"></div>
+
+	<!-- Menu bar -->
+	<div id="menubar">
+		<menu
+		tabs><menuName>Tabs</menuName></menu><menu
+		history><menuName>History</menuName></menu><menu
+		bookmarks><menuName>Bookmarks</menuName></menu><menu
+		apps><menuName>Apps</menuName></menu><menu
+		extensions><menuName>Extensions</menuName></menu><menu
+		chrome><menuName>Chrome</menuName></menu><menu
+		fauxbar><menuName>Fauxbar</menuName></menu>
+		<div style="clear:both"></div>
+	</div>
+
+	<!-- Container for the Fauxbar, Options, results and queries/suggestions -->
+	<div id="maindiv" style="padding:25px">
+
+		<!-- The gradient-filled, rounded-corner padding for the input boxes -->
+		<div class="wrapper">
+
+			<!-- The input boxes -->
+			<div id="thefauxbar">
+
+				<table>
+					<tr>
+						<!-- Address Box -->
+						<td style="width:60%;" id="leftcell">
+							<div id="addresswrapper" class="inputwrapper">
+								<table cellpadding="0" cellspacing="0" style="border-collapse:collapse">
+									<tr>
+										<td style="width:1px; padding:2px">
+											<div id="awesomeInsetButton" class="noInsetButton">
+												<table style="width:1px; border-collapse:collapse; margin:0;" cellpadding="0" cellspacing="0" title="Search..." origtitle="Search...">
+													<tr>
+														<td class="superselect" style="width:1px; vertical-align:middle; padding-left:2px; padding-right:1px">
+															<img id="addressbaricon" src="chrome://favicon/null" />
+														</td>
+														<td class="switchtext superselect" style="vertical-align:middle">
+															Switch to tab:
+														</td>
+														<td class="superselect" id="super_triangle" style="width:1px; padding-right:0px; vertical-align:middle">
+															<span class="triangle static" style="margin-top:1px">&#9660;</span>
+														</td>
+													</tr>
+												</table>
+											</div>
+										</td>
+										<td class="inputwrapper2" id="awesomeinputwrapper2">
+											<table style="width:100%; border-collapse:collapse; padding:0; margin:0;" cellpadding="0" cellspacing="0">
+												<tr>
+													<td id="awesomeinput_cell" style="vertical-align:middle"></td>
+													<td style="width:1px; vertical-align:middle; padding-right:4px; padding-left:5px;" id="address_goarrow" title="Go to the entered address">
+														<img src="/img/goarrow.png" class="filter-tint" data-pb-tint-opacity="0" data-pb-tint-colour="#ff0000" style="" />
+													</td>
+													<td id="addressbox_triangle" style="width:1px; vertical-align:middle; padding-right:3px; padding-left:2px" title="Display your most frequented webpages" origtitle="Display your most frequented webpages">
+														<span class="triangle static" style="margin-top:1px">&#9660;</span>
+													</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</td>
+
+						<!-- Handle -->
+						<td id="handle">&nbsp;</td>
+
+						<!-- Search Box -->
+						<td id="rightcell">
+							<div id="searchwrapper" class="inputwrapper">
+								<table cellpadding="0" cellspacing="0">
+									<tr>
+										<td style="width:1px;">
+											<table style="width:1px; border-collapse:collapse; margin:0;" cellpadding="0" cellspacing="0">
+												<tr>
+													<td id="opensearch_triangle" style="width:1px; margin:0; padding:0">
+														<div style="display:table-cell; vertical-align:text-top;  padding:1px 0px 0 5px; width:1px; ">
+															<span title="Search using..." style="white-space:nowrap;"></span>
+														</div>
+														<div style="display:table-cell; width:1px; vertical-align:middle; padding-right:1px; padding-left:0px;">
+															<span class="triangle static" style="margin-top:1px">&#9660;</span>
+														</div>
+													</td>
+
+												</tr>
+											</table>
+										</td>
+										<td class="inputwrapper2" id="opensearchwrapper2">
+											<table style="width:100%; border-collapse:collapse; padding:0; margin:0;" cellpadding="0" cellspacing="0">
+												<tr>
+													<td id="opensearchinput_cell" style="vertical-align:middle"></td>
+													<td style="width:1px; vertical-align:middle; padding-right:3px; padding-left:4px" id="searchicon_cell" title="Search">
+														<img src="/img/search.png" class="filter-tint" id="searchicon" />
+													</td>
+												</tr>
+											</table>
+										</td>
+										
+									</tr>
+								</table>
+							</div>
+						</td>
+					</tr>
+				</table>
+				
+				<script src="/js/finishLoadingInputBoxes.js"></script>
+
+
+			</div>
+		</div>
+
+		<!-- Top site thumb tiles -->
+		<div id="topthumbs"></div>
+
+		<!-- Tiles for user's Chrome apps -->
+		<div id="apps"></div>
+	</div>
+
+	<!-- The "sapps" (sites&apps) button switcher -->
+	<div id="sapps">
+		<button id="sapps1">Sites</button>
+		<button id="sapps2">Apps</button>
+	</div>
+
+	<!-- Error message balloon -->
+	<div id="errorBox" style="display:none">
+		<table style="width:auto">
+			<tr>
+				<td style="padding:10px 0 11px 11px">
+					<img src="/img/fauxbar48sad.png" />
+				</td>
+				<td style="padding:11px 11px 11px 6px">
+					<img class="errorBoxCross" src="/img/cross.png" style="float:right; position:relative; top:-7px; right:-14px" />
+					<div style="margin-bottom:5px; font-size:110%;">
+						<b>Fauxbar has encountered an error</b>
+					</div>
+					<div style="max-width:320px" id="errorMessage"></div>
+					<div style="opacity:.43"  id="errorLine"></div>
+					<div style="margin-top:7px; font-size:95%; font-weight:bold">
+						<a openTheErrorLog href="/html/fauxbar.errorlog.html" target="_blank" style="color:#06c;">Open the error log</a>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+	<!-- Hidden icon images that will get colored/tinted once the page loads -->
+	<img src="/img/fauxstar.png" id="fauxstar" style="position:Relative; display:none; height:16px; width:16px;" />
+	<img src="/img/goarrow.png" id="goarrow_hovered" class="filter-tint" data-pb-tint-opacity=".3" data-pb-tint-colour="#000" style="display:none; height:14px; width:14px" />
+	<img src="/img/search.png" id="searchicon_hovered" class="filter-tint" data-pb-tint-opacity=".3" data-pb-tint-colour="#000" style="display:none; height:16px; width:16px;" />
+
+	<!-- Containers that get filled and positioned upon user input -->
+	<div id="opensearchmenu"></div>
+	<input id="opensearch_menufocus" type="text" />
+	<div id="opensearch_results"></div>
+	<div id="results"></div>
+</body>
+</html>

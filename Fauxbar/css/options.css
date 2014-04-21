@@ -1,0 +1,72 @@
+/* Options page CSS */
+
+/* Main options container */
+table#options { display:none; position:absolute; z-index:9001; overflow:scroll; background-color:#fff; top:0; margin:154% 1% 25px 1%; border:1px solid rgba(0,0,0,.35);
+	box-shadow:0 5px 15px rgba(0,0,0,.35); width:98%;
+}
+table#options a, table#options .fakelink { color:rgba(0,102,204,.7); }
+table#options a.goodlink { color:rgba(0,102,204,1); }
+
+table#options button { font-size:12px; }
+
+/* Left menu */
+#option_menu { background-color:#eaeef3; padding:10px 0; width:1px; }
+table#options #option_menu div { white-space:nowrap; padding:5px 30px 5px 20px; color:#426dc9; border:1px solid rgba(0,0,0,0); border-width:1px 0; text-align:left; font-size:12px;}
+table#options #option_menu div:hover { background-color:rgba(187,206,233,.35); cursor:pointer; }
+table#options #option_menu div.section_selected { background-color:#bbcee9; border-color:8faad9; color:#000;  }
+#option_boxes { border-left:1px solid #c6c9ce; box-shadow: -3px 0 10px -5px rgba(0,0,0,.35); position:relative;; padding-left:5px; }
+div.optionbox { display:none; padding:15px; overflow-y:auto; }
+td#option_menu, td#option_boxes { vertical-align:top; }
+#option_menu span.optionmenucat { font-size:10px; text-transform:uppercase; display:block; padding:5px 10px; opacity:.35; font-weight:bold; }
+
+/* List of editable search engines */
+#opensearchengines input, #dragging_os_row input { border:0; width:100%; padding:0 2px 3px 2px; background-color:transparent; }
+#opensearchengines input:hover, #dragging_os_row input:hover { background-color:rgba(255,255,255,.8); }
+#opensearchengines input:focus, #dragging_os_row input:focus { background-color:#fff; }
+tr.opensearch_optionrow td.opensearchcross img { opacity:0; }
+tr.opensearch_optionrow:hover td.opensearchcross img { opacity:.5; }
+tr.opensearch_optionrow:hover td.opensearchcross:hover img { opacity:1; }
+#opensearchoptionstable tr.opensearch_optionrow:hover td { background-color:#e4ecf7; }
+table#dragging_os_row { position:absolute; z-index:9999999; background-color:#fff; box-shadow:3px 3px 3px rgba(0,0,0,.3); border:1px solid rgba(0,0,0,.35); }
+table#dragging_os_row img.crossicon { opacity:0; }
+.osicon { cursor:all-scroll; }
+.dotted_os_row { background-color:rgba(254,255,162,.97); }
+
+/* Close button */
+.closeoptions { float:right; opacity:.65; padding:2px; cursor:pointer; margin:-10px -10px 0 0; border-radius:3px;  }
+.closeoptions:hover { opacity:1; background-color:rgba(0,0,0,.1); }
+
+/* Various formatting */
+table#options th { text-align:left; vertical-align:top; font-size:13px; white-space:nowrap; width:1px; padding-right:20px; padding-top:2px; }
+table#options h1 { font-size:20px; font-weight:bold; margin:0 0 7px 0; padding:0; border-bottom:0 solid #eee; color:#576780; }
+table#options .optionstip { font-size:12px; color:rgba(0,0,0,.6); padding-top:5px; position:relative; left:1px; }
+table#options b, table#options i, table#options a, table#options div { font-size:inherit; }
+.tdhr { padding:15px 0; }
+.tdhr div { font-size:1px; height:1px; border-bottom:1px solid #eee; }
+
+input[type="radio"], input[type="checkbox"] { vertical-align:top; margin-right:3px; position:relative; top:-1px; left:2px; }
+input[type="checkbox"] { margin-left:0; }
+
+div.legend, label.legend { margin-bottom:7px; display:inline-block; clear:both; }
+
+#options input[type="text"] { position:relative; margin-top:-2px; border-width:1px; }
+#options select { position:relative; margin-top:-1px; }
+#options input.inputoption { margin-top:1px; }
+
+table#options ul { padding-left:23px; }
+table#options li { margin-top:3px; margin-bottom:3px; }
+
+#errorCount { float:right; background-color:#c00; color:#fff; display:inline-block; padding:0 4px 1px 4px; font-weight:bold; border-radius:4px; text-shadow:1px 1px 0 #000;
+	position:relative; top:1px; right:-20px;
+}
+
+#supportoptions a { text-decoration:none; }
+#supportoptions a:hover, .optionstip a:hover, #enableFauxbar:hover { text-decoration:underline; cursor:pointer }
+
+input[type="number"] { width:62px; }
+
+#options span.extensionName { font-size:inherit; }
+
+table#defaultKeyboardShortcuts, table#defaultKeyboardShortcuts td { width:auto; padding-right:11px; padding-bottom:5px; }
+
+.searchenginebutton img { height:16px; width:16px; }
