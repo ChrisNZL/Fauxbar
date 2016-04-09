@@ -38,14 +38,6 @@ View the full list of features, take the screenshot walkthrough, learn more abou
 
 ### Where does Fauxbar fit in?
 
-Consider the following:
-
-- **Firefox:** Decent address bar, poor stability
-
-- **Chrome:** Poor address bar, decent stability
-
-- **Fauxbar:** Decent address bar, decent stability
-
 Firefox's address bar is great, but the browser has stability issues. (well, it did, last I checked in 2011 anyway :smiley:)
 
 Chrome's address bar has issues, but the browser itself is stable.
