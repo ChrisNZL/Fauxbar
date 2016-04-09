@@ -37,10 +37,249 @@ function refreshAllMenus() {
 	refreshAppAndExtensionMenus();
 	refreshChromeMenu();
 	refreshFauxbarMenu();
+	refreshDownloadsMenu();
 	if (localStorage.indexComplete != 1) {
 		$('#menubar a[href]').attr('target', '_new');
 	}
 }
+
+/////// DOWNLOADS ///////
+
+var downloadItemsThatNeedIcons = [];
+
+var okayToRefreshDownloads = true;
+
+// downloadItem icons have to be retrieved one at a time it seems.
+function getDownloadItemIcons () {
+	if (downloadItemsThatNeedIcons.length > 0) {
+		var downloadItem = downloadItemsThatNeedIcons[0];
+		chrome.downloads.getFileIcon(downloadItem.id, {size:16}, function(iconURL){
+			$('menu[downloads] items item[download_id="'+downloadItem.id+'"]').css("background-image", "url("+iconURL+")");
+
+			downloadItemsThatNeedIcons.shift();
+			getDownloadItemIcons();
+		});
+	}
+}
+
+$('a[openDownloadsFolder]').live('mousedown', function(){
+	chrome.downloads.showDefaultFolder();
+	return false;
+});
+
+$('a[openDownloadedFile]').live('mousedown', function(){
+	chrome.downloads.open(parseInt($(this).attr("download_id")));
+	return false;
+});
+
+$('a[showDownloadedFileInFolder]').live('mousedown', function(){
+	chrome.downloads.show(parseInt($(this).attr("download_id")));
+	return false;
+});
+
+$('a[removeDownloadFromList]').live('mousedown', function(){
+	okayToRefreshDownloads = false;
+	var downloadId = $(this).attr("download_id");
+	console.log("Removing download...");
+	$(this).parent().parent().parent().css("display", "none");
+	chrome.downloads.erase({id:parseInt(downloadId)}, function(erasedIds){
+		console.log("Entries removed: " + erasedIds.length);
+		okayToRefreshDownloads = true;
+	});
+	return false;
+});
+
+$('a[deleteDownloadFromDisk]').live('mousedown', function(){
+	var downloadId = $(this).attr("download_id");
+	chrome.downloads.search({id:parseInt(downloadId)}, function(items){
+		if (items.length == 1) {
+			var okayToDelete = confirm("You've chosen to delete the following file:\n\n" + items[0].filename + "\n\nReally delete this file?");
+			if (okayToDelete) {
+				okayToRefreshDownloads = false;
+				$(this).parent().parent().parent().css("display", "none");
+				chrome.downloads.removeFile(parseInt(downloadId), function(){
+					console.log("File deleted.");
+					okayToRefreshDownloads = true;
+				})
+			}
+		}
+		else {
+			console.log("Items returned != 1.");
+		}
+	});
+
+	return false;
+});
+
+function refreshDownloadsMenu() {
+	if (okayToRefreshDownloads == false) {
+		return;
+	}
+
+	chrome.downloads.search({orderBy:['-startTime']}, function(downloadItems){
+		var elements = "";
+		if (downloadItems.length == 0) {
+			elements = "<item><a>No downloads</a></item>";
+		}
+		else {
+			var previousDateString = "";
+
+			// Loop through each downloadItem
+			for (var d = 0; d < downloadItems.length; d++) {
+				var downloadItem = downloadItems[d];
+				if (downloadItem.filename != "" && downloadItem.filename != null) {
+
+					// URL details
+					var url = downloadItem.url;
+					var urlLengthLimit = 100;
+					if (url.length > 0 && url.length > urlLengthLimit) {
+						url = url.substr(0, urlLengthLimit - 3) + '...';
+					}
+
+					// Referrer details
+					var referrerItem = "";
+					if (downloadItem.referrer != "" && downloadItem.referrer != null) {
+						var referrerString = downloadItem.referrer;
+						if (referrerString.length > urlLengthLimit) {
+							referrerString = referrerString.substr(0, urlLengthLimit - 3) + '...';
+						}
+						referrerItem = '<item style="background-image:url(chrome://favicon/' + downloadItem.referrer + ')"><a href="' + downloadItem.referrer + '">Page URL: ' + referrerString + '</a></item>';
+					}
+
+					// DATE HEADERS
+					var dateLetters = localStorage.option_menuBarDateFormat ? localStorage.option_menuBarDateFormat : 'j F Y';
+					// Remove day of the week
+					if (dateLetters.length > 2 && dateLetters.substr(0, 2) == "l,") {
+						dateLetters = dateLetters.substr(2);
+					}
+					var dateString = "";
+					if (downloadItem.endTime && downloadItem.endTime.length > 0) {
+						dateString = date(dateLetters, new Date(downloadItem.endTime.substr(0, 10)));
+
+						if (date(dateLetters, new Date()) == dateString) {
+							dateString += " (Today)";
+						}
+					}
+
+					if (dateString != previousDateString) {
+						elements += '<hr />';
+						elements += '<item faded style="opacity:.65; background-color:rgba(0,0,0,.1); border-radius:0; margin-bottom:3px"><a style="font-weight:bold; font-size:90%; margin-left:-18px">' + dateString + '</a></item>';
+						previousDateString = dateString;
+					}
+
+					var itemStyle = "";
+					var progressBar = "";
+
+					// First filename
+					var firstFilenameString = getFilenameFromPath(downloadItem.filename);
+					if (downloadItem.exists == false) {
+						firstFilenameString = '<span style="opacity:.6"><span style="text-decoration: line-through">' + firstFilenameString + '</span> (not found)</span>';
+					}
+					else {
+						if (downloadItem.state == "complete") {
+							//itemStyle = ' style="border:1px solid rgba(0,0,0,.2); border-radius:5px; padding-bottom:3px; margin-bottom:2px" ';
+
+						}
+						else if (downloadItem.state == "in_progress") {
+							firstFilenameString += " IN PROGRESS";
+							firstFilenameString += '<div style="font-size:90%">189 KB/s</div>';
+
+							var percentageDone = downloadItem.bytesReceived / downloadItem.totalBytes;
+
+							progressBar =
+								'<div style="height:2px; font-size:1px; margin-top:2px; background:rgba(0,0,0,.1); box-shadow:0 1px 1px rgba(0,0,0,.35); border:1px solid rgba(255,255,255,1);">' +
+									'<div style="background:#00b809; height:2px; width:'+(percentageDone * 100)+'%; border-right:1px solid #00d11e;">&nbsp;</div>' +
+								'</div>';
+							itemStyle = ' style="background-color:#eff6ff; margin-bottom:2px; box-shadow:inset 0 -1px 3px rgba(0,0,0,.3); padding-bottom:3px;" ';
+						}
+						else if (downloadItem.state == "interrupted") {
+							firstFilenameString += " INTERRUPTED";
+						}
+					}
+
+					// Delete from disk
+					var deleteFromDisk = "";
+					if (downloadItem.exists) {
+						deleteFromDisk = '<item><a deleteDownloadFromDisk download_id="' + downloadItem.id + '">Delete from disk...</a></item>';
+					}
+
+					// File and folder
+					var fileAndFolder = "";
+					if (downloadItem.exists) {
+						fileAndFolder =
+							'<item download_id="' + downloadItem.id + '"><a openDownloadedFile download_id="' + downloadItem.id + '">' + getFilenameFromPath(downloadItem.filename) + '</a></item>' +
+							'<hr />' +
+							'<item style="background-image:url(/img/folder_closed.png); background-size:19px 18px;"><a showDownloadedFileInFolder download_id="' + downloadItem.id + '">' + getDownloadItemPathWithoutFilename(downloadItem.filename) + '</a></item>' +
+							'<hr />';
+					}
+
+					elements +=
+						'<item download_id="' + downloadItem.id + '" ' + itemStyle + '>' +
+							'<items>' +
+								fileAndFolder +
+								referrerItem +
+								'<item><a href="' + downloadItem.url + '">File URL: ' + url + '</a></item>' +
+								'<hr />' +
+								'<item><a removeDownloadFromList download_id="' + downloadItem.id + '">Remove from list</a></item>' +
+								deleteFromDisk +
+							'</items>' +
+							'<a><arrow>&#x25BC;</arrow>' +
+								firstFilenameString +
+								progressBar +
+								'</a>' +
+						'</item>';
+
+					downloadItemsThatNeedIcons.push(downloadItem);
+				}
+			}
+		}
+
+		var clearList = "";
+		if (downloadItems.length > 0) {
+			clearList =
+				'<hr />' +
+				'<item><a>Clear list</a></item>'
+		}
+
+		$('menu[downloads]').html('<menuName>Downloads</menuName>' +
+			'<items>' +
+				'<item style="background-image:url(chrome://favicon/chrome://downloads)"><a href="chrome://downloads">Downloads page</a></item>' +
+				'<item style="background-image:url(/img/folder_closed.png); background-size:19px 18px;"><a openDownloadsFolder>Downloads folder</a></item>' +
+				clearList +
+				elements +
+				//<item style="background-image:url(chrome://favicon/chrome://plugins)"><a href="chrome://extensions">Open the extensions page</a></item></items>
+			'</items>'
+		);
+
+		getDownloadItemIcons();
+	});
+}
+
+function getDownloadItemPathWithoutFilename (path) {
+	var parts = path.split("\\");
+	parts.pop();
+	return implode("\\", parts);
+}
+
+function getFilenameFromPath (path) {
+	var parts = path.split("\\");
+	return parts[parts.length-1];
+}
+
+// Download listeners
+chrome.downloads.onCreated.addListener(function(downloadItem){
+	refreshDownloadsMenu();
+});
+
+chrome.downloads.onErased.addListener(function(downloadId){
+	refreshDownloadsMenu();
+});
+
+chrome.downloads.onChanged.addListener(function(downloadDelta){
+	refreshDownloadsMenu();
+});
+
+//////////////////////////////////////
 
 var menusInitialised = false;
 function selectMenu(menu) {

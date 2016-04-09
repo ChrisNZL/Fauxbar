@@ -1345,6 +1345,9 @@ chrome.runtime.onInstalled.addListener(function(details){
 							tx.executeSql('UPDATE opensearches SET keyword = "g" WHERE shortname = "Google"');
 							tx.executeSql('UPDATE opensearches SET keyword = "y" WHERE shortname = "Yahoo!"');
 							tx.executeSql('UPDATE opensearches SET keyword = "b" WHERE shortname = "Bing"');
+
+							// Set DuckDuckGo keyword. Added in 1.5.0.
+							tx.executeSql('UPDATE opensearches SET keyword = "d" WHERE shortname = "DuckDuckGo"');
 						});
 
 						// Create `errors` table for error tracking. Added in 0.2.0
@@ -1964,6 +1967,7 @@ function index() {
 			} else {
 				toInsert.searchEngines = [
 					{shortname:"Google", iconurl:"google.ico", searchurl:"https://www.google.com/search?q={searchTerms}", xmlurl:"", xml:"", isdefault:1, method:"get", suggestUrl:"https://suggestqueries.google.com/complete/search?output=firefox&q={searchTerms}", keyword:"g"},
+					{shortname:"DuckDuckGo", iconurl:"duckduckgo.ico", searchurl:"https://duckduckgo.com/?q={searchTerms}", xmlurl:"", xml:"", isdefault:0, method:"get", suggestUrl:"https://duckduckgo.com/ac/?q={searchTerms}&type=list", keyword:"d"},
 					{shortname:"Yahoo!", iconurl:"yahoo.ico", searchurl:"http://search.yahoo.com/search?p={searchTerms}", xmlurl:"", xml:"", isdefault:0, method:"get", suggestUrl:"http://ff.search.yahoo.com/gossip?output=fxjson&amp;command={searchTerms}", keyword:"y"},
 					{shortname:"Bing", iconurl:"bing.ico", searchurl:"http://www.bing.com/search?q={searchTerms}", xmlurl:"", xml:"", isdefault:0, method:"get", suggestUrl:"http://api.bing.com/osjson.aspx?query={searchTerms}", keyword:"b"}
 				];
@@ -2158,7 +2162,21 @@ function index() {
 									setTimeout(function(){
 										if (localStorage.indexedbefore != 1) {
 											var f = localStorage.extensionName ? localStorage.extensionName : "Fauxbar";
-											if (window.webkitNotifications.createHTMLNotification) {
+
+											// Create notification saying indexing is complete.
+											chrome.notifications.create("setupComplete",
+												{
+													type: 'basic',
+													iconUrl: '/img/fauxbar128.png',
+													title: localStorage.extensionName + ' is now ready for use.',
+													message: "From here on, "+localStorage.extensionName+" will silently update its index on-the-fly for you." +
+															"  The default configuration should get you started, but feel free to customize things in the options."
+												},
+												function(){}
+											);
+
+											// Old notification from 1.4.0 and eariler. Broken.
+											/*if (window.webkitNotifications.createHTMLNotification) {
 												window.webkitNotifications.createHTMLNotification('/html/notification_setupComplete.html').show();
 											} else {
 												chrome.notifications.create("setupComplete",
@@ -2169,15 +2187,10 @@ function index() {
 														message: "From here on, "+localStorage.extensionName+" will silently update its index on-the-fly for you." +
 																"  The default configuration should get you started, but feel free to customize things in the options." +
 																"  Enjoy!"
-														/*items: [
-															{ title:'From here on, '+localStorage.extensionName+' will silently update its index on-the-fly for you.', message:'' },
-															{ title:localStorage.extensionName+"'s default configuration should get you started, but feel free to customize things in the options.", message:'' },
-															{ title:'Enjoy!', message:'' }
-														]*/
 													},
 													function(){}
 												);
-											}
+											}*/
 										}
 										localStorage.indexedbefore = 1;
 										delete localStorage.reindexForMaintenance;

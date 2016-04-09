@@ -483,6 +483,9 @@ $('.fallback.yahoo').live('click', function(){
 $('.fallback.bing').live('click', function(){
 	$('#option_fallbacksearchurl').val('http://www.bing.com/search?q={searchTerms}').change();
 });
+$('.fallback.duckduckgo').live('click', function(){
+	$('#option_fallbacksearchurl').val('https://duckduckgo.com/?q={searchTerms}').change();
+});
 
 $('button[addManually]').live('click', addEngineManually);
 

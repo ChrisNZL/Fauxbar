@@ -394,12 +394,8 @@ function fileErrorHandler(e) {
       break;
   }
   if (securityErr == 1) {
-	  if (window.webkitNotifications.createHTMLNotification) {
-		window.webkitNotifications.createHTMLNotification(chrome.runtime.getURL('/html/notification_fileSecurityErr.html')).show();
-	  } else {
 		chrome.tabs.create({url:chrome.runtime.getURL('/html/notification_fileSecurityErr.html')});
-	  }
-	  return;
+		return;
   }
   if (localStorage.option_alert == 1) {
   	alert(msg);

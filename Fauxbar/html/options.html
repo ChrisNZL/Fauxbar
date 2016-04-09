@@ -265,6 +265,10 @@ Then, if you type the same query in the future, Fauxbar will ask Chrome to start
 								<img src="/img/google.ico" style="vertical-align:middle; margin-top:-3px; height:16px; width:16px;" />
 								Google.com
 							</button>
+							<button class="fallback duckduckgo" url="https://duckduckgo.com/?q={searchTerms}" style="font-size:12px; padding:2px 4px 2px 3px;">
+								<img src="/img/duckduckgo.ico" style="vertical-align:middle; margin-top:-3px; height:16px; width:16px;" />
+								DuckDuckGo.com
+							</button>
 							<button class="fallback yahoo" url="http://search.yahoo.com/search?p={searchTerms}" style="font-size:12px; padding:2px 4px 2px 3px;">
 								<img src="/img/yahoo.ico" style="vertical-align:middle; margin-top:-3px; height:16px; width:16px;" />
 								Yahoo.com
@@ -356,6 +360,10 @@ But if you don't normally visit local intranet sites that use custom domain name
 								<button class="searchenginebutton google" shortname="Google" searchurl="https://www.google.com/search?q={searchTerms}" suggesturl="https://suggestqueries.google.com/complete/search?output=firefox&q={searchTerms}" keyword="g" style="font-size:12px; padding:2px 4px 2px 3px;">
 									<img src="/img/google.ico" style="vertical-align:middle; margin-top:-3px;" />
 									Google.com
+								</button>
+								<button class="searchenginebutton duckduckgo" shortname="DuckDuckGo" searchurl="https://duckduckgo.com/?q={searchTerms}" suggesturl="https://duckduckgo.com/ac/?q={searchTerms}&type=list" keyword="d" style="font-size:12px; padding:2px 4px 2px 3px;">
+									<img src="/img/duckduckgo.ico" style="vertical-align:middle; margin-top:-3px;" />
+									DuckDuckGo.com
 								</button>
 								<button class="searchenginebutton yahoo" shortname="Yahoo!" searchurl="http://search.yahoo.com/search?p={searchTerms}" suggesturl="http://ff.search.yahoo.com/gossip?output=fxjson&amp;command={searchTerms}" keyword="y" style="font-size:12px; padding:2px 4px 2px 3px;">
 									<img src="/img/yahoo.ico" style="vertical-align:middle; margin-top:-3px;" />
@@ -568,7 +576,7 @@ But if you don't normally visit local intranet sites that use custom domain name
 						<td>
 							<div style="margin-top:-4px">
 								Tint:
-								<input name="option_favcolor" id="option_favcolor" type="text" class="color {hash:true, pickerPosition:'right'}" maxlength="7" size="6" spellcheck="false" style="text-align:center" />
+								<input title="Default: #FFFFFF" name="option_favcolor" id="option_favcolor" type="text" class="color {hash:true, pickerPosition:'right'}" maxlength="7" size="6" spellcheck="false" style="text-align:center" />
 								<input title="Default: 0%" name="option_favopacity" id="option_favopacity" class="opacity" type="number" min="0" max="100" step="5" maxlength="3" size="4" spellcheck="false" style="text-align:center" />%
 							</div>
 						</td>
@@ -819,16 +827,23 @@ This option has no effect if you've chosen to focus Chrome's Omnibox when Fauxba
 									<option value="searchonly">Search Box only</option>
 								</select>
 							</label>
+
+							<!-- Removing speech input because the webkit thing has been deprecated. -->
+							<!--
 							<label class="legend" style="display:inline-block">
+							-->
 								<!--
 									Although most checkbox options can be applied instantly without needing to reload the page, Chrome/WebKit's HTML5 speech input icons don't seem to be able to be changed on the fly.
 									So the page has to actually be reloaded for the user to see the page, so display a link to get the user to click to reload the page so they can see the change.
 								-->
+								<!--
 								<input name="option_speech" id="option_speech" type="checkbox" /> Show speech input icons
 							</label>
 							<span id="speechtip" style="display:none">
 								&ndash; <a reloadThisPage style="text-decoration:underline; cursor:pointer; color:#06c">Reload this page</a> to apply
 							</span>
+							-->
+
 						</td>
 					</tr>
 					<tr><td colspan="2" class="tdhr"><div></div></td></tr>
@@ -873,7 +888,7 @@ If disabled, a hyphen will be displayed between the URL and title.">(?)</span>
 					<img src="/img/fauxbar48.png" style="height:28px; width:28px; vertical-align:middle; position:relative; top:-2px; padding-right:2px;" />
 					Management
 				</h1>
-				<span class="extensionName">Fauxbar</span> version 1.4.0 &nbsp;<span style="opacity:.5">(19 July 2013)</span>
+				<span class="extensionName">Fauxbar</span> version 1.5.0 &nbsp;<span style="opacity:.5">(9 April 2016)</span>
 				<table>
 					<tr><td colspan="2" class="tdhr"><div></div></td></tr>
 					<tr>

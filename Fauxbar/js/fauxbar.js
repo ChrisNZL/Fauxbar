@@ -1,7 +1,7 @@
 //// This file is used by Fauxbar's main page. Gets loaded first before the other JS files.
 
 // Placeholder text for Address Box
-window.placeholder = "Go to a web site";
+window.placeholder = "Go to a website";
 
 // Initial loading calls this function (icon canvas coloring), but it's slow. Real function gets created later
 //
@@ -15,7 +15,9 @@ if (localStorage.option_iconcolor.toLowerCase() != "#3374ab" || localStorage.opt
 	var newScript = document.createElement("script");
 	newScript.setAttribute('src', '/js/mezzoblue-PaintbrushJS-098389a/paintbrush.js');
 	document.getElementById('head').appendChild(newScript);
-	processFilters();
+
+	// Commenting this out for v1.5.0, as it was causing an error. Hopefully it's not too drastic.
+	//processFilters();
 }
 // If user has default colors set, load darkened icons
 else {

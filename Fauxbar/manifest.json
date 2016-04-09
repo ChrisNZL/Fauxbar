@@ -18,10 +18,10 @@
 
         "name": "Fauxbar", //// Rename for Fauxbar Lite
 
-        "version": "1.4.0",
+        "version": "1.5.0",
         "description": "An alternative to Chrome's Omnibox. Replaces the New Tab page.", //// Remove last sentence for Fauxbar Lite
 
-        "minimum_chrome_version": "28",
+        "minimum_chrome_version": "49",
 
         "background": {
                 "scripts": [
@@ -114,7 +114,9 @@
                 "contextMenus",
                 "notifications",
                 //// "idle", //// Delete for now; restore once https://code.google.com/p/chromium/issues/detail?id=260981 is fixed
-                "storage"
+                "storage",
+                "downloads",
+                "downloads.open"
         ],
 
         "icons": {

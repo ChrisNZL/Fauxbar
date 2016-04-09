@@ -1,12 +1,12 @@
 $('#awesomeinput').ready(function(){
 	if (getHashVar('options') == 1 || (window.location.hash == '#newTab' && localStorage.option_stealFocusFromOmnibox != 1)) {
-		$('#awesomeinput').attr('placeholder', 'Go to a web site');
+		$('#awesomeinput').attr('placeholder', 'Go to a website');
 	} else if (localStorage.option_openfauxbarfocus == 'addressbox') {
 		$('#awesomeinput:focus').live('focus', function(){
-			$(this).attr('placeholder', 'Go to a web site');
+			$(this).attr('placeholder', 'Go to a website');
 		});
 		$('#awesomeinput').focus().live('blur', function(){
-			$(this).attr('placeholder', 'Go to a web site');
+			$(this).attr('placeholder', 'Go to a website');
 		});
 	}
 });
@@ -24,7 +24,7 @@ $('#opensearchinput').ready(function(){
 });
 
 $("#awesomeinput_cell").html('<input type="text" id="awesomeinput" spellcheck="false" autocomplete="off" '+speech+
-	(localStorage.option_openfauxbarfocus != 'addressbox' ? ' placeholder="Go to a web site" ' : '') +
+	(localStorage.option_openfauxbarfocus != 'addressbox' ? ' placeholder="Go to a website" ' : '') +
 	' />');
 
 $("#opensearchinput_cell").html('<input type="text" id="opensearchinput" spellcheck="false" autocomplete="off" '+speech+
@@ -32,7 +32,7 @@ $("#opensearchinput_cell").html('<input type="text" id="opensearchinput" spellch
 	' />');
 
 if (localStorage.osiconsrc) {
-	var ico = localStorage.osiconsrc == "google.ico" || localStorage.osiconsrc == "yahoo.ico" || localStorage.osiconsrc == "bing.ico" ? "/img/"+localStorage.osiconsrc : localStorage.osiconsrc;
+	var ico = localStorage.osiconsrc == "google.ico" || localStorage.osiconsrc == "yahoo.ico" || localStorage.osiconsrc == "bing.ico" || localStorage.osiconsrc == "duckduckgo.ico" ? "/img/"+localStorage.osiconsrc : localStorage.osiconsrc;
 	$("#opensearch_triangle span").first().html('<img class="opensearch_selectedicon" src="'+ico+'" style="height:16px; width:16px;" /><span class="triangle static" style="margin-top:1px"></span>');
 } else {
 	$("#opensearch_triangle span").first().html('<img class="opensearch_selectedicon" src="chrome://favicon/null" style="height:16px; width:16px;" /><span class="triangle static" style="margin-top:1px"></span>');

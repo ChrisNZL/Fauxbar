@@ -1170,7 +1170,7 @@ function populateOpenSearchMenu(force) {
 						defaultShortname = results.rows.item(i).shortname;
 					}
 					iconUrl = result.iconurl;
-					if (iconUrl != "google.ico" && iconUrl != "yahoo.ico" && iconUrl != "bing.ico") {
+					if (iconUrl != "google.ico" && iconUrl != "yahoo.ico" && iconUrl != "bing.ico" && iconUrl != "duckduckgo.ico") {
 						iconUrl = "chrome://favicon/"+iconUrl;
 					} else {
 						iconUrl = "/img/"+iconUrl;
@@ -2182,12 +2182,12 @@ function navigateResults(e) {
 					}
 					else {
 						if ($("#awesomeinput:focus").length && !window.keywordEngine && $("#results .result").length) {
-							var resultBottomPadding = 4; // taken from css file (.result)
+							var resultBottomPadding = 5; // taken from css file (.result)
 							while ( ($("#results").position().top+$(".arrowed .result_bottom").position().top+resultBottomPadding) > ($("#results").position().top+$("#results").height()) ) {
 								$("#results").scrollTop($("#results").scrollTop()+1);
 							}
 						} else if ($("#opensearchinput:focus").length || window.keywordEngine || (!window.keywordEngine && $("#awesomeinput:focus").length)) {
-							var resultBottomPadding = 4; // taken from css file (.result)
+							var resultBottomPadding = 5; // taken from css file (.result)
 							while ( ($("#opensearch_results").position().top+$(".arrowed").next(".result").position().top) > ($("#opensearch_results").position().top+$("#opensearch_results").height()) ) {
 								$("#opensearch_results").scrollTop($("#opensearch_results").scrollTop()+1);
 							}
@@ -2911,9 +2911,9 @@ function getResults(noQuery) {
 							// Display results.
 							$("#results").css("display","block").css("opacity",0)
 								.css("position","fixed")
-								.css("top",$("#awesomeinput").offset().top+$("#awesomeinput").outerHeight()+4+"px")
-								.css("left",$("#addresswrapper").offset().left-2+"px")
-								.css("width", $("#addresswrapper").outerWidth()-2+"px")
+								.css("top", $("#awesomeinput").offset().top + $("#awesomeinput").outerHeight() + 3 + "px")
+								.css("left", $("#addresswrapper").offset().left - 2 + "px")
+								.css("width", $("#addresswrapper").outerWidth() - 2 + "px")
 							;
 
 							// "Truncate" result titles and urls with "..." if they're too long.

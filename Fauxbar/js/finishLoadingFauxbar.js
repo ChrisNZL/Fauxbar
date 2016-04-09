@@ -13,7 +13,10 @@ try {
 		});
 		window.currentTabId = tab.id;
 	});
-	var speech = localStorage.option_speech == 1 ? "x-webkit-speech" : "";
+
+	// Removed in v1.5.0. x-webkit-speech has been deprecated.
+	//var speech = localStorage.option_speech == 1 ? "x-webkit-speech" : "";
+	var speech = "";
 }
 catch (e) {
 	if (window.location.href.split('#reloaded=1').length == 1 && window.location.href.split('&reloaded=1').length == 1) {

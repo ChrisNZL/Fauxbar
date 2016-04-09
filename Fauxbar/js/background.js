@@ -637,6 +637,7 @@ function index() {
 			} else {
 				toInsert.searchEngines = [
 					{shortname:"Google", iconurl:"google.ico", searchurl:"http://www.google.com/search?q={searchTerms}", xmlurl:"", xml:"", isdefault:1, method:"get", suggestUrl:"http://suggestqueries.google.com/complete/search?output=firefox&q={searchTerms}", keyword:"g"},
+					{shortname:"DuckDuckGo", iconurl:"duckduckgo.ico", searchurl:"https://duckduckgo.com/?q={searchTerms}", xmlurl:"", xml:"", isdefault:0, method:"get", suggestUrl:"https://duckduckgo.com/ac/?q={searchTerms}&type=list", keyword:"d"},
 					{shortname:"Yahoo!", iconurl:"yahoo.ico", searchurl:"http://search.yahoo.com/search?p={searchTerms}", xmlurl:"", xml:"", isdefault:0, method:"get", suggestUrl:"http://ff.search.yahoo.com/gossip?output=fxjson&amp;command={searchTerms}", keyword:"y"},
 					{shortname:"Bing", iconurl:"bing.ico", searchurl:"http://www.bing.com/search?q={searchTerms}", xmlurl:"", xml:"", isdefault:0, method:"get", suggestUrl:"http://api.bing.com/osjson.aspx?query={searchTerms}", keyword:"b"}
 				];
@@ -831,7 +832,17 @@ function index() {
 									setTimeout(function(){
 										if (localStorage.indexedbefore != 1) {
 											var f = localStorage.extensionName ? localStorage.extensionName : "Fauxbar";
-											window.webkitNotifications.createHTMLNotification('/html/notification_setupComplete.html').show();
+											//window.webkitNotifications.createHTMLNotification('/html/notification_setupComplete.html').show();
+											chrome.notifications.create("setupComplete",
+												{
+													type: 'basic',
+													iconUrl: '/img/fauxbar128.png',
+													title: localStorage.extensionName + ' is now ready for use.',
+													message: "From here on, "+localStorage.extensionName+" will silently update its index on-the-fly for you." +
+															" The default configuration should get you started, but feel free to customize things in the options."
+												},
+												function(){}
+											);
 										}
 										localStorage.indexedbefore = 1;
 										delete localStorage.reindexForMaintenance;
@@ -947,17 +958,18 @@ $(document).ready(function(){
 	});
 
 	// New version info
-	var currentVersion = "1.3.2";
+	var currentVersion = "1.5.0";
 	if (
 		(!localStorage.currentVersion && localStorage.indexComplete && localStorage.indexComplete == 1) ||
 		(localStorage.currentVersion && localStorage.currentVersion != currentVersion) ||
 		(localStorage.readUpdateMessage && localStorage.readUpdateMessage == 0)
 	) {
+		// Announcements go here!
 		// Enable for big updates, disable for small. Don't need to annoy the user about a minor defect fix.
-		if (localStorage.currentVersion != '1.3.0' && localStorage.currentVersion != '1.3.1' && localStorage.currentVersion != '1.3.2') {
+		/*if (localStorage.currentVersion != '1.5.0') {
 			localStorage.readUpdateMessage = 1;
-			window.webkitNotifications.createHTMLNotification(localStorage.extensionName == 'Fauxbar' ? '/html/notification_updated.html' : '/html/notification_updated_lite.html').show();
-		}
+			//window.webkitNotifications.createHTMLNotification(localStorage.extensionName == 'Fauxbar' ? '/html/notification_updated.html' : '/html/notification_updated_lite.html').show();
+		}*/
 	}
 	
 	// Chrome New Tab button override method
@@ -1144,6 +1156,9 @@ $(document).ready(function(){
 			tx.executeSql('UPDATE opensearches SET keyword = "g" WHERE shortname = "Google"');
 			tx.executeSql('UPDATE opensearches SET keyword = "y" WHERE shortname = "Yahoo!"');
 			tx.executeSql('UPDATE opensearches SET keyword = "b" WHERE shortname = "Bing"');
+
+			// Set DuckDuckGo keyword. Added in 1.5.0.
+			tx.executeSql('UPDATE opensearches SET keyword = "d" WHERE shortname = "DuckDuckGo"');
 		});
 
 		// Create `errors` table for error tracking. Added in 0.2.0

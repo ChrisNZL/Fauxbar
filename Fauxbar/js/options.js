@@ -268,7 +268,7 @@ function getSearchEngines() {
 				if (len > 0) {
 					for (var i = 0; i < len; i++) {
 						iconUrl = results.rows.item(i).iconurl;
-						if (iconUrl != "google.ico" && iconUrl != "yahoo.ico" && iconUrl != "bing.ico") {
+						if (iconUrl != "google.ico" && iconUrl != "yahoo.ico" && iconUrl != "bing.ico" && iconUrl != "duckduckgo.ico") {
 							iconUrl = "chrome://favicon/"+iconUrl;
 						} else {
 							iconUrl = "/img/"+iconUrl;
