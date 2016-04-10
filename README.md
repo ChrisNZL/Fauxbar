@@ -32,7 +32,7 @@ Main features include:
 
 - **Customizable Options:** Change Fauxbar's look, feel and functionality, with over 60 configurable settings, including page pre-rendering, colors, fonts, shortcut keys, number of results displayed, and more.
 
-View the full list of features, take the screenshot walkthrough, learn more about how Fauxbar works, read the FAQs, or view Fauxbar's privacy policy.
+View the [full list of features](https://github.com/ChrisNZL/Fauxbar/wiki/Features), take the [screenshot walkthrough](https://github.com/ChrisNZL/Fauxbar/wiki/Screenshot-Walkthrough), learn more about [how Fauxbar works](https://github.com/ChrisNZL/Fauxbar/wiki/Features-(Detailed)), read the [FAQs](https://github.com/ChrisNZL/Fauxbar/wiki/FAQ), or view Fauxbar's [privacy policy](https://github.com/ChrisNZL/Fauxbar/wiki/Privacy-Policy).
 
 ---
 
@@ -44,7 +44,7 @@ Chrome's address bar has issues, but the browser itself is stable.
 
 Enter Fauxbar: a Chrome extension that combines the usability of Firefox's address bar with Chrome's stability.
 
-For a more detailed breakdown, click here.
+For a more detailed breakdown, [click here](https://github.com/ChrisNZL/Fauxbar/wiki/FAQ#whats-wrong-with-chromes-omnibox).
 
 ---
 
