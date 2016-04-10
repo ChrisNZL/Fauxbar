@@ -67,7 +67,8 @@ $(document).ready(function(){
 	}
 
 	window.clearErrors = function(){
-		if (confirm("Clear the error log?\n\nIf you've reported these errors (thank you), click OK.\n\nBut if you haven't reported these errors yet, click Cancel.")) {
+		//if (confirm("Clear the error log?\n\nIf you've reported these errors (thank you), click OK.\n\nBut if you haven't reported these errors yet, click Cancel.")) {
+		if (confirm("Clear the error log?")) {
 			if (openDb()) {
 				$("button").prop("disabled",1).first().html("Clearing...").next().remove();
 

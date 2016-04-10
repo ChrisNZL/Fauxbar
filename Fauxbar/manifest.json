@@ -3,6 +3,7 @@
         
         //// Remember to update:
         ////    background.js:  var currentVersion = "1.x.x";
+        ////    background-new.js:  var currentVersion = "1.x.x";
         ////    options.html:   version 1.x.x and date
 
         //// When packaging Fauxbar Lite, change:
@@ -113,10 +114,9 @@
                 "clipboardRead",
                 "contextMenus",
                 "notifications",
+                "storage"
                 //// "idle", //// Delete for now; restore once https://code.google.com/p/chromium/issues/detail?id=260981 is fixed
-                "storage",
-                "downloads",
-                "downloads.open"
+                //// "downloads", "downloads.open" //// Delete for now. See menubar.js for downloads work
         ],
 
         "icons": {

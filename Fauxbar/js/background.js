@@ -968,6 +968,8 @@ $(document).ready(function(){
 		// Enable for big updates, disable for small. Don't need to annoy the user about a minor defect fix.
 		/*if (localStorage.currentVersion != '1.5.0') {
 			localStorage.readUpdateMessage = 1;
+			var url = localStorage.extensionName == 'Fauxbar' ? '/html/notification_updated.html' : '/html/notification_updated_lite.html';
+			chrome.tabs.create({url:url, active:true});
 			//window.webkitNotifications.createHTMLNotification(localStorage.extensionName == 'Fauxbar' ? '/html/notification_updated.html' : '/html/notification_updated_lite.html').show();
 		}*/
 	}

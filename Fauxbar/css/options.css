@@ -33,7 +33,7 @@ table#dragging_os_row img.crossicon { opacity:0; }
 .dotted_os_row { background-color:rgba(254,255,162,.97); }
 
 /* Close button */
-.closeoptions { float:right; opacity:.65; padding:2px; cursor:pointer; margin:-10px -10px 0 0; border-radius:3px;  }
+.closeoptions { float:right; opacity:.65; padding:2px; cursor:pointer; margin:-10px -10px 0 0; border-radius:3px; height:16px; width:16px; }
 .closeoptions:hover { opacity:1; background-color:rgba(0,0,0,.1); }
 
 /* Various formatting */

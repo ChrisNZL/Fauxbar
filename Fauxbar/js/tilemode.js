@@ -57,7 +57,8 @@ function cancelTiles() {
 
 delete window.keywordEngine;
 $("#awesomeInsetButton").removeClass("insetButton").addClass("noInsetButton");
-$("#addressbaricon").attr("src","chrome://favicon/null");
+//$("#addressbaricon").attr("src","chrome://favicon/null");
+$("#addressbaricon").attr("src","/img/null.png");
 $(".switchtext").html("Switch to tab:").css("display","");
 $("#address_goarrow img").attr("src","/img/plus.png");
 $("#address_goarrow").attr("title","Add the entered address as a tile");

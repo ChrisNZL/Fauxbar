@@ -264,7 +264,9 @@ function hasClass(obj, cls) {
 
 // basic loader function to attach all filters used within the page
 addLoadEvent(function() {
-	processFilters();
+	if (processFilters) {
+		processFilters();
+	}
 });
 
 

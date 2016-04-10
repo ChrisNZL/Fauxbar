@@ -7,7 +7,10 @@ window.placeholder = "Go to a website";
 //
 // Now that the Fauxbar page is pretty much loaded, load the JS files to apply custom colors to the various icons, if they're not the defaults.
 // Page loads a bit slower if these are loaded first, so that's why we're loading them now.
-if (localStorage.option_iconcolor.toLowerCase() != "#3374ab" || localStorage.option_favopacity != 0 || getHashVar("options") == 1) {
+
+// v1.5.0 - Forcing this to always activate because of a bug that happens when you change tabs and then return back to the tab; the icons are missing.
+//if (localStorage.option_iconcolor.toLowerCase() != "#3374ab" || localStorage.option_favopacity != 0 || getHashVar("options") == 1) {
+if (1==1) {
 	if (localStorage.option_favopacity != 0) {
 		$("#fauxstar").addClass("filter-tint");
 	}
@@ -16,8 +19,9 @@ if (localStorage.option_iconcolor.toLowerCase() != "#3374ab" || localStorage.opt
 	newScript.setAttribute('src', '/js/mezzoblue-PaintbrushJS-098389a/paintbrush.js');
 	document.getElementById('head').appendChild(newScript);
 
-	// Commenting this out for v1.5.0, as it was causing an error. Hopefully it's not too drastic.
-	//processFilters();
+	if (processFilters) {
+		processFilters();
+	}
 }
 // If user has default colors set, load darkened icons
 else {
@@ -175,11 +179,15 @@ function changeFauxbarColors() {
 function changeTintColors() {
 	$("#address_goarrow img").attr("data-pb-tint-colour",localStorage.option_iconcolor).attr("data-pb-tint-opacity",1);
 	$("#searchicon_cell img").attr("data-pb-tint-colour",localStorage.option_iconcolor).attr("data-pb-tint-opacity",1);
-	processFilters();
+	if (processFilters) {
+		processFilters();
+	}
 	setTimeout(function(){
 		$("#goarrow_hovered").attr("src",$("#address_goarrow img").attr("src"));
 		$("#searchicon_hovered").attr("src",$("#searchicon_cell img").attr("src"));
-		processFilters();
+		if (processFilters) {
+			processFilters();
+		}
 	}, 200);
 }
 

@@ -155,7 +155,7 @@ progress { width:100%; margin-top:6px; }
 /* Top site tiles */
 #topthumbs div.thumb { display:inline-block; overflow:hidden; height:132px; width:212px; margin-bottom:4px; background-image:url(/img/nopic.png); background-position:center center; }
 #topthumbs div.thumb img { width:215px; border:0px solid rgba(0,0,0,.12); padding-bottom:200px; background-color:#fff; }
-#topthumbs .toptitle { white-space:nowrap; overflow:hidden; display:inline-block; }
+#topthumbs .toptitle { white-space:nowrap; overflow:hidden; display:inline-block; height:17px; }
 #topthumbs .toptitle img { height:16px; width:16px; vertical-align:middle; margin-top:-4px; }
 #topthumbs a, #topthumbs a * { white-space:normal; position:relative; }
 #topthumbs a:hover, #apps a:hover, #topthumbs a.draggingTile, #topthumbs a.rightClickedTile { box-shadow:0 2px 12px -1px rgba(0,0,0,.85); background-color:#3399FF; color:#fff; }

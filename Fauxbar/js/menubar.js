@@ -37,15 +37,21 @@ function refreshAllMenus() {
 	refreshAppAndExtensionMenus();
 	refreshChromeMenu();
 	refreshFauxbarMenu();
-	refreshDownloadsMenu();
+
+	// TODO: Enable downloads below
+	//refreshDownloadsMenu();
+
 	if (localStorage.indexComplete != 1) {
 		$('#menubar a[href]').attr('target', '_new');
 	}
 }
 
 /////// DOWNLOADS ///////
+// This is partically implemented. Don't delete.
+// Commenting out because it's not done, but as of 1.5.0 (if you uncomment), downloads are listed, but the TODO is to make in-progress and interrupted downloads be handled properly.
+// But I just can't be bothered really. Maybe in the future I'll work on it some more.
 
-var downloadItemsThatNeedIcons = [];
+/*var downloadItemsThatNeedIcons = [];
 
 var okayToRefreshDownloads = true;
 
@@ -277,9 +283,9 @@ chrome.downloads.onErased.addListener(function(downloadId){
 
 chrome.downloads.onChanged.addListener(function(downloadDelta){
 	refreshDownloadsMenu();
-});
+});*/
 
-//////////////////////////////////////
+/////// End Downloads ///////////////////////////////
 
 var menusInitialised = false;
 function selectMenu(menu) {
@@ -814,17 +820,24 @@ function refreshFauxbarMenu() {
 	$('menu[fauxbar]').html('<menuName>'+localStorage.extensionName+'</menuName><items><group>' +
 		options +
 		'<item faded><a>'+'Version '+localStorage.currentVersion+'</a></item><hr/>' +
+		'<item style="background-image:url(/img/github.ico)"><a href="https://github.com/ChrisNZL/Fauxbar/wiki">Wiki</a></item>' +
+		'<item><a href="https://github.com/ChrisNZL/Fauxbar/wiki/Changelog">Changelog</a></item>' +
+		'<item><a href="https://github.com/ChrisNZL/Fauxbar/">Source code</a></item>' +
+		'<item><a href="https://github.com/ChrisNZL/Fauxbar/issues">Issues</a></item>' +
+		/*
 		'<item style="background-image:url(/img/fauxbar16.png)"><a href="http://code.google.com/p/fauxbar/">Project overview</a></item>' +
 		'<item><a href="http://code.google.com/p/fauxbar/wiki/Changelog">Changelog</a></item>' +
 		'<item><a href="http://code.google.com/p/fauxbar/w/list">Documentation</a></item>' +
 		'<item><a href="http://code.google.com/p/fauxbar/issues/list">Suggestions and bug reports</a></item>' +
 		'<item><a href="http://code.google.com/p/fauxbar/source/browse/trunk#trunk%2FFauxbar">Source code</a></item>' +
+		*/
 		'<hr/>' +
 		'<item style="background-image:url(/img/icon-webstore.png)"><items>' +
 			'<item><a href="https://chrome.google.com/webstore/detail/hibkhcnpkakjniplpfblaoikiggkopka">Fauxbar</a></item>' +
 			'<item><a href="https://chrome.google.com/webstore/detail/bfimmnpbjccjihohjkimphfmmebffbmk">Fauxbar Lite</a></item>' +
 			'<item><a href="https://chrome.google.com/webstore/detail/domhiadbdhomljcdankobiglghedagkm">Fauxbar Memory Helper</a></item>' +
 			'</items><a href="https://chrome.google.com/webstore/search/intitle%3AFauxbar"><arrow>&#x25BC;</arrow>Chrome Web Store</a></item>' +
+		/*
 		'<item style="background-image:url(/img/icon-facebook.png)"><a href="http://facebook.com/Fauxbar">Facebook</a></item>' +
 		//'<item style="background-image:url(/img/icon-gplus.png)"><a href="https://plus.google.com/106763880873922603221">Google+</a></item>' +
 		'<item style="background-image:url(/img/icon-twitter.png)"><a href="http://twitter.com/Fauxbar">Twitter</a></item>' +
@@ -832,7 +845,7 @@ function refreshFauxbarMenu() {
 		'<hr/>' +
 		'<item style="background-image:url(/img/icon-paypal.png)"><a href="/html/loadpaypal.html">Donate via PayPal</a></item>' +
 		//'<hr/>' +
-		//'<item><a reloadFauxbar>Reload '+localStorage.extensionName+'</a></item>' +
+		//'<item><a reloadFauxbar>Reload '+localStorage.extensionName+'</a></item>' +*/
 	'</group></items>');
 }
 

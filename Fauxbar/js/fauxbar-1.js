@@ -717,7 +717,8 @@ function showContextMenu(e) {
 
 	if (usingSuperTriangle || $("#awesomeinput:focus").length) {
 		$("#super_triangle .triangle").addClass("glow");
-		html += '	<div class="menuOption" style="background-image:url(chrome://favicon/null); background-repeat:no-repeat; background-position:'+(window.OS == "Mac" ? "4px 1px" : "4px 2px")+';">History &amp; Bookmarks</div>';
+		// += '	<div class="menuOption" style="background-image:url(chrome://favicon/null); background-repeat:no-repeat; background-position:'+(window.OS == "Mac" ? "4px 1px" : "4px 2px")+';">History &amp; Bookmarks</div>';
+		html += '	<div class="menuOption" style="background-image:url(/img/null.png); background-repeat:no-repeat; background-position:'+(window.OS == "Mac" ? "4px 1px" : "4px 2px")+';">History &amp; Bookmarks</div>';
 		html += '	<div class="menuHr"></div>';
 	}
 
@@ -1070,7 +1071,8 @@ $("#contextMenu .menuOption").live("mousedown", function(){
 			case "History & Bookmarks":
 				delete window.keywordEngine;
 				$("#awesomeInsetButton").removeClass("insetButton").addClass("noInsetButton");
-				$("#addressbaricon").attr("src","chrome://favicon/null");
+				//$("#addressbaricon").attr("src","chrome://favicon/null");
+				$("#addressbaricon").attr("src","/img/null.png");
 				$(".switchtext").html("Switch to tab:").css("display","");
 				$("#awesomeinput").attr("placeholder",window.placeholder).focus();
 				break;
@@ -1419,7 +1421,8 @@ $("#awesomeinput").bind("keydown", function(e){
 	var clearKeywordEngine = function() {
 		delete window.keywordEngine;
 		$("#awesomeInsetButton").removeClass("insetButton").addClass("noInsetButton");
-		$("#addressbaricon").attr("src","chrome://favicon/null");
+		//$("#addressbaricon").attr("src","chrome://favicon/null");
+		$("#addressbaricon").attr("src","/img/null.png");
 		$(".switchtext").html("Switch to tab:").css("display","");
 		$("#awesomeinput").attr("placeholder",window.placeholder);
 	};
@@ -1618,7 +1621,8 @@ $("#awesomeinput").bind("keydown",function(e){
 			delete window.keywordEngine;
 			$("#awesomeInsetButton").removeClass("insetButton").addClass("noInsetButton");
 			window.actualUserInput = '';
-			$("#addressbaricon").attr("src","chrome://favicon/null");
+			//$("#addressbaricon").attr("src","chrome://favicon/null");
+			$("#addressbaricon").attr("src","/img/null.png");
 			$(".switchtext").html("Switch to tab:").css("display","");
 			$("#awesomeinput").attr("placeholder",window.placeholder);
 			return false;
@@ -2433,7 +2437,8 @@ function getResults(noQuery) {
 				}
 			});
 			if (!keywordMatch && !window.keywordEngine) {
-				$("#addressbaricon").attr("src","chrome://favicon/null");
+				//$("#addressbaricon").attr("src","chrome://favicon/null");
+				$("#addressbaricon").attr("src","/img/null.png");
 				$(".switchtext").html("Switch to tab:").css("display","");
 			}
 		}
@@ -2569,7 +2574,8 @@ function getResults(noQuery) {
 						if (window.waitingForResults == true && microtime(true) - window.fetchResultStartTime > 1 && $("#awesomeinput:focus").length == 1 && $("#awesomeinput").getSelection().length != $("#awesomeinput").val().length) {
 							$("#addressbaricon").attr("src","/img/throbber.svg");
 						} else if ($("#addressbaricon").attr("src") == "/img/throbber.svg") {
-							$("#addressbaricon").attr("src","chrome://favicon/null");
+							//$("#addressbaricon").attr("src","chrome://favicon/null");
+							$("#addressbaricon").attr("src","/img/null.png");
 						}
 					}, 1000);
 
@@ -2884,7 +2890,8 @@ function getResults(noQuery) {
 						// Remove the Address Box's loading icon
 						window.fetchResultStartTime = microtime(true);
 						if ($("#addressbaricon").attr("src") == "/img/throbber.svg") {
-							$("#addressbaricon").attr("src","chrome://favicon/null");
+							//$("#addressbaricon").attr("src","chrome://favicon/null");
+							$("#addressbaricon").attr("src","/img/null.png");
 						}
 
 						// If there's no results, hide any existing ones.

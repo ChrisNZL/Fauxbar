@@ -21,13 +21,13 @@
 
 			<span class="optionmenucat" style="margin-top:5px">Misc</span>
 			<div id="option_section_management" class="section_general" optionbox="managementoptions">Management<span id="errorCount" style="font-size:11px"></span></div>
-			<div id="option_section_support" class="section_general" optionbox="supportoptions">Support</div>
+			<!--<div id="option_section_support" class="section_general" optionbox="supportoptions">Support</div>-->
 
 			<!-- Donate button -->
-			<br /><br />
+			<!--<br /><br />
 			<span style="display:block; text-align:center">
 				<a href="/html/loadpaypal.html" target="_blank" title="Donate to Fauxbar via PayPal"><img src="/img/donate.gif" /></a>
-			</span>
+			</span>-->
 		</td>
 
 		<!-- Options subpages container -->
@@ -35,7 +35,7 @@
 
 			<!-- Tile options -->
 			<div id="tilesoptions" class="optionbox">
-				<img src="/img/cross.png" class="closeoptions" title="Close" />
+				<img src="/img/cross.png" class="closeoptions" title="Close" class="filter-tint" data-pb-tint-opacity="1" />
 				<h1>
 					<img src="/img/fauxbar48.png" style="height:28px; width:28px; vertical-align:middle; position:relative; top:-2px; padding-right:2px" />
 					Tile Options
@@ -142,14 +142,15 @@
 
 			<!-- Address Box options -->
 			<div id="addressoptions" class="optionbox">
-				<img src="/img/cross.png" class="closeoptions" title="Close" />
+				<img src="/img/cross.png" class="closeoptions" title="Close" class="filter-tint" data-pb-tint-opacity="0" />
 				<h1>
 					<img src="/img/fauxbar48.png" style="height:28px; width:28px; vertical-align:middle; position:relative; top:-2px; padding-right:2px" />
 					Address Box Options
 				</h1>
 				Find your history items, bookmarks, and opened tabs by typing into <span class="extensionName">Fauxbar</span>'s Address Box.<br />
 				Search engines can also be accessed by typing their keyword and pressing spacebar, or by clicking the
-				<img src="chrome://favicon/null" style="vertical-align:middle; position:relative; top:-3px" />
+				<!--<img src="chrome://favicon/null" style="vertical-align:middle; position:relative; top:-3px" />-->
+				<img src="/img/null.png" style="vertical-align:middle; position:relative; top:-3px" />
 				icon.
 				<table>
 					<tr><td colspan="2" class="tdhr"><div></div></td></tr>
@@ -337,7 +338,7 @@ But if you don't normally visit local intranet sites that use custom domain name
 
 			<!-- Search Box options -->
 			<div id="searchoptions" class="optionbox">
-				<img src="/img/cross.png" class="closeoptions" title="Close" />
+				<img src="/img/cross.png" class="closeoptions" title="Close" class="filter-tint" data-pb-tint-opacity="0" />
 				<h1>
 					<img src="/img/fauxbar48.png" style="height:28px; width:28px; vertical-align:middle; position:relative; top:-2px; padding-right:2px" />
 					Search Engine Options
@@ -439,7 +440,7 @@ But if you don't normally visit local intranet sites that use custom domain name
 
 			<!-- Keyboard Shortcut options -->
 			<div id="shortcutoptions" class="optionbox">
-				<img src="/img/cross.png" class="closeoptions" title="Close" />
+				<img src="/img/cross.png" class="closeoptions" title="Close" class="filter-tint" data-pb-tint-opacity="0" />
 				<h1>
 					<img src="/img/fauxbar48.png" style="height:28px; width:28px; vertical-align:middle; position:relative; top:-2px; padding-right:2px" />
 					Keyboard Shortcut Options
@@ -479,7 +480,7 @@ But if you don't normally visit local intranet sites that use custom domain name
 			
 			<!-- Results & Suggestions options -->
 			<div id="resultoptions" class="optionbox">
-				<img src="/img/cross.png" class="closeoptions" title="Close" />
+				<img src="/img/cross.png" class="closeoptions" title="Close" class="filter-tint" data-pb-tint-opacity="0" />
 				<h1>
 					<img src="/img/fauxbar48.png" style="height:28px; width:28px; vertical-align:middle; position:relative; top:-2px; padding-right:2px" />
 					Color &amp; Styling Options
@@ -587,7 +588,8 @@ But if you don't normally visit local intranet sites that use custom domain name
 						<td>
 							<div id="resultpreview" class="resultpreview" style="box-shadow:3px 3px 3px rgba(0,0,0,.3); border:1px solid #666; width:75%;">
 								<img class="favstar" />
-								<div class="result_title"><img class="result_favicon" src="chrome://favicon/null" />Example Title</div><br />
+								<!--<div class="result_title"><img class="result_favicon" src="chrome://favicon/null" />Example Title</div><br />-->
+								<div class="result_title"><img class="result_favicon" src="/img/null.png" />Example Title</div><br />
 								<div class="result_url">http://example.url/</div>
 							</div>
 						</td>
@@ -655,7 +657,7 @@ But if you don't normally visit local intranet sites that use custom domain name
 
 			<!-- Page Background options -->
 			<div id="backgroundoptions" class="optionbox">
-				<img src="/img/cross.png" class="closeoptions" title="Close" />
+				<img src="/img/cross.png" class="closeoptions" title="Close" class="filter-tint" data-pb-tint-opacity="0" />
 				<h1>
 					<img src="/img/fauxbar48.png" style="height:28px; width:28px; vertical-align:middle; position:relative; top:-2px; padding-right:2px" />
 					Page Background Options
@@ -741,7 +743,7 @@ But if you don't normally visit local intranet sites that use custom domain name
 
 			<!-- General options -->
 			<div id="generaloptions" class="optionbox">
-				<img src="/img/cross.png" class="closeoptions" title="Close" />
+				<img src="/img/cross.png" class="closeoptions" title="Close" class="filter-tint" data-pb-tint-opacity="0" />
 				<h1>
 					<img src="/img/fauxbar48.png" style="height:28px; width:28px; vertical-align:middle; position:relative; top:-2px; padding-right:2px" />
 					General Options
@@ -883,12 +885,12 @@ If disabled, a hyphen will be displayed between the URL and title.">(?)</span>
 
 			<!-- Management options -->
 			<div id="managementoptions" class="optionbox">
-				<img src="/img/cross.png" class="closeoptions" title="Close" />
+				<img src="/img/cross.png" class="closeoptions" title="Close" class="filter-tint" data-pb-tint-opacity="0" />
 				<h1>
 					<img src="/img/fauxbar48.png" style="height:28px; width:28px; vertical-align:middle; position:relative; top:-2px; padding-right:2px;" />
 					Management
 				</h1>
-				<span class="extensionName">Fauxbar</span> version 1.5.0 &nbsp;<span style="opacity:.5">(9 April 2016)</span>
+				<span class="extensionName">Fauxbar</span> version 1.5.0 &nbsp;<span style="opacity:.5">(10 April 2016)</span>
 				<table>
 					<tr><td colspan="2" class="tdhr"><div></div></td></tr>
 					<tr>
@@ -1030,7 +1032,7 @@ If disabled, a hyphen will be displayed between the URL and title.">(?)</span>
 			
 			<!-- Menu Bar options -->
 			<div id="menubaroptions" class="optionbox">
-				<img src="/img/cross.png" class="closeoptions" title="Close" />
+				<img src="/img/cross.png" class="closeoptions" title="Close" class="filter-tint" data-pb-tint-opacity="0" />
 				<h1>
 					<img src="/img/fauxbar48.png" style="height:28px; width:28px; vertical-align:middle; position:relative; top:-2px; padding-right:2px" />
 					Menu Bar Options
@@ -1264,13 +1266,13 @@ If disabled, a hyphen will be displayed between the URL and title.">(?)</span>
 			
 			<!-- Frecency Scoring options -->
 			<div id="frecencyoptions" class="optionbox">
-				<img src="/img/cross.png" class="closeoptions" title="Close" />
+				<img src="/img/cross.png" class="closeoptions" title="Close" class="filter-tint" data-pb-tint-opacity="0" />
 				<h1>
 					<img src="/img/fauxbar48.png" style="height:28px; width:28px; vertical-align:middle; position:relative; top:-2px; padding-right:2px" />
 					Frecency Scoring Options
 				</h1>
-				<span class="extensionName">Fauxbar</span> uses the
-				<a class="goodlink" style="text-decoration:underline" href="https://developer.mozilla.org/en/The_Places_frecency_algorithm" target="_blank">frecency algorithm</a>
+				<span class="extensionName">Fauxbar</span> uses
+				<a class="goodlink" style="text-decoration:underline" href="https://developer.mozilla.org/en/The_Places_frecency_algorithm" target="_blank">Mozilla's frecency algorithm</a>
 				to determine the order of your history items and bookmarks.<br />
 				Below, you can alter how the frecency scores are measured.
 				<table>
@@ -1406,7 +1408,7 @@ If disabled, a hyphen will be displayed between the URL and title.">(?)</span>
 
 			<!-- Support links -->
 			<div id="supportoptions" class="optionbox">
-				<img src="/img/cross.png" class="closeoptions" title="Close" />
+				<img src="/img/cross.png" class="closeoptions" title="Close" class="filter-tint" data-pb-tint-opacity="0" />
 				<h1>
 					<img src="/img/fauxbar48.png" style="height:28px; width:28px; vertical-align:middle; position:relative; top:-2px; padding-right:2px" />
 					Support
@@ -1423,7 +1425,7 @@ If disabled, a hyphen will be displayed between the URL and title.">(?)</span>
 							Fauxbar
 						</th>
 						<td>
-							<div id="likeBox"></div>
+							<!--<div id="likeBox"></div>-->
 							<!--<div style="margin-bottom:6px; height:22px">
 								<div class="g-plusone" data-size="medium" data-annotation="inline" data-href="http://code.google.com/p/fauxbar/"></div>
 							</div>-->
@@ -1448,7 +1450,7 @@ If disabled, a hyphen will be displayed between the URL and title.">(?)</span>
 							<a href="https://chrome.google.com/webstore/detail/domhiadbdhomljcdankobiglghedagkm" target="_blank" style="color:#06c">Fauxbar Memory Helper</a>
 						</td>
 					</tr>
-					<tr><td colspan="2" class="tdhr"><div></div></td></tr>
+					<!--<tr><td colspan="2" class="tdhr"><div></div></td></tr>
 					<tr>
 						<th>
 							<img src="/img/icon-facebook.png" />
@@ -1457,7 +1459,7 @@ If disabled, a hyphen will be displayed between the URL and title.">(?)</span>
 						<td>
 							<a href="http://www.facebook.com/Fauxbar" target="_blank" style="color:#06c">Fauxbar's Facebook page</a><br />
 						</td>
-					</tr>
+					</tr>-->
 					<!--<tr><td colspan="2" class="tdhr"><div></div></td></tr>
 					<tr>
 						<th>
@@ -1468,7 +1470,7 @@ If disabled, a hyphen will be displayed between the URL and title.">(?)</span>
 							<a href="https://plus.google.com/106763880873922603221" target="_blank" style="color:#06c">Fauxbar's Google+ page</a><br />
 						</td>
 					</tr>-->
-					<tr><td colspan="2" class="tdhr"><div></div></td></tr>
+					<!--<tr><td colspan="2" class="tdhr"><div></div></td></tr>
 					<tr>
 						<th>
 							<img src="/img/icon-twitter.png" />
@@ -1478,7 +1480,7 @@ If disabled, a hyphen will be displayed between the URL and title.">(?)</span>
 							<div style="margin-bottom:10px"><a href="http://twitter.com/Fauxbar" class="twitter-follow-button">Follow @Fauxbar</a></div>
 							<a href="http://twitter.com/FauxbarDev" class="twitter-follow-button">Follow @FauxbarDev</a>
 						</td>
-					</tr>
+					</tr>-->
 					<!--<tr><td colspan="2" class="tdhr"><div></div></td></tr>
 					<tr>
 						<th>
@@ -1499,7 +1501,7 @@ If disabled, a hyphen will be displayed between the URL and title.">(?)</span>
 							fauxbar.org@gmail.com
 						</td>
 					</tr>-->
-					<tr><td colspan="2" class="tdhr"><div></div></td></tr>
+					<!--<tr><td colspan="2" class="tdhr"><div></div></td></tr>
 					<tr>
 						<th>
 							<img src="/img/icon-paypal.png" />
@@ -1508,7 +1510,7 @@ If disabled, a hyphen will be displayed between the URL and title.">(?)</span>
 						<td>
 							<a href="/html/loadpaypal.html" target="_blank" style="color:#06c">Donate</a><br />
 						</td>
-					</tr>
+					</tr>-->
 				</table>
 			</div>
 

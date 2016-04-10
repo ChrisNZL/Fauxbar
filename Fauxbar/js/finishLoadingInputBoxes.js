@@ -35,7 +35,8 @@ if (localStorage.osiconsrc) {
 	var ico = localStorage.osiconsrc == "google.ico" || localStorage.osiconsrc == "yahoo.ico" || localStorage.osiconsrc == "bing.ico" || localStorage.osiconsrc == "duckduckgo.ico" ? "/img/"+localStorage.osiconsrc : localStorage.osiconsrc;
 	$("#opensearch_triangle span").first().html('<img class="opensearch_selectedicon" src="'+ico+'" style="height:16px; width:16px;" /><span class="triangle static" style="margin-top:1px"></span>');
 } else {
-	$("#opensearch_triangle span").first().html('<img class="opensearch_selectedicon" src="chrome://favicon/null" style="height:16px; width:16px;" /><span class="triangle static" style="margin-top:1px"></span>');
+	//$("#opensearch_triangle span").first().html('<img class="opensearch_selectedicon" src="chrome://favicon/null" style="height:16px; width:16px;" /><span class="triangle static" style="margin-top:1px"></span>');
+	$("#opensearch_triangle span").first().html('<img class="opensearch_selectedicon" src="/img/null.png" style="height:16px; width:16px;" /><span class="triangle static" style="margin-top:1px"></span>');
 }
 
 $('#awesomeinput_cell')[0].addEventListener('webkitspeechchange', function(){

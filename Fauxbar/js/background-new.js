@@ -993,9 +993,11 @@ var createContextMenu = function() {
 			title: localStorage.extensionName +": Add as search engine...",
 			contexts: ["editable"],
 			onclick: function(info, tab) {
-				chrome.tabs.executeScript(tab.id, {file:"/js/jquery-1.7.min.js"}, function(){
-					chrome.tabs.executeScript(tab.id, {file:"/js/contextMenu-addAsSearchEngine.js"});
-				});
+				if (tab) {
+					chrome.tabs.executeScript(tab.id, {file:"/js/jquery-1.7.min.js"}, function(){
+						chrome.tabs.executeScript(tab.id, {file:"/js/contextMenu-addAsSearchEngine.js"});
+					});
+				}
 			}
 		});
 	}
@@ -1063,10 +1065,11 @@ chrome.runtime.onMessage.addListener(function(request, sender){
 });
 
 chrome.runtime.onInstalled.addListener(function(details){
-	var currentVersion = "1.4.0";
+	var currentVersion = "1.5.0";
 	switch (details.reason) {
 	
 		case 'install':
+			localStorage.hasReadAnnouncementFor1_5_0 = true;
 			localStorage.currentVersion = currentVersion;
 			
 			// If Fauxbar is being started for the first time, load in the default options.
@@ -1084,6 +1087,15 @@ chrome.runtime.onInstalled.addListener(function(details){
 			break;
 			
 		case 'update':
+
+			// Announcement
+			if (!localStorage.hasReadAnnouncementFor1_5_0) {
+				localStorage.hasReadAnnouncementFor1_5_0 = true;
+				var url = localStorage.extensionName == 'Fauxbar' ? '/html/notification_updated.html' : '/html/notification_updated_lite.html';
+				chrome.tabs.create({url:url, active:true});
+			}
+
+
 			if (localStorage.justRetrievedFromCloud && localStorage.justRetrievedFromCloud == 1) {
 				delete localStorage.justRetrievedFromCloud;
 				chrome.tabs.create({url:chrome.runtime.getURL('/html/fauxbar.html#options=1')});

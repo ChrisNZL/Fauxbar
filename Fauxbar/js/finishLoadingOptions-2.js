@@ -297,12 +297,16 @@ $("#option_shadow").live("change", function(){
 // Update favorite/bookmark icon if user changes it
 $("#option_favopacity").live("change", function(){
 	$("#fauxstar").addClass("filter-tint").attr("src","/img/fauxstar.png").attr("data-pb-tint-opacity", $(this).val() / 100);
-	processFilters();
+	if (processFilters) {
+		processFilters();
+	}
 	$(".favstar").attr("src",$("#fauxstar").attr("src"));
 });
 $("#option_favcolor").live("change", function(){
 	$("#fauxstar").addClass("filter-tint").attr("src","/img/fauxstar.png").attr("data-pb-tint-colour",$(this).val());
-	processFilters();
+	if (processFilters) {
+		processFilters();
+	}
 	$(".favstar").attr("src",$("#fauxstar").attr("src"));
 });
 
@@ -755,3 +759,14 @@ window.onbeforeunload = function () {
 		chrome.runtime.sendMessage(null, 'Save options to cloud');
 	}
 };
+
+// 1.5.0 - Adding a fix. There's an issue where, if you open a Fauxbar tab, go Fauxbar > Options, then open another Fauxbar tab, then switch back to the first tab, some of the icons/images in the Options page are hidden.
+// I don't know if this is a Chrome bug or what. I assume the new Fauxbar tab is sending a message to the Options tab that's mucking something up, but I can't figure it out.
+// So, we'll reload the page to ensure images aren't hidden and resized incorrectly.
+chrome.tabs.onActivated.addListener(function(activeInfo){
+	chrome.tabs.getCurrent(function(thisTab){
+		if (thisTab.id == activeInfo.tabId) {
+			chrome.tabs.reload(thisTab.id);
+		}
+	});
+});
