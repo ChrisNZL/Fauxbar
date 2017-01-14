@@ -224,10 +224,10 @@ $("#option_inputboxdisplayorder").live("change", function() {
 $("#option_font").live("change", function(){
 	var newFont = $(this).val().trim();
 	if (newFont) {
-		$("#customstyle").append('#thefauxbar *, #options .resultpreview *, #menubar, #results *, #opensearch_results, #opensearch_results *, #contextMenu * { font-family:'+newFont+', Ubuntu, Lucida Grande, Segoe UI, Arial, sans-serif; }');
+		$("#customstyle").append('#thefauxbar *, #options .resultpreview *, #menubar, #results *, #opensearch_results, #opensearch_results *, #contextMenu * { font-family:'+newFont+', Ubuntu, Helvetica Neue, Segoe UI, Arial, sans-serif; }');
 	} else {
-		var lucida = window.OS == "Mac" ? "Lucida Grande, " : "";
-		$("#customstyle").append('#thefauxbar *, #options .resultpreview *, #menubar, #results *, #opensearch_results, #opensearch_results *, #contextMenu * { font-family:'+lucida+' Ubuntu, Lucida Grande, Segoe UI, Arial, sans-serif; }');
+		var lucida = window.OS == "Mac" ? "Helvetica Neue, " : "";
+		$("#customstyle").append('#thefauxbar *, #options .resultpreview *, #menubar, #results *, #opensearch_results, #opensearch_results *, #contextMenu * { font-family:'+lucida+' Ubuntu, Helvetica Neue, Segoe UI, Arial, sans-serif; }');
 	}
 });
 
@@ -288,6 +288,12 @@ $("#option_fauxbarfontcolor").live("change", function(){
 $("#option_maxwidth").live("change", function(){
 	insertCustomStyles();
 });
+$("#option_highlightedWordColor_normal").live("change", function(){
+	insertCustomStyles();
+});
+$("#option_highlightedWordColor_highlighted").live("change", function(){
+	insertCustomStyles();
+});
 
 // When the drop shadow option changes, apply it
 $("#option_shadow").live("change", function(){
@@ -336,6 +342,8 @@ function insertCustomStyles() {
 	toAppend += "#contextMenu .menuHr { background-color:"+$("#option_separatorcolor").val()+"; }";
 	toAppend += ".inputwrapper { background-color:"+$("#option_inputbgcolor").val()+"; }";
 	toAppend += ".inputwrapper input { color:"+$("#option_fauxbarfontcolor").val()+"; }";
+	toAppend += ".highlight { background-color:"+$("#option_highlightedWordColor_normal").val()+"; }";
+	toAppend += ".result.arrowed .highlight { background-color:"+$("#option_highlightedWordColor_highlighted").val()+"; }";
 
 	// Menu bar styles
 	toAppend += '#menubar { font-size:'+$('#option_urlsize').val()+'px; }';

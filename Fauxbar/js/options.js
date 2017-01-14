@@ -447,7 +447,9 @@ function tellBgToReindex() {
 	chrome.runtime.sendMessage(null, {action:"reindex"});
 	$("button").prop("disabled",true);
 	$("body").css("cursor","progress");
-	window.location.reload();
+	setTimeout(function(){
+		window.location.reload();
+	}, 200);
 }
 
 // Hide the Options container/page

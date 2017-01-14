@@ -1065,7 +1065,7 @@ chrome.runtime.onMessage.addListener(function(request, sender){
 });
 
 chrome.runtime.onInstalled.addListener(function(details){
-	var currentVersion = "1.5.0";
+	var currentVersion = "1.6.0";
 	switch (details.reason) {
 	
 		case 'install':
@@ -1089,11 +1089,11 @@ chrome.runtime.onInstalled.addListener(function(details){
 		case 'update':
 
 			// Announcement
-			if (!localStorage.hasReadAnnouncementFor1_5_0) {
+			/*if (!localStorage.hasReadAnnouncementFor1_5_0) {
 				localStorage.hasReadAnnouncementFor1_5_0 = true;
 				var url = localStorage.extensionName == 'Fauxbar' ? '/html/notification_updated.html' : '/html/notification_updated_lite.html';
 				chrome.tabs.create({url:url, active:true});
-			}
+			}*/
 
 
 			if (localStorage.justRetrievedFromCloud && localStorage.justRetrievedFromCloud == 1) {
@@ -1158,6 +1158,13 @@ chrome.runtime.onInstalled.addListener(function(details){
 						}
 					}*/
 					
+					// New options for v1.6.0
+					if (!localStorage.option_highlightedWordColor_normal) {
+						localStorage.option_highlightMatchingWords = 0;
+						localStorage.option_highlightedWordColor_normal = "#F8FFBF";
+						localStorage.option_highlightedWordColor_highlighted = "#79BCFF";
+					}
+
 					// Memory reload management, added in v1.4.0 (replacing Memory Helper)
 					if (!localStorage.option_enableMemoryManagement) {
 						localStorage.option_enableMemoryManagement = 1;

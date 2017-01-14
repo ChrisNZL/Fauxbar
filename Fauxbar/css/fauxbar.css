@@ -2,7 +2,7 @@
 
 /* Some generic defaults */
 img { border:0; }
-body { cursor:default; font-family:Ubuntu, Lucida Grande, Segoe UI, Arial, sans-serif; font-size:13px; padding:0; margin:0; }
+body { cursor:default; font-family:Ubuntu, Helvetica Neue, Segoe UI, Arial, sans-serif; font-size:13px; padding:0; margin:0; }
 a, a:visited, a:link, a:active, a:hover { text-decoration:none; }
 
 /* Address Box results are divs, so make sure they clear each other */
@@ -18,18 +18,17 @@ a, a:visited, a:link, a:active, a:hover { text-decoration:none; }
 /* *::selection { background:rgba(0,0,0,0); color:inherit; } */
 
 /* Rounded-corner input "boxes" - parent wrappers for the actual input boxes and icons within */
-.inputwrapper { border-radius:4px;
+.inputwrapper { border-radius:3px;
 	padding:3px 4px 3px 4px; padding:0;
 	background-color:#fff;
 	box-shadow: inset 0 0px 2px rgba(0,0,0,.4), 0 0 0 1px rgba(0,0,0,.2), 0 2px 0px rgba(255,255,255,.35);
 }
-.inputwrapper2 { border-radius:0 4px 4px 0; padding:3px 4px 3px 1px; }
+.inputwrapper2 { border-radius:0 3px 3px 0; padding:3px 4px 3px 1px; }
 
 .insetButton {
 	background-color:rgba(0,0,0,.00);
 	padding:2px 4px 2px 2px;
-	border-radius:4px 0 0 4px;
-	border-radius:3px;
+	border-radius:2px;
 	           /*        border                          shading             */
 	box-shadow:inset 0 0 0 1px rgba(0,0,0,.15), inset 0 -1px 5px rgba(0,0,0,.2);
 	font-size:inherit;
@@ -42,7 +41,7 @@ a, a:visited, a:link, a:active, a:hover { text-decoration:none; }
 .noInsetButton { padding-left:2px; margin-right:-1px; }
 
 /* Default font name for the main Fauxbar elements */
-#results *, #opensearch_results *, #awesomeinput, #opensearchinput, #opensearchmenu { font-family:Ubuntu, Lucida Grande, Segoe UI, Arial, sans-serif; }
+#results *, #opensearch_results *, #awesomeinput, #opensearchinput, #opensearchmenu { font-family:Ubuntu, Helvetica Neue, Segoe UI, Arial, sans-serif; }
 
 /* Make the background container take up the whole page */
 #background { width:100%; height:100%; position:absolute; z-index:0;}
@@ -57,7 +56,7 @@ button { padding:3px 12px; }
 
 /* The wrapper is the Fauxbar, if you will; wraps around the two Boxes. */
 .wrapper {
-	max-width:1000px; margin:0 auto 0 auto; text-align:center; padding:8px; border-radius:9px;
+	max-width:1000px; margin:0 auto 0 auto; text-align:center; padding:8px; border-radius:6px;
 	background:-webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,.12)), to(rgba(0,0,0,.50)));
 	position:relative; box-shadow:0 5px 7px rgba(0,0,0,.27);
 }
@@ -66,11 +65,11 @@ button { padding:3px 12px; }
 #results, #opensearch_results { width:100%; max-height:66%; border:1px solid rgba(0,0,0,.55); margin:0 auto; text-align:left; overflow-y:auto; overflow-x:hidden;
 	box-shadow:3px 3px 3px rgba(0,0,0,.3); display:none; position:absolute; z-index:10000; background-color:#fff; margin-left:2px; margin-top:1px;
 }
-#opensearch_results { height:auto; width:300px; height:auto; max-height:none;  }
+#opensearch_results { height:auto; width:300px; height:auto; max-height:none; }
 #opensearch_results .result { border:0; padding-left:14px; white-space:nowrap; }
 
 /* Options page and its contents */
-#options *, #dragging_os_row * { font-family:Ubuntu, Lucida Grande, Segoe UI, Arials, sans-serif; font-size:13px; }
+#options *, #dragging_os_row * { font-family:Ubuntu, Helvetica Neue, Segoe UI, Arials, sans-serif; font-size:13px; }
 #options { position:absolute; display:none; }
 
 /* More Address Box results and Search Box suggestions/queries */
@@ -86,6 +85,9 @@ button { padding:3px 12px; }
 
 /* Generic underlining, mainly for matched words within results */
 .underline { text-decoration:underline; }
+
+/* Highlight matching words within results. Added in 1.6.0. */
+.highlight { background-color:#f8ffbf; border-radius:2px; }
 
 /* Bookmark icon */
 .favstar { float:right; margin-top:2px; margin-right:-1px; }
@@ -130,7 +132,7 @@ table { border:0; border-collapse:collapse; width:100%; display:table; }
 #opensearch_menufocus { position:absolute; z-index:-999; opacity:0; display:none; }
 
 /* "Switch to tab" text in front of the Address Box's input box, used when user has navigated to a "Switch to tab"-laden result */
-.switchtext, td.addtile { white-space:nowrap; border-right:0px solid rgba(0,0,0,.2); font-family:Ubuntu, Lucida Grande, Segoe UI, Arial, sans-serif; padding-right:2px; padding-left:3px; display:none; width:1px;
+.switchtext, td.addtile { white-space:nowrap; border-right:0px solid rgba(0,0,0,.2); font-family:Ubuntu, Helvetica Neue, Segoe UI, Arial, sans-serif; padding-right:2px; padding-left:3px; display:none; width:1px;
 	color:rgba(0,0,0,.6); color:rgba(0,0,0,.6); text-shadow:0 1px 0 #fff;
 }
 
@@ -139,14 +141,14 @@ table { border:0; border-collapse:collapse; width:100%; display:table; }
 
 /* Indexing progress info box container */
 #indexinginfo { background-color:#fff; padding:20px 20px 20px 20px; border-radius:7px;
-	box-shadow:3px 3px 3px rgba(0,0,0,.3); font-family:Ubuntu, Lucida Grande, Segoe UI, Arial, sans-serif; font-size:13px;
+	box-shadow:3px 3px 3px rgba(0,0,0,.3); font-family:Ubuntu, Helvetica Neue, Segoe UI, Arial, sans-serif; font-size:13px;
 	display:block; margin:0 auto; width:500px; display:none;
 }
 #indexinginfo img { }
 progress { width:100%; margin-top:6px; }
 
 /* Tiles for top sites and Chrome apps */
-#topthumbs, #apps { text-align:center; margin-top:25px; font-family:Ubuntu, Lucida Grande, Segoe UI, Arial, sans-serif; display:block; margin:25px auto 0 auto; }
+#topthumbs, #apps { text-align:center; margin-top:25px; font-family:Ubuntu, Helvetica Neue, Segoe UI, Arial, sans-serif; display:block; margin:25px auto 0 auto; }
 #topthumbs a, #apps a { display:inline-block; width:212px; margin:10px; text-align:left; position:relative; z-index:90; text-decoration:none; overflow-x:hidden; padding:5px;
 	border-radius:3px; background-color:rgba(255,255,255,1);
 	box-shadow:0 2px 6px -1px rgba(0,0,0,.35);
@@ -171,12 +173,12 @@ progress { width:100%; margin-top:6px; }
 /* Sites/Apps switcher buttons at the bottom of the page */
 #sapps { position:fixed; z-index:90002; bottom:40px; background-color:#fff; border-radius:3px; text-align:center; left:50%; padding:5px; box-shadow:0 2px 6px -1px rgba(0,0,0,.35); opacity:0; }
 #sapps:hover { opacity:1; }
-#sapps button { font-family:Ubuntu, Lucida Grande, Segoe UI, Arial, sans-serif; font-size:12px; margin:0; }
+#sapps button { font-family:Ubuntu, Helvetica Neue, Segoe UI, Arial, sans-serif; font-size:12px; margin:0; }
 #sapps div { padding:5px 10px 6px 10px; display:inline-block; }
 #sapps_sites { border-right:1px solid rgba(0,0,0,.12); }
 
 /* Blue options info bar at the top of the page that apppears after first indexing */
-#optionsintro { padding:7px 10px 7px 10px; font-family:Ubuntu, Lucida Grande, Segoe UI, Arial, sans-serif; font-size:12px; background-color:#c9e6ff; border-bottom:0px solid rgba(255,255,255,.5);
+#optionsintro { padding:7px 10px 7px 10px; font-family:Ubuntu, Helvetica Neue, Segoe UI, Arial, sans-serif; font-size:12px; background-color:#c9e6ff; border-bottom:0px solid rgba(255,255,255,.5);
 	background:-webkit-gradient(linear, left top, left bottom, from(rgba(211,235,253,1)), to(rgba(155,211,255,1)));
 	box-shadow:0px 1px 5px rgba(0,0,0,.5);
 	display:none;

@@ -1883,7 +1883,7 @@ if (localStorage.indexComplete != 1) {
 			$("button").focus();
 		}, 50);
 		if (window.OS == "Mac") {
-			$("button").css("font-family", "Lucida Grande, Segoe UI, Arial, sans-serif");
+			$("button").css("font-family", "Helvetica Neue, Segoe UI, Arial, sans-serif");
 		}
 		
 		$("#addresswrapper").css("cursor","wait");
@@ -2791,6 +2791,9 @@ function getResults(noQuery) {
 									}
 									if (localStorage.option_bold && localStorage.option_bold == 1) {
 										matchClasses += " bold ";
+									}
+									if (localStorage.option_highlightMatchingWords && localStorage.option_highlightMatchingWords == 1) {
+										matchClasses += " highlight ";
 									}
 
 									spanOpen = '<span class="'+matchClasses+'">';

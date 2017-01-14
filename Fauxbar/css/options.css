@@ -3,6 +3,7 @@
 /* Main options container */
 table#options { display:none; position:absolute; z-index:9001; overflow:scroll; background-color:#fff; top:0; margin:154% 1% 25px 1%; border:1px solid rgba(0,0,0,.35);
 	box-shadow:0 5px 15px rgba(0,0,0,.35); width:98%;
+	overflow:hidden;
 }
 table#options a, table#options .fakelink { color:rgba(0,102,204,.7); }
 table#options a.goodlink { color:rgba(0,102,204,1); }
@@ -14,7 +15,7 @@ table#options button { font-size:12px; }
 table#options #option_menu div { white-space:nowrap; padding:5px 30px 5px 20px; color:#426dc9; border:1px solid rgba(0,0,0,0); border-width:1px 0; text-align:left; font-size:12px;}
 table#options #option_menu div:hover { background-color:rgba(187,206,233,.35); cursor:pointer; }
 table#options #option_menu div.section_selected { background-color:#bbcee9; border-color:8faad9; color:#000;  }
-#option_boxes { border-left:1px solid #c6c9ce; box-shadow: -3px 0 10px -5px rgba(0,0,0,.35); position:relative;; padding-left:5px; }
+#option_boxes { border-left:1px solid #c6c9ce; box-shadow: -3px 0 10px -5px rgba(0,0,0,.35); position:relative; padding-left:5px; width:100%; }
 div.optionbox { display:none; padding:15px; overflow-y:auto; }
 td#option_menu, td#option_boxes { vertical-align:top; }
 #option_menu span.optionmenucat { font-size:10px; text-transform:uppercase; display:block; padding:5px 10px; opacity:.35; font-weight:bold; }

@@ -168,8 +168,8 @@ $('option[value="'+localStorage.option_topsitecols+'"]').prop("selected",true);
 $("select").bind("change", function(){
 	setMaxTilesPerRow($(this).val());
 });
-$("#editmodeContainer").prepend('<div id="editModeButtons"><button saveSiteTiles style="font-family:'+localStorage.option_font+', Ubuntu, Lucida Grande, Segoe UI, Arial, sans-serif;">Save</button>&nbsp;' +
-	'<button cancelTiles style="font-family:'+localStorage.option_font+', Ubuntu, Lucida Grande, Segoe UI, Arial, sans-serif;">Cancel</button></div>');
+$("#editmodeContainer").prepend('<div id="editModeButtons"><button saveSiteTiles style="font-family:'+localStorage.option_font+', Ubuntu, Helvetica Neue, Segoe UI, Arial, sans-serif;">Save</button>&nbsp;' +
+	'<button cancelTiles style="font-family:'+localStorage.option_font+', Ubuntu, Helvetica Neue, Segoe UI, Arial, sans-serif;">Cancel</button></div>');
 $("#editmodeContainer").animate({opacity:1}, 325);
 chrome.tabs.getCurrent(function(tab){
 	chrome.tabs.update(tab.id, {selected:true}, function(){

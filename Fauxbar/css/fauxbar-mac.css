@@ -1,11 +1,11 @@
 /* Mac-specific default styling */
-body { font-family:Lucida Grande, Segoe UI, Arial, sans-serif; font-size:13px; }
-#results *, #opensearch_results *, #awesomeinput, #opensearchinput, #opensearchmenu { font-family:Lucida Grande, Segoe UI, Arial, sans-serif; }
-#options *, #dragging_os_row * { font-family:Lucida Grande, Segoe UI, Arials, sans-serif; font-size:13px; }
-.switchtext { font-family:Lucida Grande, Segoe UI, Arial, sans-serif; }
-#indexinginfo { font-family:Lucida Grande, Segoe UI, Arial, sans-serif; font-size:13px; }
-#topthumbs, #apps { font-family:Lucida Grande, Segoe UI, Arial, sans-serif; }
-#sapps button { font-family:Lucida Grande, Segoe UI, Arial, sans-serif; font-size:12px; }
+body { font-family:Helvetica Neue, Segoe UI, Arial, sans-serif; font-size:13px; }
+#results *, #opensearch_results *, #awesomeinput, #opensearchinput, #opensearchmenu { font-family:Helvetica Neue, Segoe UI, Arial, sans-serif; }
+#options *, #dragging_os_row * { font-family:Helvetica Neue, Segoe UI, Arials, sans-serif; font-size:13px; }
+.switchtext { font-family:Helvetica Neue, Segoe UI, Arial, sans-serif; }
+#indexinginfo { font-family:Helvetica Neue, Segoe UI, Arial, sans-serif; font-size:13px; }
+#topthumbs, #apps { font-family:Helvetica Neue, Segoe UI, Arial, sans-serif; }
+#sapps button { font-family:Helvetica Neue, Segoe UI, Arial, sans-serif; font-size:12px; }
 .description { font-style:normal; }
 #options input[type="number"] { padding-right:0px; }
 #options select, #options option { font-size:16px; }

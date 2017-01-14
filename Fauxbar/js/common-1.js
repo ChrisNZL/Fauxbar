@@ -266,11 +266,12 @@ function resetOptions() {
 	localStorage.option_frecency_typed = 2000;
 	localStorage.option_frecency_unvisitedbookmark = 1;
 
-	localStorage.option_font = window.OS == "Mac" ? "Lucida Grande" : window.OS == "Linux" ? "Ubuntu" : "Segoe UI";	// Global font name(s).
+	localStorage.option_font = window.OS == "Mac" ? "Helvetica Neue" : window.OS == "Linux" ? "Ubuntu" : "Segoe UI";	// Global font name(s).
 	localStorage.option_hidehttp = 1;						// Hide "http://" from the beginning of URLs.
 	localStorage.option_hidefiletiles = 1;					// Prevent top site tiles from displaying file:/// URLs.
 	localStorage.option_hideopentiles = 0;					// Prevent top site tiles from displaying opened URLs. Disabled by default.
 	localStorage.option_hidepinnedtiles = 1;				// Prevent top site tiles from displaying pinned URLs.
+	localStorage.option_highlightMatchingWords = 0; 		// Highlight matching words in results. Added in 1.6.0.
 	localStorage.option_iconcolor = "#3374AB";				// Go Arrow and Magnifying Glass icon color.
 	localStorage.option_ignoretitleless = 1;				// Ignore titleless Address Box results.
 	localStorage.option_inputbgcolor = "#FFFFFF";			// Address Box and Search Box background color.
@@ -298,6 +299,8 @@ function resetOptions() {
 	localStorage.option_selectedtitlecolor = "#FFFFFF";		// Title font color for .arrowed/highlighted/selected/navigated-to results/queries/suggestions.
 	localStorage.option_selectedurlcolor = "#FFFFFF";		// URL font color for .arrowed/highlighted/selected/navigated-to results/queries/suggestions.
 	localStorage.option_separatorcolor = "#E3E3E3";			// Color of the 1px separator line between results.
+	localStorage.option_highlightedWordColor_normal = "#F8FFBF";	// Highlighted color for matching words - normal result style. Added in 1.6.0.
+	localStorage.option_highlightedWordColor_highlighted = "#79BCFF";	// Highlighted color for matching words - highlighted result style. Added in 1.6.0.
 	localStorage.option_shadow = 1;							// Drop shadow for the Fauxbar.
 	localStorage.option_showapps = 1;						// Display app tiles.
 	localStorage.option_showNewlyInstalledApps = 1;			// Re-enable localStorage.option_showapps when an app is installed.

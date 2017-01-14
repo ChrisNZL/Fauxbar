@@ -207,7 +207,7 @@ $(document).ready(function(){
 	if (!localStorage.customStyles) {
 
 		// Load the user's font name
-		$("#customstyle").append("#apps, #topthumbs { font-family:"+localStorage.option_font+", Ubuntu, Lucida Grande, Segoe UI, Arial, sans-serif; font-size:"+localStorage.option_sappsfontsize+"px; }");
+		$("#customstyle").append("#apps, #topthumbs { font-family:"+localStorage.option_font+", Ubuntu, Helvetica Neue, Segoe UI, Arial, sans-serif; font-size:"+localStorage.option_sappsfontsize+"px; }");
 		$("#customstyle").append("#apps a { color:"+localStorage.option_titlecolor+"; }");
 		$("#customstyle").append("#apps a:hover { color:"+localStorage.option_selectedtitlecolor+"; }");
 
@@ -253,7 +253,7 @@ $(document).ready(function(){
 
 		// Apply the user's global font name, if selected
 		if (localStorage.option_font && localStorage.option_font.length) {
-			$("#customstyle").append("#thefauxbar *, #options .resultpreview *, #menubar, #results *, #opensearch_results, #opensearch_results *, #contextMenu * { font-family:"+localStorage.option_font+", Ubuntu, Lucida Grande, Segoe UI, Arial, sans-serif; }");
+			$("#customstyle").append("#thefauxbar *, #options .resultpreview *, #menubar, #results *, #opensearch_results, #opensearch_results *, #contextMenu * { font-family:"+localStorage.option_font+", Ubuntu, Helvetica Neue, Segoe UI, Arial, sans-serif; }");
 		}
 
 		// Apply the user's specified font size for the Address Box and Search Box
@@ -319,11 +319,20 @@ $(document).ready(function(){
 			$("#customstyle").append(".inputwrapper { background-color:"+localStorage.option_inputbgcolor+"; }");
 		}
 
+		// Apply the user's specified highlighted word colors. Added in 1.6.0.
+		if (localStorage.option_highlightedWordColor_normal && localStorage.option_highlightedWordColor_normal.length) {
+			$("#customstyle").append(".highlight { background-color:"+localStorage.option_highlightedWordColor_normal+"; }");
+		}
+		if (localStorage.option_highlightedWordColor_highlighted && localStorage.option_highlightedWordColor_highlighted.length) {
+			$("#customstyle").append(".result.arrowed .highlight { background-color:"+localStorage.option_highlightedWordColor_highlighted+"; }");
+		}
+
 		// Apply the bookmark/favorite icon's custom tint opacity strength
 		if (localStorage.option_favopacity && localStorage.option_favopacity.length) {
 			$("#fauxstar").attr("data-pb-tint-opacity", localStorage.option_favopacity / 100);
 		}
-		// Apply the bookmar/favorite icon's tint color
+
+		// Apply the bookmark/favorite icon's tint color
 		if (localStorage.option_favcolor && localStorage.option_favcolor.length) {
 			$("#fauxstar").attr("data-pb-tint-colour",localStorage.option_favcolor);
 			$(".favstar").attr("src",$("#fauxstar").attr("src"));

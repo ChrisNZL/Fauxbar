@@ -6,7 +6,7 @@ function closeWindow() {
 
 $(document).ready(function(){
 	$('.fauxbar').html(localStorage.extensionName);
-	$('style').append('* { font-family:'+localStorage.option_font+', Ubuntu, Lucida Grande, Segoe UI, Arial, sans-serif; }');
+	$('style').append('* { font-family:'+localStorage.option_font+', Ubuntu, Helvetica Neue, Segoe UI, Arial, sans-serif; }');
 
 	if (navigator.appVersion.indexOf("Mac")!=-1) { // OS is Mac
 		$('*:not(h1)').css('font-size','11px');

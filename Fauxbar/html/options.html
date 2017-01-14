@@ -211,6 +211,9 @@ Then, if you type the same query in the future, Fauxbar will ask Chrome to start
 								<input name="option_bold" id="option_bold" type="checkbox" /> Bolden matching words
 							</label>
 							<label class="legend">
+								<input name="option_highlightMatchingWords" id="option_highlightMatchingWords" type="checkbox" /> Highlight matching words
+							</label>
+							<label class="legend">
 								<input name="option_underline" id="option_underline" type="checkbox" /> Underline matching words
 							</label>
 							<label class="legend">
@@ -281,7 +284,7 @@ Then, if you type the same query in the future, Fauxbar will ask Chrome to start
 							<div class="optionstip">
 								&bull; Used when you're not using a search engine keyword and an invalid address is submitted, e.g. when you've entered a search query instead of a URL. Does not work if a URL result is auto-highlighted due to Auto Assist.
 								<div style="margin-top:5px; font-size:12px">&bull; Must contain <b>{searchTerms}</b></div>
-								<div style="margin-top:5px; font-size:12px">&bull; The preset Google URL uses the "I'm Feeling Lucky" feature.</div>
+								<div style="margin-top:5px; font-size:12px">&bull; The preset Google URL uses Google's "I'm Feeling Lucky" feature. If not desired, remove the <b>btnI=</b> part.</div>
 							</div>
 						</td>
 					</tr>
@@ -551,6 +554,10 @@ But if you don't normally visit local intranet sites that use custom domain name
 								Separator color:
 								<input title="Default: #E3E3E3" name="option_separatorcolor" id="option_separatorcolor" type="text" class="color {hash:true, pickerPosition:'right'}" maxlength="7" size="6" spellcheck="false" style="text-align:center" />
 							</label>
+							<label class="legend">
+								Highlighted word color:
+								<input title="Default: #F8FFBF" name="option_highlightedWordColor_normal" id="option_highlightedWordColor_normal" type="text" class="color {hash:true, pickerPosition:'right'}" maxlength="7" size="6" spellcheck="false" style="text-align:center" />
+							</label>
 						</td>
 					</tr>
 					<tr><td colspan="2" class="tdhr"><div></div></td></tr>
@@ -568,6 +575,10 @@ But if you don't normally visit local intranet sites that use custom domain name
 							<label class="legend">
 								Background color:
 								<input title="Default: #3399FF" name="option_selectedresultbgcolor" id="option_selectedresultbgcolor" type="text" class="color {hash:true, pickerPosition:'right'}" maxlength="7" size="6" spellcheck="false" style="text-align:center" />
+							</label>
+							<label class="legend">
+								Highlighted word color:
+								<input title="Default: #79BCFF" name="option_highlightedWordColor_highlighted" id="option_highlightedWordColor_highlighted" type="text" class="color {hash:true, pickerPosition:'right'}" maxlength="7" size="6" spellcheck="false" style="text-align:center" />
 							</label>
 						</td>
 					</tr>
@@ -890,14 +901,14 @@ If disabled, a hyphen will be displayed between the URL and title.">(?)</span>
 					<img src="/img/fauxbar48.png" style="height:28px; width:28px; vertical-align:middle; position:relative; top:-2px; padding-right:2px;" />
 					Management
 				</h1>
-				<span class="extensionName">Fauxbar</span> version 1.5.0 &nbsp;<span style="opacity:.5">(10 April 2016)</span>
+				<span class="extensionName">Fauxbar</span> version 1.6.0 &nbsp;<span style="opacity:.5">(14 January 2017)</span>
 				<table>
 					<tr><td colspan="2" class="tdhr"><div></div></td></tr>
 					<tr>
 						<th>Database</th>
 						<td>
 							<label class="legend" style="margin-top:1px">
-								Your <span class="extensionName">Fauxbar</span> database currently contains:<br />
+								Your <span class="extensionName">Fauxbar</span> database contains:<br />
 								&nbsp;&bull; <span id="stats_historyitems">?</span> history <span id="itemsplural">items</span><br />
 								&nbsp;&bull; <span id="stats_bookmarks">?</span> <span id="bookmarksplural">bookmarks</span><br />
 								&nbsp;&bull; <span id="stats_searchengines">?</span> search <span id="enginesplural">engines</span><br />

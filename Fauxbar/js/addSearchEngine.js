@@ -14,7 +14,7 @@ $(document).ready(function(){
 	if (!engine) {
 		window.close();
 	}
-	$("style").append('* { font-family:'+localStorage.option_font+', Ubuntu, Lucida Grande, Segoe UI, Arial, sans-serif; }');
+	$("style").append('* { font-family:'+localStorage.option_font+', Ubuntu, Helvetica Neue, Segoe UI, Arial, sans-serif; }');
 
 	// Get Fauxbar's existing search engines
 	var engines = [];
