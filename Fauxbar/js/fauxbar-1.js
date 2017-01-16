@@ -600,7 +600,8 @@ function showContextMenu(e) {
 		var y = e.pageY;
 		var x = e.pageX;
 	}
-	html += '<div id="contextMenu" style="top:'+y+'px; left:'+x+'px; opacity:0" '+(usingSuperTriangle ? 'class="supercontext"' : '')+'>';
+
+	html += '<div id="contextMenu" style="top:'+y+'px; left:'+x+'px; opacity:0;" '+(usingSuperTriangle ? 'class="supercontext"' : '')+'>';
 	var cutCopyPaste = false;
 
 	if ($('input[type="text"]:focus, textarea:focus').length) {
@@ -718,14 +719,15 @@ function showContextMenu(e) {
 	if (usingSuperTriangle || $("#awesomeinput:focus").length) {
 		$("#super_triangle .triangle").addClass("glow");
 		// += '	<div class="menuOption" style="background-image:url(chrome://favicon/null); background-repeat:no-repeat; background-position:'+(window.OS == "Mac" ? "4px 1px" : "4px 2px")+';">History &amp; Bookmarks</div>';
-		html += '	<div class="menuOption" style="background-image:url(/img/null.png); background-repeat:no-repeat; background-position:'+(window.OS == "Mac" ? "4px 1px" : "4px 2px")+';">History &amp; Bookmarks</div>';
+		html += '	<div class="menuOption" style="background-image:url(/img/null.png); background-repeat:no-repeat; background-position:'+(window.OS == "Mac" ? "4px 3px" : "4px 2px")+';">History &amp; Bookmarks</div>';
 		html += '	<div class="menuHr"></div>';
 	}
 
+	var macKeywordFont = window.OS == "Mac" ? "font:menu;" : "";
 	if (($("#opensearchinput:focus, #awesomeinput:focus").length || usingSuperTriangle || $("#opensearch_triangle .glow").length) && !window.tileEditMode) {
 		$(".menuitem").each(function(){
 			if ($(this).attr("shortname")) {
-				html += '	<div class="menuOption engine" shortname="'+$(this).attr("shortname")+'" keyword="'+$(this).attr("keyword")+'" style="background-image:url('+$(this).attr("iconsrc")+'); background-size:16px 16px; background-repeat:no-repeat; background-position:'+(window.OS == "Mac" ? "4px 1px" : "4px 2px")+';">'+
+				html += '	<div class="menuOption engine" shortname="'+$(this).attr("shortname")+'" keyword="'+$(this).attr("keyword")+'" style="background-image:url('+$(this).attr("iconsrc")+'); background-size:16px 16px; background-repeat:no-repeat; background-position:'+(window.OS == "Mac" ? "4px 3px" : "4px 2px")+';'+macKeywordFont+'">'+
 				$(this).attr("shortname")+
 				($(this).attr("keyword") && !strstr($(this).attr("keyword"),"fakekeyword_") ? ' <span style="display:inline-block; opacity:.5; float:right; margin-right:-20px">&nbsp;'+$(this).attr("keyword")+'</span>' : '') +
 				'</div>';
@@ -790,7 +792,7 @@ function showContextMenu(e) {
 		$("#contextMenu").css("top", window.innerHeight - $("#contextMenu").outerHeight() + $(window).scrollTop() + "px");
 	}
 
-	$(".menuOption.fauxbar16").first().css("background-image","url(/img/fauxbar16.png)").css("background-repeat","no-repeat").css("background-position",window.OS == "Mac" ? "4px 1px" : "4px 2px");
+	$(".menuOption.fauxbar16").first().css("background-image","url(/img/fauxbar16.png)").css("background-repeat","no-repeat").css("background-position",window.OS == "Mac" ? "4px 3px" : "4px 2px");
 	$("#contextMenu").animate({opacity:1},100);
 }
 
@@ -2921,7 +2923,7 @@ function getResults(noQuery) {
 							// Display results.
 							$("#results").css("display","block").css("opacity",0)
 								.css("position","fixed")
-								.css("top", $("#awesomeinput").offset().top + $("#awesomeinput").outerHeight() + 3 + "px")
+								.css("top", $("#awesomeinput").offset().top + $("#awesomeinput").outerHeight() + (window.OS == "Mac" ? 5 : 3) + "px")
 								.css("left", $("#addresswrapper").offset().left - 2 + "px")
 								.css("width", $("#addresswrapper").outerWidth() - 2 + "px")
 							;
@@ -2986,7 +2988,8 @@ function getResults(noQuery) {
 
 							var scrollbarWidth = window.resultsAreScrollable ? getScrollBarWidth() : 0;
 
-							$("#results .favstar").attr("src", $("#fauxstar").attr("src")).css("margin-left",($("#results").innerWidth()-25-scrollbarWidth)+"px").css("margin-top","2px");
+							var favstarMarginTop = window.OS == "Mac" ? "-1px" : "2px";
+							$("#results .favstar").attr("src", $("#fauxstar").attr("src")).css("margin-left",($("#results").innerWidth()-25-scrollbarWidth)+"px").css("margin-top",favstarMarginTop);
 							$(".resultTag").each(function(){
 								$(this).css("left", $("#results").offset().left + $("#results").outerWidth() - $(this).outerWidth() - $(this).offset().left - ($(this).prev(".favstar").length*16) - scrollbarWidth);
 							});

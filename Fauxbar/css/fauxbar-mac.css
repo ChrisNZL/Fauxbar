@@ -1,17 +1,71 @@
-/* Mac-specific default styling */
-body { font-family:Helvetica Neue, Segoe UI, Arial, sans-serif; font-size:13px; }
+/* macOS-specific styling */
+/* Further down we force things to use `font:menu` because the normal rendering of Helvetica Neue looks awful for some reason. */
+/* Can't declare `font:menu` globally either because the font size gets stuck somewhere; seems I have to declare it for specific elements. */
+
+body { font-family:Helvetica Neue, Segoe UI, Arial, sans-serif; font-size:14px; }
+#body b { font-weight:bold; }
 #results *, #opensearch_results *, #awesomeinput, #opensearchinput, #opensearchmenu { font-family:Helvetica Neue, Segoe UI, Arial, sans-serif; }
-#options *, #dragging_os_row * { font-family:Helvetica Neue, Segoe UI, Arials, sans-serif; font-size:13px; }
+#options *, #dragging_os_row * { font-family:Helvetica Neue, Segoe UI, Arials, sans-serif; font-size:14px; }
 .switchtext { font-family:Helvetica Neue, Segoe UI, Arial, sans-serif; }
-#indexinginfo { font-family:Helvetica Neue, Segoe UI, Arial, sans-serif; font-size:13px; }
+#indexinginfo { font-family:Helvetica Neue, Segoe UI, Arial, sans-serif; font-size:14px; }
 #topthumbs, #apps { font-family:Helvetica Neue, Segoe UI, Arial, sans-serif; }
-#sapps button { font-family:Helvetica Neue, Segoe UI, Arial, sans-serif; font-size:12px; }
+#sapps button { font-family:Helvetica Neue, Segoe UI, Arial, sans-serif; font-size:13px; }
 .description { font-style:normal; }
 #options input[type="number"] { padding-right:0px; }
-#options select, #options option { font-size:16px; }
+/*#options select, #options option { font-size:16px; }*/
 #options button img { height:13px; width:13px; padding-left:2px; }
 #options .color { padding-right:2px; width:70px; }
-.result_favicon { margin-top:-2px; }
+.result_favicon { margin-top:-4px; }
 input::-webkit-input-placeholder { font-style:normal; }
 
-div#menubar menu items { font-size:12px; }
+table#options input { padding:3px; }
+
+/* Menu bar */
+div#menubar { font:menu; font-size:12.5px; }
+
+/* Input wrapper */
+#addresswrapper input, #searchwrapper input, .switchtext, .insetButton { font-size:14px; }
+.inputwrapper2 { padding-top:5px; padding-bottom:5px; }
+
+/* The Fauxbar */
+#thefauxbar input, #thefauxbar .switchtext { font:menu; font-size:14px; }
+#thefauxbar .insetbutton { padding:3px; }
+
+/* Site Tiles */
+#topthumbs * { font:menu; font-size:13px; }
+span.toptitle { margin-left:1px; margin-top:1px; }
+#topthumbs a { padding-bottom:4px; }
+
+/* App Tiles */
+#apps * { font:menu; font-size:13px; }
+#sapps button { font:menu; font-size:12px; }
+
+/* Indexing Info */
+#indexingInfoWrapper *, #StartIndexingButton { font:menu; font-size:14px; }
+
+/* Results */
+#results .result_title, #options .result_title, #results .result_title .dotdotdot { font:menu; font-size:13.5px; }
+.result_title, #options .result_title, .result_title .dotdotdot { font-size:14px; }
+.result, .resultpreview { padding: 6px 6px 6px 6px; }
+#results .result_url, #results span.switch, #options .result_url { font:menu; font-size:12px; margin-top:1px; }
+#results .result_url .dotdotdot { font:menu; font-size:12px; }
+
+/* Options */
+td#option_menu * { font:menu; }
+#options div.optionbox { font:menu; }
+.FontRowOptions { display:none; }
+#option_boxes * { font:menu; }
+#option_boxes * th { font-weight:bold; position:relative; top:-1px; }
+#option_boxes * select { font-size:13px; }
+#options * button.fallback { padding:3px; }
+
+/* Search Box results */
+#opensearch_results * { font:menu; font-size:12.5px; }
+
+/* Context Menu */
+#contextMenu div.menuOption { font:menu; font-size:13px; }
+
+/* Add Search Engine */
+body#addSearchEngine * { font:menu; font-size:13px; }
+body#addSearchEngine input { padding:3px; }
+body#addSearchEngine input#searchEngineName { padding-left:22px; }

@@ -98,10 +98,11 @@ $(document).ready(function(){
 		return error;
 	};
 
+	var backgroundImageHeight = window.OS == "Mac" ? 3 : ($("#searchEngineName").outerHeight()-17)/2;
 	$("#searchEngineName")
 		.val(name)
 		.css("background-image","url(chrome://favicon/"+engine.sourceUrl+")")
-		.css("background-position", "3px " + ($("#searchEngineName").outerHeight()-17)/2 +"px")
+		.css("background-position", "3px " + backgroundImageHeight +"px")
 		.select();
 
 	$("#cancel").live("click", function(){

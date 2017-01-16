@@ -56,7 +56,7 @@ button { padding:3px 12px; }
 
 /* The wrapper is the Fauxbar, if you will; wraps around the two Boxes. */
 .wrapper {
-	max-width:1000px; margin:0 auto 0 auto; text-align:center; padding:8px; border-radius:6px;
+	max-width:1000px; margin:0 auto 0 auto; text-align:center; padding:8px; border-radius:7px;
 	background:-webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,.12)), to(rgba(0,0,0,.50)));
 	position:relative; box-shadow:0 5px 7px rgba(0,0,0,.27);
 }
@@ -246,3 +246,6 @@ menu item > items { margin:-3px 0 0 2px; }
 menu items arrow { display:inline-block; float:right; -webkit-transform:rotate(-90deg) scale(.75,.45); margin-right:-25px; }
 
 menu items.displayNone { display:none; }
+
+button.fallback { font-size:12px; padding:2px 4px 2px 3px; }
+button.fallback img { vertical-align:middle; margin-top:-3px; height:16px; width:16px; }

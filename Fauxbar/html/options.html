@@ -12,12 +12,12 @@
 			<div id="option_section_general" class="section_selected" optionbox="generaloptions">General</div>
 			<div id="option_section_addressbox" class="section_general" optionbox="addressoptions">Address Box</div>
 			<div id="option_section_searchengines" class="section_general" optionbox="searchoptions">Search Engines</div>
-			<div id="option_section_keyboardshortcuts" class="section_general" optionbox="shortcutoptions">Keyboard Shortcuts</div>
 			<div id="option_section_tiles" class="section_general" optionbox="tilesoptions">Tiles</div>
 			<div id="option_section_menubar" class="section_general" optionbox="menubaroptions">Menu Bar</div>
 			<div id="option_section_results" class="section_general" optionbox="resultoptions">Colors &amp; Styling</div>
 			<div id="option_section_background" class="section_general" optionbox="backgroundoptions">Page Background</div>
 			<div id="option_section_frecency" class="section_general" optionbox="frecencyoptions">Frecency Scoring</div>
+			<div id="option_section_keyboardshortcuts" class="section_general" optionbox="shortcutoptions">Keyboard Shortcuts</div>
 
 			<span class="optionmenucat" style="margin-top:5px">Misc</span>
 			<div id="option_section_management" class="section_general" optionbox="managementoptions">Management<span id="errorCount" style="font-size:11px"></span></div>
@@ -265,20 +265,20 @@ Then, if you type the same query in the future, Fauxbar will ask Chrome to start
 								<input name="option_fallbacksearchurl" id="option_fallbacksearchurl" class="http" type="text" spellcheck="false" style="width:95%" />
 							</label>
 							Change to:
-							<button class="fallback google" url="https://www.google.com/search?btnI=&q={searchTerms}" style="font-size:12px; padding:2px 4px 2px 3px;">
-								<img src="/img/google.ico" style="vertical-align:middle; margin-top:-3px; height:16px; width:16px;" />
+							<button class="fallback google" url="https://www.google.com/search?btnI=&q={searchTerms}">
+								<img src="/img/google.ico" />
 								Google.com
 							</button>
-							<button class="fallback duckduckgo" url="https://duckduckgo.com/?q={searchTerms}" style="font-size:12px; padding:2px 4px 2px 3px;">
-								<img src="/img/duckduckgo.ico" style="vertical-align:middle; margin-top:-3px; height:16px; width:16px;" />
+							<button class="fallback duckduckgo" url="https://duckduckgo.com/?q={searchTerms}">
+								<img src="/img/duckduckgo.ico" />
 								DuckDuckGo.com
 							</button>
-							<button class="fallback yahoo" url="http://search.yahoo.com/search?p={searchTerms}" style="font-size:12px; padding:2px 4px 2px 3px;">
-								<img src="/img/yahoo.ico" style="vertical-align:middle; margin-top:-3px; height:16px; width:16px;" />
+							<button class="fallback yahoo" url="http://search.yahoo.com/search?p={searchTerms}">
+								<img src="/img/yahoo.ico" />
 								Yahoo.com
 							</button>
-							<button class="fallback bing" url="http://www.bing.com/search?q={searchTerms}" style="font-size:12px; padding:2px 4px 2px 3px;">
-								<img src="/img/bing.ico" style="vertical-align:middle; margin-top:-3px; height:16px; width:16px;" />
+							<button class="fallback bing" url="http://www.bing.com/search?q={searchTerms}">
+								<img src="/img/bing.ico" />
 								Bing.com
 							</button>
 							<div class="optionstip">
@@ -393,7 +393,7 @@ But if you don't normally visit local intranet sites that use custom domain name
 							</label>
 							<div class="optionstip" style="margin-bottom:15px">
 								When you visit a webpage that has a search field, right-click the field.
-								If <span class="extensionName" style="font-size:12px">Fauxbar</span> is able to interpret the field's code,&nbsp;<b style="white-space:nowrap"><span class="extensionName" style="font-size:12px">Fauxbar</span>: Add as search engine</b> will appear on the context menu.
+								If <span class="extensionName" style="font-size:12px">Fauxbar</span> is able to interpret the field's code,&nbsp;<b style="white-space:nowrap; font-weight:bold"><span class="extensionName" style="font-size:12px; font-weight:bold">Fauxbar</span>: Add as search engine</b> will appear on the context menu.
 							</div>
 							Or: <button addManually style="font-size:12px;font-family:inherit">Add manually...</button>
 						</td>
@@ -490,8 +490,8 @@ But if you don't normally visit local intranet sites that use custom domain name
 				</h1>
 				Many parts of <span class="extensionName">Fauxbar</span> can be colored and sized to your liking.
 				<table>
-					<tr><td colspan="2" class="tdhr"><div></div></td></tr>
-					<tr>
+					<tr class="FontRowOptions"><td colspan="2" class="tdhr"><div></div></td></tr>
+					<tr class="FontRowOptions">
 						<th>Font</th>
 						<td>
 							<label class="legend" style="margin-top:0px;">
@@ -901,7 +901,7 @@ If disabled, a hyphen will be displayed between the URL and title.">(?)</span>
 					<img src="/img/fauxbar48.png" style="height:28px; width:28px; vertical-align:middle; position:relative; top:-2px; padding-right:2px;" />
 					Management
 				</h1>
-				<span class="extensionName">Fauxbar</span> version 1.6.0 &nbsp;<span style="opacity:.5">(14 January 2017)</span>
+				<span class="extensionName">Fauxbar</span> version 1.6.0 &nbsp;<span style="opacity:.5">(16 January 2017)</span>
 				<table>
 					<tr><td colspan="2" class="tdhr"><div></div></td></tr>
 					<tr>
