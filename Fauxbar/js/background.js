@@ -958,7 +958,7 @@ $(document).ready(function(){
 	});
 
 	// New version info
-	var currentVersion = "1.6.0";
+	var currentVersion = "1.6.1";
 	if (
 		(!localStorage.currentVersion && localStorage.indexComplete && localStorage.indexComplete == 1) ||
 		(localStorage.currentVersion && localStorage.currentVersion != currentVersion) ||

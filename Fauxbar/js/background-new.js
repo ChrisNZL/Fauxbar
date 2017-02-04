@@ -1065,7 +1065,7 @@ chrome.runtime.onMessage.addListener(function(request, sender){
 });
 
 chrome.runtime.onInstalled.addListener(function(details){
-	var currentVersion = "1.6.0";
+	var currentVersion = "1.6.1";
 	switch (details.reason) {
 	
 		case 'install':
@@ -1629,7 +1629,7 @@ function reapplyKeywords() {
 				var len = results.rows.length, i;
 				if (len > 0) {
 					for (var i = 0; i < len; i++) {
-						tx.executeSql('UPDATE urls SET tag = ? WHERE url = ?', [results.rows.item(i).tag, results.rows.item(i).url], [], function(tx, results2){
+						tx.executeSql('UPDATE urls SET tag = ? WHERE url = ?', [results.rows.item(i).tag, results.rows.item(i).url], function(tx, results2){
 							if (results2.rowsAffected == 0) {
 								tx.executeSql('DELETE FROM tags WHERE tag = ? AND url = ?', [results.rows.item(i).tag, results.rows.item(i).url]);
 							}
