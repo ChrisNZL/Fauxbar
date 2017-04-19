@@ -10,7 +10,7 @@ _An alternative to Chrome's Omnibox._
 
 [Fauxbar Lite](https://chrome.google.com/webstore/detail/bfimmnpbjccjihohjkimphfmmebffbmk) is also available. [What's the difference?](https://github.com/ChrisNZL/Fauxbar/wiki/FAQ#whats-the-difference-between-fauxbar-and-fauxbar-lite)
 
-Latest version: 1.6.1 (5 February 2017). [View changelog](https://github.com/ChrisNZL/Fauxbar/wiki/Changelog)
+Latest version: 1.7.0 (19 April 2017). [View changelog](https://github.com/ChrisNZL/Fauxbar/wiki/Changelog)
 
 ---
 
