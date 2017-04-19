@@ -423,6 +423,12 @@ $('menu a[uninstall]').live('mousedown', function(){
 	confirm('Uninstall "'+$(this).parents('items').first().next('a').text().substr(1)+'" from Chrome?') && chrome.management.uninstall($(this).attr('extensionId'));
 });
 
+$('menu a[appid][href=""]').live("click", function(){
+	chrome.management.launchApp($(this).attr("appid"));
+	clearMenus();
+	return false;
+});
+
 var refreshingAppAndExtensionMenus = false; // Prevent duplicated menu items that seem to happen for some reason
 
 function refreshAppAndExtensionMenus() {
@@ -467,10 +473,17 @@ function refreshAppAndExtensionMenus() {
 					var storeDetail = 'https://chrome.google.com/webstore/detail/';
 					homepageIcon = 'chrome://favicon/' + (e.homepageUrl.substr(0,storeDetail.length) == storeDetail ? 'https://chrome.google.com/webstore' : e.homepageUrl);
 				}
+
+				// Item to launch app that doesn't have a launchURL
+				var forceToShowLaunchApp = false;
+				if (e.isApp && (!e.appLaunchUrl || e.appLaunchUrl == "")) {
+					forceToShowLaunchApp = true;
+				}
+
 				$(s).append(
 					'<item style="background-image:url('+iconUrl+(e.enabled ? '' : '?grayscale=true')+')">' +
 						'<items>' +
-							(e.appLaunchUrl && e.appLaunchUrl.length ? '<item><a href="'+e.appLaunchUrl+'">Launch app</a></item><hr/>' : '') +
+							(forceToShowLaunchApp || (e.appLaunchUrl && e.appLaunchUrl.length) ? '<item><a href="'+e.appLaunchUrl+'" appid="'+e.id+'">Launch app</a></item><hr/>' : '') +
 							(e.homepageUrl && e.homepageUrl.length ? '<item><a href="'+e.homepageUrl+'">Visit website</a></item><hr />' : '') +
 							(e.optionsUrl && e.optionsUrl.length && e.enabled ? '<item style="background-image:url(/img/wrench.png)"><a href="'+e.optionsUrl+'">Options</a></item>' : '') +
 							(e.enabled ? '<item><a disable extensionId="'+e.id+'">Disable</a></item>' : '<item><a enable extensionId="'+e.id+'">Enable</a></item>') +
@@ -743,10 +756,14 @@ function populateChildBookmarks(nodeId) {
 				$('menu[bookmarks] item[nodeId="'+nodeId+'"]').prepend('<items><group bookmarkFolders></group><group bookmarkLinks></group></items>');
 			}
 			if (nodes.length) {
+				var totalUrls = 0;
 				for (var n in nodes) {
 					var b = nodes[n];
 					var title = formatMenuTitle(b.title);
 					var icon = b.url ? 'chrome://favicon/'+b.url : '/img/folder_closed.png';
+					if (b.url) {
+						totalUrls++;
+					}
 					var backgroundSize = b.url ? '' : 'background-size:19px 18px;';
 					var arrow = b.url ? '' : '<arrow>&#x25BC;</arrow>';
 					var html = '<item nodeId="'+b.id+'" style="background-image:url('+icon+'); '+backgroundSize+'"><a '+(b.url ? 'href="'+b.url+'"' : '')+'>'+arrow+title+'</a></item>';
@@ -755,6 +772,12 @@ function populateChildBookmarks(nodeId) {
 					} else {
 						$('menu[bookmarks] item[nodeId="'+nodeId+'"] > items > group[bookmark'+(b.url && localStorage.option_bookmarksMenu_foldersFirst == 1 ?'Links':'Folders')+']').append(html);
 					}
+				}
+				if (totalUrls > 1 && totalUrls <= 30) {
+					var openAllBookmarksHtml = '<hr /><item openAllBookmarks nodeIdToOpen="'+nodeId+'"><a>Open all bookmarks</a></item>';
+					openAllBookmarksHtml += '<item openAllBookmarksInNewWindow nodeIdToOpen="'+nodeId+'"><a>Open all bookmarks in new window</a></item>';
+					openAllBookmarksHtml += '<item openAllBookmarksInIncognitoWindow nodeIdToOpen="'+nodeId+'"><a>Open all bookmarks in incognito window</a></item>';
+					$('menu[bookmarks] item[nodeId="'+nodeId+'"] > items > group[bookmarkLinks]').append(openAllBookmarksHtml);
 				}
 			} else {
 				$('menu[bookmarks] item[nodeId="'+nodeId+'"] > items').append('<item faded><a>(empty)</a></item>');
@@ -775,6 +798,46 @@ function populateChildBookmarks(nodeId) {
 		});
 	}
 }
+
+$('item[openAllBookmarks]').live("click", function(){
+	var nodeID = $(this).attr("nodeIdToOpen");
+	chrome.bookmarks.getChildren(nodeID, function(nodes){
+		for (var n in nodes) {
+			var node = nodes[n];
+			if (node.url && node.url.length > 0) {
+				chrome.tabs.create({url:node.url, active:false});
+			}
+		}
+	});
+});
+
+$('item[openAllBookmarksInNewWindow]').live("click", function(){
+	var nodeID = $(this).attr("nodeIdToOpen");
+	chrome.bookmarks.getChildren(nodeID, function(nodes){
+		var urls = new Array();
+		for (var n in nodes) {
+			var node = nodes[n];
+			if (node.url && node.url.length > 0) {
+				urls.push(node.url);
+			}
+		}
+		chrome.windows.create({url:urls, focused:true});
+	});
+});
+
+$('item[openAllBookmarksInIncognitoWindow]').live("click", function(){
+	var nodeID = $(this).attr("nodeIdToOpen");
+	chrome.bookmarks.getChildren(nodeID, function(nodes){
+		var urls = new Array();
+		for (var n in nodes) {
+			var node = nodes[n];
+			if (node.url && node.url.length > 0) {
+				urls.push(node.url);
+			}
+		}
+		chrome.windows.create({url:urls, focused:true, incognito:true});
+	});
+});
 
 var bookmarkBarNodeId = -1;
 var otherBookmarksNodeId = -1;

@@ -676,7 +676,7 @@ function showContextMenu(e) {
 		}
 	}
 
-	if (window.contextHref && !window.tileEditMode) {
+	if ((window.contextHref || window.linkIsApp) && !window.tileEditMode) {
 		var loadFile = "/html/loadfile.html#";
 		if (window.contextHref.substr(0,loadFile.length) == loadFile) {
 			window.contextHref = window.contextHref.substr(loadFile.length);
@@ -684,9 +684,15 @@ function showContextMenu(e) {
 		if (window.linkIsApp) {
 			html += '	<div class="menuOption disabled"><b>'+$(window.rightClickedApp).attr("appname")+'</b></div>';
 			html += '	<div class="menuHr"></div>';
-			html += '	<div class="menuOption">Open App in New Tab</div>';
-			html += '	<div class="menuOption">Open App in New Window</div>';
-			html += '	<div class="menuOption">Copy Link Address</div>';
+			var href = $(window.rightClickedApp).attr("href");
+			if (href && href.length > 0) {
+				html += '	<div class="menuOption">Open App in New Tab</div>';
+				html += '	<div class="menuOption">Open App in New Window</div>';
+				html += '	<div class="menuOption">Copy Link Address</div>';
+			}
+			else {
+				html += '	<div class="menuOption">Open App</div>';
+			}
 			html += '	<div class="menuHr"></div>';
 			html += '	<div class="menuOption">Uninstall</div>';
 		} else {
@@ -736,7 +742,7 @@ function showContextMenu(e) {
 		html += '	<div class="menuHr"></div>';
 	}
 
-	if (localStorage.indexComplete == 1 && !window.tileEditMode && !$('input[type="text"]:focus, textarea:focus').length && !usingSuperTriangle && !$("#opensearch_triangle .glow").length && !getHashVar("options") && /*localStorage.option_pagetilearrangement == "manual"*/ (localStorage.option_showtopsites == 1 || localStorage.option_showapps == 1) && !window.contextHref) {
+	if (localStorage.indexComplete == 1 && !window.tileEditMode && !window.linkIsApp && !$('input[type="text"]:focus, textarea:focus').length && !usingSuperTriangle && !$("#opensearch_triangle .glow").length && !getHashVar("options") && /*localStorage.option_pagetilearrangement == "manual"*/ (localStorage.option_showtopsites == 1 || localStorage.option_showapps == 1) && !window.contextHref) {
 		html += '	<div class="menuOption fauxbar16">Edit Tiles...</div>';
 	}
 	else if (window.tileEditMode && !$('input:focus').length) {
@@ -977,6 +983,11 @@ $("#contextMenu .menuOption").live("mousedown", function(){
 
 			case "Open App in New Window":
 				chrome.windows.create({url:window.contextHref});
+				break;
+
+			case "Open App":
+				var appID = $(window.rightClickedApp).attr("appid");
+				chrome.management.launchApp(appID);
 				break;
 
 			case "Open Link in Incognito Window":

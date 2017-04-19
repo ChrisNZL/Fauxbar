@@ -1065,7 +1065,7 @@ chrome.runtime.onMessage.addListener(function(request, sender){
 });
 
 chrome.runtime.onInstalled.addListener(function(details){
-	var currentVersion = "1.6.1";
+	var currentVersion = "1.7.0";
 	switch (details.reason) {
 	
 		case 'install':

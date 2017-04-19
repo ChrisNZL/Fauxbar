@@ -256,10 +256,11 @@ $(document).ready(function(){
 			apps = apps2;
 			var appHtml = '';
 			for (var a in apps) {
-				if (apps[a].isApp == true && apps[a].enabled) {
-					appHtml += '<a class="app app'+apps[a].id+'" href="'+apps[a].appLaunchUrl+'" appname="'+str_replace('"','&quot;',apps[a].name)+'" appid="'+apps[a].id+'">';
-					appHtml += '<img src="'+(apps[a].icons ? apps[a].icons[apps[a].icons.length-1].url : '/img/app128default.png')+'" style="height:128px;width:128px" /><br />';
-					appHtml += '<span title="'+apps[a].description+'" style="display:inline-block">'+apps[a].name+'</span>';
+				var app = apps[a];
+				if (app.isApp == true && app.enabled) {
+					appHtml += '<a class="app app'+app.id+'" href="'+app.appLaunchUrl+'" appname="'+str_replace('"','&quot;',app.name)+'" appid="'+app.id+'">';
+					appHtml += '<img src="'+(app.icons ? app.icons[app.icons.length-1].url : '/img/app128default.png')+'" style="height:128px;width:128px" /><br />';
+					appHtml += '<span title="'+app.description+'" style="display:inline-block">'+app.name+'</span>';
 					appHtml += '</a>';
 				}
 			}
@@ -291,6 +292,15 @@ $(document).ready(function(){
 			} else {
 				$("#apps").css("opacity",1);
 			}
+
+			// Create click handler for apps that don't have a launchURL
+			$("#apps a[href='']").live("click", function(el) {
+				var appID = $(this).attr("appid");
+				chrome.management.get(appID, function(appInfo){
+					chrome.management.launchApp(appID);
+				});
+				return false;
+			});
 		});
 	}
 
