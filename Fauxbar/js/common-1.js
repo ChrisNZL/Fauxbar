@@ -251,7 +251,7 @@ function resetOptions() {
 	localStorage.option_cutoff3 = 31; 						// Frecency bucket cutoff days #3
 	localStorage.option_cutoff4 = 90; 						// Frecency bucket cutoff days #4
 	localStorage.option_enableSearchContextMenu = 1;		// Right-click context menu for search input boxes on webpages
-	localStorage.option_fallbacksearchurl = "https://www.google.com/search?btnI=&q={searchTerms}";	// Fallback URL for Address Box.
+	localStorage.option_fallbacksearchurl = "https://www.google.com/search?q={searchTerms}";	// Fallback URL for Address Box.
 	localStorage.option_fauxbarfontcolor = "#000000";		// Address Box and Search Box input box font color.
 	localStorage.option_favcolor = "#FFFFFF";				// Bookmark icon tint color.
 	localStorage.option_favopacity = "0";					// Bookmark icon tint opacity.
@@ -292,6 +292,7 @@ function resetOptions() {
 	localStorage.option_quickdelete = 1;					// Don't enable Quick Delete by default. Don't want the user randomly deleting their history without knowing it.
 	localStorage.option_quickdelete_confirm = 1;			// Prompt user to confirm before deleting a history result using Quick Delete.
 	localStorage.option_recentvisits = 10;					// Number of recent visits to sample when calculating frecency scores for URLs.
+	localStorage.option_recordErrors = 1;					// Write errors to Fauxbar's error log.
 	localStorage.option_recordsearchboxqueries = 1;			// Keep a record of the user's Search Box queries, to suggest them to the user later on if they search for something similar.
 	localStorage.option_resultbgcolor = "#FFFFFF";			// Background color for results and suggestions/queries.
 	localStorage.option_sappsfontsize = 13;					// Font size (px) for main page tiles for top sites and installed apps.
@@ -310,7 +311,7 @@ function resetOptions() {
 	localStorage.option_showmatchinghistoryitems = 1;		// Search for and display matching history items from the Address Box.
 	localStorage.option_showQueriesViaKeyword = 1;			// Show previous search queries when seaching via keyword in the Address Box.
 	localStorage.option_showqueryhistorysuggestions = 1;	// Show Search Box past queries when user is typing a query into the Search Box.
-	localStorage.option_showStarInOmnibox = window.OS == "Mac" ? 1 : 1;		// Show a star in Omnibox bookmark results if possible.
+	localStorage.option_showStarInOmnibox = 1;				// Show a star in Omnibox bookmark results if possible.
 	localStorage.option_showSuggestionsViaKeyword = 1;		// Show suggestions from search engine when using keywords in the Address Box.
 	localStorage.option_showtopsites = 1;					// Show top site tiles.
 	localStorage.option_speech = "0";						// Show speech input icons in the Address Box and Search Box.
@@ -363,7 +364,6 @@ function resetMenuBarOptions() {
 	localStorage.option_chromeMenu_showHistory = 1;
 	localStorage.option_chromeMenu_showOptions = 1;
 	localStorage.option_chromeMenu_showExperiments = 1;
-	localStorage.option_chromeMenu_showPlugins = 1;
 	localStorage.option_chromeMenu_showWebStore = 1;
 	localStorage.option_showFauxbarMenu = 1;
 	localStorage.option_menuBar_useHistory2 = 1;

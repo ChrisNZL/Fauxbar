@@ -2,7 +2,6 @@
         //// Comments in this file must be prefixed with "////" and must be removed when packaging for Chrome Web Store
         
         //// Remember to update:
-        ////    background.js:  var currentVersion = "1.x.x";
         ////    background-new.js:  var currentVersion = "1.x.x";
         ////    options.html:   version 1.x.x and date
 
@@ -19,7 +18,7 @@
 
         "name": "Fauxbar", //// Rename for Fauxbar Lite
 
-        "version": "1.7.0",
+        "version": "1.7.1",
         "description": "An alternative to Chrome's Omnibox. Replaces the New Tab page.", //// Remove last sentence for Fauxbar Lite
 
         "minimum_chrome_version": "49",
@@ -76,7 +75,7 @@
         
         "manifest_version": 2,
         
-        "content_security_policy": "default-src 'self';   script-src 'self' https://platform.twitter.com;   style-src 'self' 'unsafe-inline';   img-src 'self' data: chrome: filesystem:;   connect-src 'self' http: https: chrome-extension:;   frame-src http: https:",
+        "content_security_policy": "default-src 'self';   script-src 'self' https://platform.twitter.com;   style-src 'self' 'unsafe-inline';   img-src 'self' http: https: data: chrome: filesystem:;   connect-src 'self' http: https: chrome-extension:;   frame-src http: https:",
 
         "content_scripts": [
                 {

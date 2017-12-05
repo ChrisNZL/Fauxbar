@@ -235,17 +235,18 @@ chrome.omnibox.onInputChanged.addListener(function(text, suggest){
 					// Don't process "javascript" items
 					var jsTest = 'javascript:';
 					for (var i = 0; i < len; i++) {
-						if (results.rows.item(i).url != lastUrl) {
+						var result = results.rows.item(i);
+						if (result.url != lastUrl) {
 							if (!lastUrl.length) {
-								window.omniboxFirstUrl = results.rows.item(i).url;
+								window.omniboxFirstUrl = result.url;
 							}
-							lastUrl = results.rows.item(i).url;
+							lastUrl = result.url;
 							newItem = {};
 							if (lastUrl.toLowerCase().substring(0,jsTest.length) != jsTest) {
-								newItem.url = results.rows.item(i).url;
-								newItem.title = results.rows.item(i).title;
-								newItem.tag = results.rows.item(i).tag;
-								if (results.rows.item(i).type == 2) {
+								newItem.url = result.url;
+								newItem.title = result.title;
+								newItem.tag = result.tag;
+								if (result.type == 2) {
 									newItem.isBookmark = true;
 								}
 								sortedHistoryItems[i] = newItem;
@@ -476,7 +477,7 @@ chrome.omnibox.onInputEntered.addListener(function(text){
 			if (localStorage.option_fallbacksearchurl && localStorage.option_fallbacksearchurl.length && strstr(localStorage.option_fallbacksearchurl, "{searchTerms}")) {
 				url = str_replace("{searchTerms}", urlencode(url), localStorage.option_fallbacksearchurl);
 			} else {
-				url = 'https://www.google.com/search?btnI=&q='+urlencode(url);
+				url = 'https://www.google.com/search?q='+urlencode(url);
 			}
 		} else {
 			addTypedVisitId(url);
@@ -891,7 +892,18 @@ chrome.bookmarks.onCreated.addListener(function(id, bookmark){
 			tx.executeSql('SELECT typedVisitIds FROM urls WHERE url = ? ORDER BY typedVisitIds DESC LIMIT 1', [b.url?b.url:""], function(tx, results){
 				var typedVisitIds = b.url && b.url.length && results.rows.length ? results.rows.item(0).typedVisitIds : '';
 				var score = visits && visits.length ? calculateFrecency(visits, typedVisitIds) : localStorage.option_frecency_unvisitedbookmark;
-				tx.executeSql('INSERT INTO urls (id, type, parentId, url, title) VALUES (?, ?, ?, ?, ?)', [b.id, 2, b.parentId, b.url?b.url:"", b.title?b.title:""]);
+
+				// Pending for v1.8: Allow bookmark folders to be added to Fauxbar's index.
+				var url = "";
+				if (b.url) {
+					url = b.url;
+				}
+				//else {
+					//url = ""; //fauxbar-bookmark-folder://"+b.id;
+					//console.log("BOOKMARK FOLDER URL: "+url);
+				//}
+
+				tx.executeSql('INSERT INTO urls (id, type, parentId, url, title) VALUES (?, ?, ?, ?, ?)', [b.id, 2, b.parentId, url, b.title?b.title:""]);
 				tx.executeSql('UPDATE urls SET frecency = ? WHERE url = ?', [score, b.url]);
 				tx.executeSql('UPDATE thumbs SET frecency = ? WHERE url = ?', [score, b.url]);
 			});
@@ -916,6 +928,7 @@ chrome.bookmarks.onRemoved.addListener(function(id, removeInfo){
 	removeBookmark(id);
 });
 
+// If an app has just been installed, show the App tiles
 chrome.management.onInstalled.addListener(function(app) {
 	if (app.isApp) {
 		console.log(app.name + ' has been installed.');
@@ -1065,7 +1078,7 @@ chrome.runtime.onMessage.addListener(function(request, sender){
 });
 
 chrome.runtime.onInstalled.addListener(function(details){
-	var currentVersion = "1.7.0";
+	var currentVersion = "1.7.1";
 	switch (details.reason) {
 	
 		case 'install':
@@ -1087,7 +1100,6 @@ chrome.runtime.onInstalled.addListener(function(details){
 			break;
 			
 		case 'update':
-
 			// Announcement
 			/*if (!localStorage.hasReadAnnouncementFor1_5_0) {
 				localStorage.hasReadAnnouncementFor1_5_0 = true;
@@ -1099,15 +1111,19 @@ chrome.runtime.onInstalled.addListener(function(details){
 			if (localStorage.justRetrievedFromCloud && localStorage.justRetrievedFromCloud == 1) {
 				delete localStorage.justRetrievedFromCloud;
 				chrome.tabs.create({url:chrome.runtime.getURL('/html/fauxbar.html#options=1')});
-			} else if (localStorage.justRestoredSearchEngineIcons && localStorage.justRestoredSearchEngineIcons == 1) {
+			}
+			else if (localStorage.justRestoredSearchEngineIcons && localStorage.justRestoredSearchEngineIcons == 1) {
 				delete localStorage.justRestoredSearchEngineIcons;
 				chrome.tabs.create({url:chrome.runtime.getURL('/html/fauxbar.html#options=1')});
-			} else if (localStorage.reloadUrl && localStorage.reloadUrl.length) {
+			}
+			else if (localStorage.reloadUrl && localStorage.reloadUrl.length) {
 				chrome.tabs.create({url:localStorage.reloadUrl});
 				delete localStorage.reloadUrl;
-			} else {
+			}
+			else {
 				if (details.previousVersion && details.previousVersion != currentVersion) {
-			
+					console.log("Fauxbar has been updated to version "+currentVersion);
+					console.log("Previous version was "+details.previousVersion);
 					// Uninstall Fauxbar Memory Helper if it exists...
 					// TODO: Uncomment once Chromium issue #260981 is fixed: https://code.google.com/p/chromium/issues/detail?id=260981
 					/*chrome.management.getAll(function(extensions){
@@ -1158,6 +1174,11 @@ chrome.runtime.onInstalled.addListener(function(details){
 						}
 					}*/
 					
+					// New options for v1.7.1
+					if (!localStorage.option_recordErrors) {
+						localStorage.option_recordErrors = 1;
+					}
+
 					// New options for v1.6.0
 					if (!localStorage.option_highlightedWordColor_normal) {
 						localStorage.option_highlightMatchingWords = 0;
@@ -1319,6 +1340,11 @@ chrome.runtime.onInstalled.addListener(function(details){
 							tx.executeSql('VACUUM');
 						});
 
+						// v1.7.1 - Alter opensearches table to add "encoding" column re: https://github.com/ChrisNZL/Fauxbar/issues/23
+						window.db.transaction(function(tx){
+							tx.executeSql('ALTER TABLE opensearches ADD COLUMN encoding TEXT DEFAULT ""');
+						});
+
 						// Update Google search URLs to use HTTPS - v1.4.0
 						window.db.transaction(function(tx){
 							tx.executeSql('UPDATE opensearches SET suggestUrl = ? WHERE suggestUrl = ?',
@@ -1425,6 +1451,7 @@ chrome.runtime.onInstalled.addListener(function(details){
 					}
 				}
 			}
+			localStorage.currentVersion = currentVersion;
 			break;
 			
 		case 'chrome_update':
@@ -1626,15 +1653,9 @@ function reapplyKeywords() {
 	if (openDb()) {
 		window.db.transaction(function(tx){
 			tx.executeSql('SELECT * FROM tags', [], function(tx, results) {
-				var len = results.rows.length, i;
-				if (len > 0) {
-					for (var i = 0; i < len; i++) {
-						tx.executeSql('UPDATE urls SET tag = ? WHERE url = ?', [results.rows.item(i).tag, results.rows.item(i).url], function(tx, results2){
-							if (results2.rowsAffected == 0) {
-								tx.executeSql('DELETE FROM tags WHERE tag = ? AND url = ?', [results.rows.item(i).tag, results.rows.item(i).url]);
-							}
-						});
-					}
+				for (var i = 0; i < results.rows.length; i++) {
+					var item = results.rows.item(i);
+					tx.executeSql('UPDATE urls SET tag = ? WHERE url = ?', [item.tag, item.url]);
 				}
 			});
 		}, function(t){
@@ -1644,7 +1665,7 @@ function reapplyKeywords() {
 }
 
 // Tell Fauxbar to refresh any Address Bar results.
-// Used when a tab opens, closes or changes.
+// Used when a tab opens, closes, or changes.
 // Refreshing is basically so that "Switch to tab" text can be shown or displayed as needed.
 function refreshResults() {
 	if (localStorage.option_switchToTab != "disable") {
@@ -1779,7 +1800,8 @@ function backupSearchEngines() {
 							method:		item.method,
 							position:	item.position,
 							suggestUrl:	item.suggestUrl,
-							keyword:	item.keyword
+							keyword:	item.keyword,
+							encoding:   item.encoding
 						};
 					}
 					localStorage.backup_searchEngines = JSON.stringify(engines);
@@ -1987,8 +2009,8 @@ function index() {
 				toInsert.searchEngines = [
 					{shortname:"Google", iconurl:"google.ico", searchurl:"https://www.google.com/search?q={searchTerms}", xmlurl:"", xml:"", isdefault:1, method:"get", suggestUrl:"https://suggestqueries.google.com/complete/search?output=firefox&q={searchTerms}", keyword:"g"},
 					{shortname:"DuckDuckGo", iconurl:"duckduckgo.ico", searchurl:"https://duckduckgo.com/?q={searchTerms}", xmlurl:"", xml:"", isdefault:0, method:"get", suggestUrl:"https://duckduckgo.com/ac/?q={searchTerms}&type=list", keyword:"d"},
-					{shortname:"Yahoo!", iconurl:"yahoo.ico", searchurl:"http://search.yahoo.com/search?p={searchTerms}", xmlurl:"", xml:"", isdefault:0, method:"get", suggestUrl:"http://ff.search.yahoo.com/gossip?output=fxjson&amp;command={searchTerms}", keyword:"y"},
-					{shortname:"Bing", iconurl:"bing.ico", searchurl:"http://www.bing.com/search?q={searchTerms}", xmlurl:"", xml:"", isdefault:0, method:"get", suggestUrl:"http://api.bing.com/osjson.aspx?query={searchTerms}", keyword:"b"}
+					{shortname:"Yahoo!", iconurl:"yahoo.ico", searchurl:"https://search.yahoo.com/search?p={searchTerms}", xmlurl:"", xml:"", isdefault:0, method:"get", suggestUrl:"http://ff.search.yahoo.com/gossip?output=fxjson&amp;command={searchTerms}", keyword:"y"},
+					{shortname:"Bing", iconurl:"bing.ico", searchurl:"https://www.bing.com/search?q={searchTerms}", xmlurl:"", xml:"", isdefault:0, method:"get", suggestUrl:"https://api.bing.com/osjson.aspx?query={searchTerms}", keyword:"b"}
 				];
 			}
 		}
@@ -2108,7 +2130,7 @@ function index() {
 									if (toInsert.searchEngines.length || localStorage.issue47 == 1) {
 										tx.executeSql('DROP TABLE IF EXISTS opensearches');
 									}
-									tx.executeSql('CREATE TABLE IF NOT EXISTS opensearches (shortname TEXT UNIQUE ON CONFLICT REPLACE, iconurl TEXT, searchurl TEXT, xmlurl TEXT, xml TEXT, isdefault NUMERIC DEFAULT 0, method TEXT DEFAULT "get", position NUMERIC DEFAULT 0, suggestUrl TEXT, keyword TEXT DEFAULT "")');
+									tx.executeSql('CREATE TABLE IF NOT EXISTS opensearches (shortname TEXT UNIQUE ON CONFLICT REPLACE, iconurl TEXT, searchurl TEXT, xmlurl TEXT, xml TEXT, isdefault NUMERIC DEFAULT 0, method TEXT DEFAULT "get", position NUMERIC DEFAULT 0, suggestUrl TEXT, keyword TEXT DEFAULT "", encoding TEXT DEFAULT "")');
 
 									if (localStorage.issue47 == 1) {
 										tx.executeSql('DROP TABLE IF EXISTS searchqueries');
@@ -2127,8 +2149,8 @@ function index() {
 										console.log("Inserting "+number_format(toInsert.searchEngines.length)+" search engines");
 										for (var en in toInsert.searchEngines) {
 											var e = toInsert.searchEngines[en];
-											tx.executeSql('INSERT INTO opensearches (shortname, iconurl, searchurl, xmlurl, xml, isdefault, method, suggestUrl, keyword) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-											[e.shortname, e.iconurl, e.searchurl, e.xmlurl, e.xml, e.isdefault, e.method, e.suggestUrl, e.keyword]);
+											tx.executeSql('INSERT INTO opensearches (shortname, iconurl, searchurl, xmlurl, xml, isdefault, method, suggestUrl, keyword, encoding) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+											[e.shortname, e.iconurl, e.searchurl, e.xmlurl, e.xml, e.isdefault, e.method, e.suggestUrl, e.keyword, e.encoding]);
 										}
 									}
 

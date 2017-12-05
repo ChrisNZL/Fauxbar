@@ -194,7 +194,7 @@ progress { width:100%; margin-top:6px; }
 #topthumbs a:hover span.tileCross { display:inline; }
 #cursorbox { display:inline-block;height:1px;width:1px;position:absolute;z-index:1400; }
 #topthumbs .holderTile { background:#fff; border:4px dashed #000; margin:6px; opacity:.2; box-shadow:none; }
-#editModeButtons {float:right; position:relative; right:1px; top:1px; padding-left:10px; }
+#editModeButtons {float:right; position:relative; right:3px; top:3px; padding-left:10px; }
 #editModeButtons button { font-size:12px; }
 
 /* Error display box */

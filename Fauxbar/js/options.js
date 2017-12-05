@@ -163,8 +163,8 @@ function restoreOptions() {
 				tx.executeSql('DELETE FROM opensearches');
 				for (var s in text.searchengines) {
 					var se = text.searchengines[s];
-					tx.executeSql('INSERT INTO opensearches (shortname, iconurl, searchurl, xmlurl, xml, isdefault, method, position, suggestUrl, keyword) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-						[se.shortname, se.iconurl, se.searchurl, se.xmlurl, se.xml, se.isdefault, se.method, se.position, se.suggestUrl, se.keyword]);
+					tx.executeSql('INSERT INTO opensearches (shortname, iconurl, searchurl, xmlurl, xml, isdefault, method, position, suggestUrl, keyword, encoding) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+						[se.shortname, se.iconurl, se.searchurl, se.xmlurl, se.xml, se.isdefault, se.method, se.position, se.suggestUrl, se.keyword, se.encoding]);
 				}
 				for (var t in text.tags) {
 					var tag = text.tags[t];
@@ -256,18 +256,37 @@ function sortSearchEnginesAlphabetically() {
 	}
 }
 
+// If user selects a different encoding for a search engine, update the database
+$("#opensearchoptionstable td.encoding select").live("change", function(){
+	if (openDb()) {
+		var encodingValue = $(this).val();
+		var searchUrl = $(this).parent().parent().find("td.searchurl input").val();
+		window.db.transaction(function(tx){
+			tx.executeSql('UPDATE opensearches SET encoding = ? WHERE searchurl = ?', [encodingValue, searchUrl]);
+		}, function(t){
+			errorHandler(t, getLineInfo());
+		}, function(){
+			getSearchEngines();
+			populateOpenSearchMenu();
+			chrome.runtime.sendMessage(null, "backup search engines");
+		});
+	}
+});
+
+
 // Update the list of search engines in the Search Box Options page
 function getSearchEngines() {
 	if (openDb()){
 		window.db.readTransaction(function(tx){
-			tx.executeSql('SELECT iconurl, shortname, searchurl, keyword FROM opensearches ORDER BY position DESC, shortname COLLATE NOCASE ASC', [], function(tx,results){
+			tx.executeSql('SELECT iconurl, shortname, searchurl, keyword, encoding FROM opensearches ORDER BY position DESC, shortname COLLATE NOCASE ASC', [], function(tx,results){
 				var openEngines = '';
 				var len = results.rows.length, i;
 				var iconUrl = "";
 				var keyword = "";
 				if (len > 0) {
 					for (var i = 0; i < len; i++) {
-						iconUrl = results.rows.item(i).iconurl;
+						var searchEngine = results.rows.item(i);
+						iconUrl = searchEngine.iconurl;
 						if (iconUrl != "google.ico" && iconUrl != "yahoo.ico" && iconUrl != "bing.ico" && iconUrl != "duckduckgo.ico") {
 							iconUrl = "chrome://favicon/"+iconUrl;
 						} else {
@@ -275,21 +294,39 @@ function getSearchEngines() {
 						}
 						openEngines += '<tr class="opensearch_optionrow">';
 						openEngines += '<td class="osicon" style="width:1px; padding:0px 0px 0 5px"><img src="'+iconUrl+'" style="height:16px; width:16px" /></td>';
-						openEngines += '<td style="width:25%" class="shortname"><input class="inputoption" type="text" value="'+str_replace('"', '&quot;', results.rows.item(i).shortname)+'" origvalue="'+str_replace('"', '&quot;', results.rows.item(i).shortname)+'" /></td>';
-						openEngines += '<td style="width:13%" class="keyword"><input class="inputoption" type="text" value="'+results.rows.item(i).keyword+'" origvalue="'+results.rows.item(i).keyword+'" /></td>';
-						openEngines += '<td style="width:75%" class="searchurl"><input class="inputoption" type="text" value="'+results.rows.item(i).searchurl+'" origvalue="'+results.rows.item(i).searchurl+'" style="color:rgba(0,0,0,.52)" spellcheck="false" autocomplete="off" /></td>';
+						openEngines += '<td style="width:23%" class="shortname"><input class="inputoption" type="text" value="'+str_replace('"', '&quot;', searchEngine.shortname)+'" origvalue="'+str_replace('"', '&quot;', searchEngine.shortname)+'" /></td>';
+						openEngines += '<td style="width:10%" class="keyword"><input class="inputoption" type="text" value="'+searchEngine.keyword+'" origvalue="'+searchEngine.keyword+'" /></td>';
+						openEngines += '<td style="width:75%" class="searchurl"><input class="inputoption" type="text" value="'+searchEngine.searchurl+'" origvalue="'+searchEngine.searchurl+'" style="color:rgba(0,0,0,.52)" spellcheck="false" autocomplete="off" /></td>';
+							
+						openEngines +=
+							'<td class="encoding" style="width:13%">'+
+								'<select>' +
+									'<option value="" '+(searchEngine.encoding == "" ? " selected" : "")+'>Default</option>' +
+									'<option value="other" '+(searchEngine.encoding == "other" ? " selected" : "")+'>Other</option>' +
+								'</select>' +
+							'</td>';
+
 						if (len > 1) {
-							openEngines += '<td style="width:1px; padding:0 5px 0 4px" class="opensearchcross" title="Remove &quot;'+str_replace('"','&quot;',results.rows.item(i).shortname)+'&quot; from Fauxbar"><img class="crossicon" src="/img/cross.png" /></td>';
+							openEngines += '<td style="width:1px; padding:0 5px 0 4px" class="opensearchcross" title="Remove &quot;'+str_replace('"','&quot;',searchEngine.shortname)+'&quot; from Fauxbar"><img class="crossicon" src="/img/cross.png" /></td>';
 						} else {
 							openEngines += '<td></td>';
 						}
 						openEngines += '</tr>\n';
 					}
 
-					$("#opensearchengines").html('<table id="opensearchoptionstable" class="opensearchoptionstable" style="width:100%" cellpadding="2" cellspacing="0" style="border-collapse:collapse">'+
-													'<tr style="opacity:.55"><td colspan="2" style="font-size:12px;font-weight:bold; padding-left:4px">Name</td>'+
-														'<td style="font-size:12px; font-weight:bold; padding-right:15px; padding-left:4px">Keyword</td><td colspan="2" style="padding-left:4px; text-align:left; font-size:12px; font-weight:bold">URL</td></tr>'+
-													openEngines+'</table>');
+					var encodingHelp = '<span style="opacity:.5; cursor:help; font-weight:normal" title="Certain search engines handle space characters differently.\n\n&bull; Default (most common): Spaces will be replaced with +\n\n&bull; Other: Spaces will be replaced with %20">(?)</span>';
+
+					$("#opensearchengines").html(
+						'<table id="opensearchoptionstable" class="opensearchoptionstable" style="width:100%" cellpadding="2" cellspacing="0" style="border-collapse:collapse">'+
+							'<tr style="opacity:.55">'+
+								'<td colspan="2" style="font-size:12px;font-weight:bold; padding-left:4px">Name</td>'+
+								'<td style="font-size:12px; font-weight:bold; padding-right:15px; padding-left:4px">Keyword</td>'+
+								'<td style="padding-left:4px; text-align:left; font-size:12px; font-weight:bold">URL</td>'+
+								'<td colspan="2" style="padding-left:4px; text-align:left; font-size:12px; font-weight:bold">Encoding&nbsp;'+encodingHelp+'</td>'+
+							'</tr>'+
+							openEngines+
+						'</table>'
+					);
 				}
 				var visibleSEButtons = 0;
 				$(".searchenginebutton").each(function(){

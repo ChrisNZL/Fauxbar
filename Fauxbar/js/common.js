@@ -57,6 +57,7 @@ function selectOpenSearchType(el, focusToo) {
 		osi.attr("placeholder",str_replace('"','&quot;',shortNameHtml));
 	}
 	window.openSearchShortname = shortNameHtml;
+	window.openSearchEncoding = $(el).attr("encoding");
 	var newTitle = "Search using "+str_replace('"','&quot',shortNameHtml);
 	osi.attr("title",newTitle).attr("realtitle",newTitle);
 	if (focusToo == true || window.changeDefaultOpenSearchType == true) {

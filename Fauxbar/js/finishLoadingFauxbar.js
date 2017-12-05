@@ -2,7 +2,7 @@ try {
 	chrome.tabs.getCurrent(function(tab){
 		chrome.tabs.update(tab.id, {selected:localStorage.option_openfauxbarfocus != "chrome"}, function(){
 			$(document).ready(function(){
-				var scriptsToLoad = [/*'md5-min.js',*/ 'fauxbar-2.js', 'common-1.js', 'fauxbar-1.js', 'menubar.js']
+				var scriptsToLoad = ['fauxbar-2.js', 'common-1.js', 'fauxbar-1.js', 'menubar.js']
 				var head = document.getElementById('head');
 				for (var s in scriptsToLoad) {
 					var newScript = document.createElement("script");

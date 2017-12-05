@@ -191,7 +191,7 @@ function goToUrl(url, fromClickedResult, dontResolve) {
 		if (localStorage.option_fallbacksearchurl && localStorage.option_fallbacksearchurl.length && strstr(localStorage.option_fallbacksearchurl, "{searchTerms}")) {
 			url = str_replace("{searchTerms}", urlencode(url), localStorage.option_fallbacksearchurl);
 		} else {
-			url = 'https://www.google.com/search?btnI=&q='+urlencode(url);
+			url = 'https://www.google.com/search?q='+urlencode(url);
 		}
 	} else if (!window.keywordEngine && !window.usedSearchBox) {
 		addTypedVisitId(url);
@@ -356,14 +356,40 @@ window.clickResult = function(resultEl) {
 	// Don't let the click go through if the result is a "Switch to tab" result
 	if (strstr($(resultEl).text(), "Switch to tab")) {
 		return false;
+	}
+	// If it's a bookmark folder, handle it
+	else if ($(resultEl).attr("bookmarkFolder")) {
+		OpenBookmarkFolderBookmarks($(resultEl).attr("bmid"), "CurrentWindow");
+		return false;
+	}
 	// But if it's a normal click, let it go through
-	} else {
+	else {
 		addTypedVisitId($(resultEl).attr("url"));
 		window.goingToUrl = $(resultEl).attr("url");
 		updateHash();
 		return true;
 	}
 };
+
+// Handle opening a bookmark folder
+function OpenBookmarkFolderBookmarks (folderID, targetWindow) {
+	chrome.bookmarks.getChildren(folderID, function(children){
+		for (var i in children) {
+			var bookmark = children[i];
+			if (bookmark.url) {
+				if (targetWindow == "CurrentWindow") {
+					chrome.tabs.create({ url:bookmark.url, active:false });
+				}
+				else if (targetWindow == "NewWindow") {
+
+				}
+				else if (targetWindow == "IncognitoWindow") {
+
+				}
+			}
+		}
+	});
+}
 
 // Set the var saying that the user is not rearranging the order of the Search Box's search engines (this should probably go under / OPTIONS / below
 window.draggingOsRow = false;
@@ -420,6 +446,18 @@ function submitOpenSearch(query) {
 	var openSearchInputVal = query ? query : (window.keywordEngine ? $("#awesomeinput").val() : $("#opensearchinput").val());
 	searchUrl = str_replace('{searchTerms}', urlencode(openSearchInputVal), searchUrl);
 
+	var encoding = "";
+	if (window.keywordEngine) {
+		encoding = window.keywordEngine.encoding;
+	}
+	else if (window.openSearchEncoding) {
+		encoding = window.openSearchEncoding;
+	}
+
+	if (encoding == "other") {
+		searchUrl = str_replace("+", "%20", searchUrl);
+	}
+
 	if (localStorage.option_recordsearchboxqueries == 1 && openDb()){
 		window.db.transaction(function(tx){
 			tx.executeSql('INSERT INTO searchqueries (query) VALUES (?)', [openSearchInputVal.trim()]);
@@ -468,6 +506,12 @@ function submitOpenSearch(query) {
 			$("#tempform").submit();
 		}
 	}
+}
+
+function enterTileEditMode() {
+	var newScript = document.createElement("script");
+	newScript.setAttribute('src', '/js/tilemode.js');
+	document.getElementById('head').appendChild(newScript);
 }
 
 // Listen to either the background page, or the Memory Helper...
@@ -552,12 +596,6 @@ chrome.runtime.onMessage.addListener(function (request) {
 		});
 	}
 });
-
-function enterTileEditMode() {
-	var newScript = document.createElement("script");
-	newScript.setAttribute('src', '/js/tilemode.js');
-	document.getElementById('head').appendChild(newScript);
-}
 
 $("body").live("mousedown", function(e){
 	if (e.target.className != "menuOption" && e.target.className != "menuOption disabled" && e.target.id != "contextMenu") {
@@ -695,7 +733,8 @@ function showContextMenu(e) {
 			}
 			html += '	<div class="menuHr"></div>';
 			html += '	<div class="menuOption">Uninstall</div>';
-		} else {
+		}
+		else {
 			html += '	<div class="menuOption">Open Link in New Tab</div>';
 			html += '	<div class="menuOption">Open Link in New Window</div>';
 			html += '	<div class="menuOption">Open Link in Incognito Window</div>';
@@ -714,7 +753,8 @@ function showContextMenu(e) {
 
 				if (!$(window.rightClickedResult).attr("keyword")) {
 					html += '	<div class="menuOption fauxbar16">Add Keyword...</div>';
-				} else {
+				}
+				else {
 					html += '	<div class="menuOption fauxbar16">Edit Keyword...</div>';
 				}
 				html += '	<div class="menuHr"></div>';
@@ -733,7 +773,7 @@ function showContextMenu(e) {
 	if (($("#opensearchinput:focus, #awesomeinput:focus").length || usingSuperTriangle || $("#opensearch_triangle .glow").length) && !window.tileEditMode) {
 		$(".menuitem").each(function(){
 			if ($(this).attr("shortname")) {
-				html += '	<div class="menuOption engine" shortname="'+$(this).attr("shortname")+'" keyword="'+$(this).attr("keyword")+'" style="background-image:url('+$(this).attr("iconsrc")+'); background-size:16px 16px; background-repeat:no-repeat; background-position:'+(window.OS == "Mac" ? "4px 3px" : "4px 2px")+';'+macKeywordFont+'">'+
+				html += '	<div class="menuOption engine" shortname="'+$(this).attr("shortname")+'" encoding="'+$(this).attr("encoding")+'" keyword="'+$(this).attr("keyword")+'" style="background-image:url('+$(this).attr("iconsrc")+'); background-size:16px 16px; background-repeat:no-repeat; background-position:'+(window.OS == "Mac" ? "4px 3px" : "4px 2px")+';'+macKeywordFont+'">'+
 				$(this).attr("shortname")+
 				($(this).attr("keyword") && !strstr($(this).attr("keyword"),"fakekeyword_") ? ' <span style="display:inline-block; opacity:.5; float:right; margin-right:-20px">&nbsp;'+$(this).attr("keyword")+'</span>' : '') +
 				'</div>';
@@ -1168,7 +1208,7 @@ $("#contextMenu .menuOption").live("mousedown", function(){
 function populateOpenSearchMenu(force) {
 	if (openDb(force)) {
 		window.db.readTransaction(function (tx) {
-			tx.executeSql('SELECT shortname, searchurl, method, suggestUrl, iconurl, isdefault, keyword FROM opensearches ORDER BY position DESC, shortname COLLATE NOCASE asc', [], function (tx, results) {
+			tx.executeSql('SELECT shortname, searchurl, method, suggestUrl, iconurl, isdefault, keyword, encoding FROM opensearches ORDER BY position DESC, shortname COLLATE NOCASE asc', [], function (tx, results) {
 				var menuItems = '';
 				var len = results.rows.length, i;
 				var isDefault = false;
@@ -1176,13 +1216,14 @@ function populateOpenSearchMenu(force) {
 				var iconUrl = "";
 				var result = "";
 				var keyword = '';
+				var encoding = '';
 				var fakecount = 1;
 
 				for (var i = 0; i < len; i++) {
 					result = results.rows.item(i);
 					isDefault = result.isdefault == 1 ? true : false;
 					if (isDefault == true || defaultShortname == '') {
-						defaultShortname = results.rows.item(i).shortname;
+						defaultShortname = result.shortname;
 					}
 					iconUrl = result.iconurl;
 					if (iconUrl != "google.ico" && iconUrl != "yahoo.ico" && iconUrl != "bing.ico" && iconUrl != "duckduckgo.ico") {
@@ -1192,7 +1233,8 @@ function populateOpenSearchMenu(force) {
 					}
 
 					keyword = result.keyword.length ? result.keyword : "fakekeyword_"+date("U")+"_"+fakecount++;
-					menuItems += '<div class="menuitem" shortname="'+str_replace('"',"&quot;",result.shortname)+'" iconsrc="'+iconUrl+'" searchurl="'+result.searchurl+'" method="'+result.method+'" suggesturl="'+result.suggestUrl+'" keyword="'+keyword+'">';
+					encoding = result.encoding && result.encoding.length ? result.encoding : "";
+					menuItems += '<div class="menuitem" shortname="'+str_replace('"',"&quot;",result.shortname)+'" iconsrc="'+iconUrl+'" searchurl="'+result.searchurl+'" method="'+result.method+'" suggesturl="'+result.suggestUrl+'" keyword="'+keyword+'" encoding="'+encoding+'">';
 					menuItems += '<div class="vertline2">';
 					menuItems += '<img src="'+iconUrl+'" style="height:16px;width:16px" /> ';
 					menuItems += '<div class="vertline shortname">' + result.shortname;
@@ -2444,7 +2486,7 @@ function getResults(noQuery) {
 					keywordMatch = true;
 					usingKeyword = keyword;
 					$("#awesomeinput").attr("placeholder","Search");
-					window.keywordEngine = {shortname:$(this).attr("shortname"), keyword:$(this).attr("keyword"), suggestUrl:$(this).attr("suggesturl")};
+					window.keywordEngine = { shortname:$(this).attr("shortname"), keyword:$(this).attr("keyword"), suggestUrl:$(this).attr("suggesturl"), encoding:$(this).attr("encoding") };
 					$("#addressbaricon").attr("src",$("img",this).attr("src")).css("opacity",1);
 					hideResults();
 				}
@@ -2571,6 +2613,10 @@ function getResults(noQuery) {
 						+ ' LEFT JOIN tags '
 						+ ' ON urls.url = tags.url AND tags.tag LIKE ? ' 																  //OR tags.tag LIKE ?
 						+ ' WHERE urls.url != "" AND ('+typeOptions+') AND queuedfordeletion = 0 '+modifiers+' '+(urltitleQMarks2.length ? ' AND '+implode(" AND ", urltitleQMarks2) : ' ')+' ' + titleless + editModeUrls
+						
+						// UNCOMMENT for v1.8.0: Allowing url to be empty to work with bookmark folders
+						//+ ' WHERE ('+typeOptions+') AND queuedfordeletion = 0 '+modifiers+' '+(urltitleQMarks2.length ? ' AND '+implode(" AND ", urltitleQMarks2) : ' ')+' ' + titleless + editModeUrls
+						
 						+ ' ORDER BY tagscore DESC, frecency DESC, type DESC LIMIT '+resultLimit;
 					}
 
@@ -2624,13 +2670,20 @@ function getResults(noQuery) {
 						var jsTest = 'javascript:';
 						for (var i = 0; i < len; i++) {
 							newItem = {};
-							if (results.rows.item(i).url.toLowerCase().substring(0,jsTest.length) != jsTest) {
-								newItem.url = results.rows.item(i).url;
-								newItem.title = results.rows.item(i).title;
-								newItem.id = results.rows.item(i).id;
-								newItem.tag = results.rows.item(i).tag;
-								if (results.rows.item(i).type == 2) {
-									newItem.isBookmark = true;
+							var result = results.rows.item(i);
+							if (result.url.toLowerCase().substring(0,jsTest.length) != jsTest) {
+								newItem.url = result.url;
+								newItem.title = result.title;
+								newItem.id = result.id;
+								newItem.tag = result.tag;
+								if (result.type == 2) {
+									if (result.url) {
+										newItem.isBookmark = true;
+									}
+									else {
+										newItem.isBookmarkFolder = true;
+										//newItem.url = "fauxbar-bookmark-folder://"+newItem.id;
+									}
 								}
 								sHI[i] = newItem;
 							}
@@ -2730,10 +2783,10 @@ function getResults(noQuery) {
 								if (resultIsOkay && $('.result[url="'+hI.url+'"]').length > 0) {
 									if ($('.result[url="'+hI.url+'"] img.favstar').length == 0) {
 										if (!strstr(getAiSansSelected().toLowerCase(), "is:fav")) {
-											if (hI.isBookmark && !noQuery) { // bookmark
+											//if (hI.isBookmark && !noQuery) { // bookmark
 												//$('.result_title[url="'+hI.url+'"]').html('<img class="result_favicon" src="chrome://favicon/'+hI.url+'" />'+titleText);
 												//$('.result[url="'+hI.url+'"]').prepend('<img class="favstar" />');
-											}
+											//}
 											resultIsOkay = false;
 										}
 									} else if (localStorage.option_consolidateBookmarks && localStorage.option_consolidateBookmarks == 1) {
@@ -2861,6 +2914,13 @@ function getResults(noQuery) {
 										}
 									}
 
+									// Bookmark folder?
+									var bookmarkFolderAttribute = "";
+									if (hI.isBookmarkFolder) {
+										urlText = 'Bookmark folder';
+										bookmarkFolderAttribute = ' bookmarkFolder="1" ';
+									}
+
 									// Render the result's HTML
 									if (resultIsOkay) {
 										resultHtml = "";
@@ -2873,7 +2933,7 @@ function getResults(noQuery) {
 											newHref = hI.url;
 										}
 
-										resultHtml += '<a class="result '+arrowedClass+'" url="'+hI.url+'" href="'+newHref+'" origtitle="'+str_replace('"','&quot;',hI.title)+'" number="'+(currentRows+1)+'" '+resultOnClick+' bmid="'+hI.id+'" keyword="'+hI.tag+'">';
+										resultHtml += '<a class="result '+arrowedClass+'" url="'+hI.url+'" href="'+newHref+'" origtitle="'+str_replace('"','&quot;',hI.title)+'" number="'+(currentRows+1)+'" '+resultOnClick + bookmarkFolderAttribute+' bmid="'+hI.id+'" keyword="'+hI.tag+'">';
 										if (hI.isBookmark) {
 											resultHtml += '<img class="favstar" style="position:absolute;" />';
 										}
@@ -2881,7 +2941,10 @@ function getResults(noQuery) {
 										if (hI.tag) {
 											resultHtml += '<span class="resultTag" style="white-space:nowrap; position:absolute; display:block; font-size:'+localStorage.option_urlsize+'px; text-decoration:none">'+tagText+'</span>';
 										}
-										resultHtml += '	<div class="result_title" url="'+hI.url+'"><img class="result_favicon" src="chrome://favicon/'+hI.url+'" />'+titleText+'</div><br />';
+
+										var faviconSrc = hI.isBookmarkFolder ? chrome.extension.getURL("img/folder_closed.png") : 'chrome://favicon/'+hI.url;
+
+										resultHtml += '	<div class="result_title" url="'+hI.url+'"><img class="result_favicon" src="'+faviconSrc+'" />'+titleText+'</div><br />';
 										resultHtml += '	<div class="result_url">'+addTileText+urlText+'</div>';
 										resultHtml += ' <div class="visitinfo" id="hi_'+hI.id+'" url="'+hI.url+'"></div>';
 										resultHtml += ' <div class="result_url_hidden">'+urlTextAttr+'</div>';
@@ -2896,6 +2959,11 @@ function getResults(noQuery) {
 
 										$("#results").append(resultHtml);
 										autofillInput(thisQuery);
+
+										if (hI.isBookmarkFolder) {
+											UpdateBookmarkFolderResultDiv(hI.id);
+										}
+
 										currentRows++;
 									}
 								}
@@ -3063,6 +3131,44 @@ function getResults(noQuery) {
 	}
 }
 
+// If showing a bookmark folder in the results, update the URL div with appropriate text for how many pages the folder contains
+function UpdateBookmarkFolderResultDiv (folderID) {
+
+	if (window.bookmarkFolderPageCounts && window.bookmarkFolderPageCounts[folderID]) {
+		_UpdateBookmarkFolderResultDiv(folderID);
+		return;
+	}
+
+	if (openDb()) {
+		window.db.readTransaction(function(tx){
+			tx.executeSql('SELECT COUNT(*) as totalBookmarks FROM urls WHERE parentId = ? AND url != ?', [folderID, ""], function(tx, results){
+				var totalBookmarks = results.rows.item(0).totalBookmarks;
+				if (!window.bookmarkFolderPageCounts) {
+					window.bookmarkFolderPageCounts = [];
+				}
+				window.bookmarkFolderPageCounts[folderID] = totalBookmarks;
+				_UpdateBookmarkFolderResultDiv(folderID);
+			});
+		}, function(t){
+			errorHandler(t, getLineInfo());
+		});
+	}
+}
+function _UpdateBookmarkFolderResultDiv (folderID) {
+	var newText = "Bookmark folder &ndash; ";
+	var totalBookmarks = window.bookmarkFolderPageCounts[folderID];
+	if (totalBookmarks == 0) {
+		newText += "Empty";
+	}
+	else if (totalBookmarks == 1) {
+		newText += "1 page";
+	}
+	else {
+		newText += totalBookmarks+" pages";
+	}
+	$('a.result[bmid="'+folderID+'"] div.result_url').html(newText);
+}
+
 // resultOnClick
 $('[addTileThis]').live('click', function(){
 	addTile(this);
@@ -3071,15 +3177,6 @@ $('[addTileThis]').live('click', function(){
 $('[clickResultThis]').live('click', function(){
 	return window.clickResult(this);
 });
-
-
-// Hide the Address Box's currently displayed results.
-function hideResults() {
-	if ($(".result").length > 0) {
-		$(".glow").removeClass("glow");
-	}
-	$("#results").css("display","none").html("");
-}
 
 // Update the tab's hash value with what's currently in the Address and Search Boxes, so that the input can be restored if the user navigates pages back/forth.
 function updateHash() {

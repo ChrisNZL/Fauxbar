@@ -90,6 +90,14 @@ function renderSiteTiles(thumbs) {
 	}
 }
 
+// Hide the Address Box's currently displayed results.
+function hideResults() {
+	if ($(".result").length > 0) {
+		$(".glow").removeClass("glow");
+	}
+	$("#results").css("display","none").html("");
+}
+
 // If user's opted to show top site tiles...
 if (localStorage.indexComplete == 1 && !getHashVar("options")) {
 	if (localStorage.option_showtopsites == 1) {
@@ -371,4 +379,16 @@ $('button[startIndexing]').live('click', function(){
 $('.errorBoxCross, a[openTheErrorLog]').live('click', function(){
 	$('#errorBox').css('display','none');
 	return true;
+});
+
+// Allow all chrome-extension app tiles and menu items to be clicked on
+$("#apps .app, #menubar [apps] a[extensionname], #menubar [apps] a[launchApp]").live("click", function(){
+	var href = $(this).attr("href");
+	if (href.substring(0, 4) == "http") {
+		return true;
+	}
+	else {
+		chrome.management.launchApp($(this).attr("appid"));
+		return false;
+	}
 });

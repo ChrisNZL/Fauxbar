@@ -14,7 +14,9 @@ function clearMenus() {
 	$('#menubar menu').removeClass('selected');
 	$('#menubar item.expanded').removeClass('expanded');
 	$('#menubar item.hovering').removeClass('hovering');
-	removeContextMenu();
+	if (removeContextMenu) {
+		removeContextMenu();
+	}
 }
 
 function formatMenuTitle(title) {
@@ -331,7 +333,7 @@ function refreshChromeMenu() {
 			(localStorage.option_chromeMenu_showBookmarks == 1 ? '<item style="background-image:url(/img/bookmarks_favicon.png)"><a href="chrome://bookmarks">Bookmarks</a></item>' : '') +
 			(localStorage.option_chromeMenu_showDownloads == 1 ? '<item style="background-image:url(chrome://favicon/chrome://downloads/)"><a href="chrome://downloads">Downloads</a></item>' : '') +
 			(localStorage.option_chromeMenu_showExtensions == 1 ?
-				'<item style="background-image:url(chrome://favicon/chrome://plugins/)"><a href="chrome://extensions">Extensions</a></item>' : '') +
+				'<item style="background-image:url(chrome://favicon/chrome://extensions)"><a href="chrome://extensions">Extensions</a></item>' : '') +
 			(localStorage.option_chromeMenu_showHistory == 1 ?
 				'<item style="background-image:url(chrome://favicon/chrome://history/)"><a href="chrome://history'+(chromeVersion<17&&localStorage.option_menuBar_useHistory2==1?'2':'')+'">History</a></item>' : '') +
 			(localStorage.option_chromeMenu_showOptions == 1 ?
@@ -352,20 +354,11 @@ function refreshChromeMenu() {
 						'<item><a href="chrome://settings/passwords">Passwords</a></item>' +
 						'<item><a href="chrome://settings/searchEngines">Search engines</a></item>' +
 						'<item><a href="chrome://settings/syncSetup">Synchronization</a></item>' +
-						/*'<hr/>' +
-						'<item><a href="chrome://settings/contentExceptions#cookies">Cookies and site data exceptions</a></item>' +
-						'<item><a href="chrome://settings/contentExceptions#location">Geolocation exceptions</a></item>' +
-						'<item><a href="chrome://settings/contentExceptions#javascript">JavaScript exceptions</a></item>' +
-						'<item><a href="chrome://settings/contentExceptions#notifications">Notifications exceptions</a></item>' +
-						'<item><a href="chrome://settings/contentExceptions#plugins">Plug-in exceptions</a></item>' +
-						'<item><a href="chrome://settings/contentExceptions#popups">Pop-up exceptions</a></item>' +
-						'<item><a href="chrome://settings/handlers">Protocol handlers</a></item>' +*/
 					'</items>' +
 					'<a href="chrome://settings"><arrow>&#x25BC;</arrow>Settings</a>' +
 				'</item>' : '') +
-			(localStorage.option_chromeMenu_showExperiments == 1 || localStorage.option_chromeMenu_showPlugins == 1 ? '<hr/>' : '') +
+			(localStorage.option_chromeMenu_showExperiments == 1 ? '<hr/>' : '') +
 			(localStorage.option_chromeMenu_showExperiments == 1 ? '<item style="background-image:url(chrome://favicon/chrome://flags)"><a href="chrome://flags">Experiments</a></item>' : '') +
-			(localStorage.option_chromeMenu_showPlugins == 1 ? '<item style="background-image:url(chrome://favicon/chrome://plugins)"><a href="chrome://plugins">Plug-ins</a></item>' : '') +
 			(localStorage.option_chromeMenu_showWebStore == 1 ? '<hr/><item style="background-image:url(/img/icon-webstore.png)"><a href="https://chrome.google.com/webstore/">Web Store</a></item>' : '') +
 		'</group></items>'
 	);
@@ -441,7 +434,7 @@ function refreshAppAndExtensionMenus() {
 			'<item style="background-image:url(/img/icon-webstore.png)"><a getMoreExtensions href="https://chrome.google.com/webstore/category/extensions">Get more extensions</a></item>' +
 			(
 				localStorage.option_extensionsMenu_showExtensionsLink == 1 ?
-					'<hr /><item style="background-image:url(chrome://favicon/chrome://plugins)"><a href="chrome://extensions">Open the extensions page</a></item></items>'
+					'<hr /><item style="background-image:url(chrome://favicon/chrome://extensions)"><a href="chrome://extensions">Open the extensions page</a></item></items>'
 					: ''
 			)
 		);
@@ -483,14 +476,14 @@ function refreshAppAndExtensionMenus() {
 				$(s).append(
 					'<item style="background-image:url('+iconUrl+(e.enabled ? '' : '?grayscale=true')+')">' +
 						'<items>' +
-							(forceToShowLaunchApp || (e.appLaunchUrl && e.appLaunchUrl.length) ? '<item><a href="'+e.appLaunchUrl+'" appid="'+e.id+'">Launch app</a></item><hr/>' : '') +
+							(forceToShowLaunchApp || (e.appLaunchUrl && e.appLaunchUrl.length) ? '<item><a href="'+e.appLaunchUrl+'" launchApp appid="'+e.id+'">Launch app</a></item><hr/>' : '') +
 							(e.homepageUrl && e.homepageUrl.length ? '<item><a href="'+e.homepageUrl+'">Visit website</a></item><hr />' : '') +
 							(e.optionsUrl && e.optionsUrl.length && e.enabled ? '<item style="background-image:url(/img/wrench.png)"><a href="'+e.optionsUrl+'">Options</a></item>' : '') +
 							(e.enabled ? '<item><a disable extensionId="'+e.id+'">Disable</a></item>' : '<item><a enable extensionId="'+e.id+'">Enable</a></item>') +
 							'<item><a uninstall extensionId="'+e.id+'">Uninstall</a></item><hr />' +
 							'<item faded><a>Version '+e.version+'</a></item>' +
 						'</items>' +
-						'<a extensionName '+(e.appLaunchUrl && e.enabled ? 'href="'+e.appLaunchUrl+'"' : '')+'><arrow>&#x25BC;</arrow>'+e.name+'</a>' +
+						'<a extensionName '+(e.appLaunchUrl && e.enabled ? 'href="'+e.appLaunchUrl+'"'+(e.isApp?' appid="'+e.id+'"':'') : '')+'><arrow>&#x25BC;</arrow>'+e.name+'</a>' +
 					'</item>'
 				);
 			}

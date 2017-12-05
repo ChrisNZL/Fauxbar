@@ -265,7 +265,7 @@ Then, if you type the same query in the future, Fauxbar will ask Chrome to start
 								<input name="option_fallbacksearchurl" id="option_fallbacksearchurl" class="http" type="text" spellcheck="false" style="width:95%" />
 							</label>
 							Change to:
-							<button class="fallback google" url="https://www.google.com/search?btnI=&q={searchTerms}">
+							<button class="fallback google" url="https://www.google.com/search?q={searchTerms}">
 								<img src="/img/google.ico" />
 								Google.com
 							</button>
@@ -273,18 +273,17 @@ Then, if you type the same query in the future, Fauxbar will ask Chrome to start
 								<img src="/img/duckduckgo.ico" />
 								DuckDuckGo.com
 							</button>
-							<button class="fallback yahoo" url="http://search.yahoo.com/search?p={searchTerms}">
-								<img src="/img/yahoo.ico" />
-								Yahoo.com
-							</button>
-							<button class="fallback bing" url="http://www.bing.com/search?q={searchTerms}">
+							<button class="fallback bing" url="https://www.bing.com/search?q={searchTerms}">
 								<img src="/img/bing.ico" />
 								Bing.com
+							</button>
+							<button class="fallback yahoo" url="https://search.yahoo.com/search?p={searchTerms}">
+								<img src="/img/yahoo.ico" />
+								Yahoo.com
 							</button>
 							<div class="optionstip">
 								&bull; Used when you're not using a search engine keyword and an invalid address is submitted, e.g. when you've entered a search query instead of a URL. Does not work if a URL result is auto-highlighted due to Auto Assist.
 								<div style="margin-top:5px; font-size:12px">&bull; Must contain <b>{searchTerms}</b></div>
-								<div style="margin-top:5px; font-size:12px">&bull; The preset Google URL uses Google's "I'm Feeling Lucky" feature. If not desired, remove the <b>btnI=</b> part.</div>
 							</div>
 						</td>
 					</tr>
@@ -369,11 +368,11 @@ But if you don't normally visit local intranet sites that use custom domain name
 									<img src="/img/duckduckgo.ico" style="vertical-align:middle; margin-top:-3px;" />
 									DuckDuckGo.com
 								</button>
-								<button class="searchenginebutton yahoo" shortname="Yahoo!" searchurl="http://search.yahoo.com/search?p={searchTerms}" suggesturl="http://ff.search.yahoo.com/gossip?output=fxjson&amp;command={searchTerms}" keyword="y" style="font-size:12px; padding:2px 4px 2px 3px;">
+								<button class="searchenginebutton yahoo" shortname="Yahoo!" searchurl="https://search.yahoo.com/search?p={searchTerms}" suggesturl="http://ff.search.yahoo.com/gossip?output=fxjson&amp;command={searchTerms}" keyword="y" style="font-size:12px; padding:2px 4px 2px 3px;">
 									<img src="/img/yahoo.ico" style="vertical-align:middle; margin-top:-3px;" />
 									Yahoo.com
 								</button>
-								<button class="searchenginebutton bing" shortname="Bing" searchurl="http://www.bing.com/search?q={searchTerms}" suggesturl="http://api.bing.com/osjson.aspx?query={searchTerms}" keyword="b" style="font-size:12px; padding:2px 4px 2px 3px;">
+								<button class="searchenginebutton bing" shortname="Bing" searchurl="https://www.bing.com/search?q={searchTerms}" suggesturl="https://api.bing.com/osjson.aspx?query={searchTerms}" keyword="b" style="font-size:12px; padding:2px 4px 2px 3px;">
 									<img src="/img/bing.ico" style="vertical-align:middle; margin-top:-3px;" />
 									Bing.com
 								</button>
@@ -901,7 +900,7 @@ If disabled, a hyphen will be displayed between the URL and title.">(?)</span>
 					<img src="/img/fauxbar48.png" style="height:28px; width:28px; vertical-align:middle; position:relative; top:-2px; padding-right:2px;" />
 					Management
 				</h1>
-				<span class="extensionName">Fauxbar</span> version 1.7.0 &nbsp;<span style="opacity:.5">(19 April 2017)</span>
+				<span class="extensionName">Fauxbar</span> version 1.7.1 &nbsp;<span style="opacity:.5">(5 December 2017)</span>
 				<table>
 					<tr><td colspan="2" class="tdhr"><div></div></td></tr>
 					<tr>
@@ -992,6 +991,26 @@ If disabled, a hyphen will be displayed between the URL and title.">(?)</span>
 					</tr>
 					<tr><td colspan="2" class="tdhr"><div></div></td></tr>
 					<tr>
+						<th>Errors</th>
+						<td>
+							<label class="legend" style="margin-top:1px" id="errorLabel">
+								<span>Checking the error log...</span>
+								<a style="color:#06c;" href="/html/fauxbar.errorlog.html" target="_blank">Open the error log</a>
+							</label>
+							<label class="legend" style="margin-top:1px">
+								<input name="option_recordErrors" id="option_recordErrors" type="checkbox" /> Record errors to the error log
+							</label>
+							<label class="legend" style="margin-top:1px">
+								<input name="option_alert" id="option_alert" type="checkbox" /> Show a message if an error occurs
+							</label>
+							<label class="legend" style="margin-top:1px">
+								<input name="option_showErrorCount" id="option_showErrorCount" type="checkbox" /> Show an error count beside the Management menu
+							</label>
+							<div class="optionstip" style="margin-top:5px">If <span class="extensionName" style="font-size:12px">Fauxbar</span> ever feels like it's broken yet no errors get logged, <span class="extensionName" style="font-size:12px">Fauxbar</span>'s background console may contain useful information.</div>
+						</td>
+					</tr>
+					<tr><td colspan="2" class="tdhr"><div></div></td></tr>
+					<tr>
 						<th>Memory</th>
 						<td>
 							<!-- Uncomment once https://code.google.com/p/chromium/issues/detail?id=260981 is fixed
@@ -1015,27 +1034,10 @@ If disabled, a hyphen will be displayed between the URL and title.">(?)</span>
 								Fauxbar Memory Helper</a> is <span id="helperstatus">???</span>
 							</label>
 							<div class="optionstip">
-								To minimize <span class="extensionName" style="font-size:12px">Fauxbar</span>'s memory usage, Fauxbar Memory Helper is a Chrome extension that quietly reloads
+								If <span class="extensionName" style="font-size:12px">Fauxbar</span>'s memory usage concerns you, Fauxbar Memory Helper is an optional Chrome extension that quietly reloads
 								<span class="extensionName" style="font-size:12px">Fauxbar</span> when your computer has been idle for ~10 minutes, as long as none of
 								<span class="extensionName" style="font-size:12px">Fauxbar</span>'s pages are open.
 							</div>
-						</td>
-					</tr>
-					<tr><td colspan="2" class="tdhr"><div></div></td></tr>
-					<tr>
-						<th>Errors</th>
-						<td>
-							<label class="legend" style="margin-top:1px" id="errorLabel">
-								<span>Checking the error log...</span>
-								<a style="color:#06c;" href="/html/fauxbar.errorlog.html" target="_blank">Open the error log</a>
-							</label>
-							<label class="legend" style="margin-top:1px">
-								<input name="option_alert" id="option_alert" type="checkbox" /> Show a message if an error occurs
-							</label>
-							<label class="legend" style="margin-top:1px">
-								<input name="option_showErrorCount" id="option_showErrorCount" type="checkbox" /> Show an error count beside the Management menu
-							</label>
-							<div class="optionstip" style="margin-top:5px">If <span class="extensionName" style="font-size:12px">Fauxbar</span> ever feels like it's broken yet no errors get logged, <span class="extensionName" style="font-size:12px">Fauxbar</span>'s background console may contain useful information.</div>
 						</td>
 					</tr>
 				</table>
@@ -1238,10 +1240,6 @@ If disabled, a hyphen will be displayed between the URL and title.">(?)</span>
 								Experiments
 							</label>
 							<label class="legend chromeMenu">
-								<input name="option_chromeMenu_showPlugins" id="option_chromeMenu_showPlugins" type="checkbox" />
-								Plug-ins
-							</label>
-							<label class="legend chromeMenu">
 								<input name="option_chromeMenu_showWebStore" id="option_chromeMenu_showWebStore" type="checkbox" />
 								Web Store
 							</label>
@@ -1283,7 +1281,7 @@ If disabled, a hyphen will be displayed between the URL and title.">(?)</span>
 					Frecency Scoring Options
 				</h1>
 				<span class="extensionName">Fauxbar</span> uses
-				<a class="goodlink" style="text-decoration:underline" href="https://developer.mozilla.org/en/The_Places_frecency_algorithm" target="_blank">Mozilla's frecency algorithm</a>
+				<a class="goodlink" style="text-decoration:underline" href="https://developer.mozilla.org/en-US/docs/Mozilla/Tech/Places/Frecency_algorithm" target="_blank">Mozilla's frecency algorithm</a>
 				to determine the order of your history items and bookmarks.<br />
 				Below, you can alter how the frecency scores are measured.
 				<table>
@@ -1355,7 +1353,7 @@ If disabled, a hyphen will be displayed between the URL and title.">(?)</span>
 								<input name="option_frecency_generated" id="option_frecency_generated" class="inputoption" title="Default: 0" type="number" min="0" max="9999" step="25" value="" maxlength="4" size="6" style="text-align:center; padding:0" />
 							</label>
 							<div class="optionstip" style="margin-top:2px; margin-left:0px">
-								<a href="http://code.google.com/chrome/extensions/history.html#transition_types" target="_blank">Learn about these transition types</a>
+								<a href="https://developer.chrome.com/extensions/history#transition_types" target="_blank">Learn about these transition types</a>
 							</div>
 						</td>
 					</tr>

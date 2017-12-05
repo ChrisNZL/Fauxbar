@@ -487,13 +487,13 @@ loadOptionsJS();
 $("#options").css("display","block");
 
 $('.fallback.google').live('click', function(){
-	$('#option_fallbacksearchurl').val('https://www.google.com/search?btnI=&q={searchTerms}').change();
+	$('#option_fallbacksearchurl').val('https://www.google.com/search?q={searchTerms}').change();
 });
 $('.fallback.yahoo').live('click', function(){
-	$('#option_fallbacksearchurl').val('http://search.yahoo.com/search?p={searchTerms}').change();
+	$('#option_fallbacksearchurl').val('https://search.yahoo.com/search?p={searchTerms}').change();
 });
 $('.fallback.bing').live('click', function(){
-	$('#option_fallbacksearchurl').val('http://www.bing.com/search?q={searchTerms}').change();
+	$('#option_fallbacksearchurl').val('https://www.bing.com/search?q={searchTerms}').change();
 });
 $('.fallback.duckduckgo').live('click', function(){
 	$('#option_fallbacksearchurl').val('https://duckduckgo.com/?q={searchTerms}').change();
@@ -658,8 +658,8 @@ $('button[retrieveFromCloud]').live('click', function(){
 								for (var x = 0; x < items['totalSearchEngines']; x++) {
 									var se = items['searchEngine_'+x];
 									if (se) {
-										tx.executeSql('INSERT INTO opensearches (shortname, iconurl, searchurl, xmlurl, xml, isdefault, method, suggestUrl, keyword) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-										[se.shortname, se.iconurl, se.searchurl, se.xmlurl, se.xml, se.isdefault, se.method, se.suggestUrl, se.keyword]);
+										tx.executeSql('INSERT INTO opensearches (shortname, iconurl, searchurl, xmlurl, xml, isdefault, method, suggestUrl, keyword, encoding) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+										[se.shortname, se.iconurl, se.searchurl, se.xmlurl, se.xml, se.isdefault, se.method, se.suggestUrl, se.keyword, se.encoding]);
 									}
 								}
 							}
