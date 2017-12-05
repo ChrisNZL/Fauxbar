@@ -1077,8 +1077,32 @@ chrome.runtime.onMessage.addListener(function(request, sender){
 	}
 });
 
+// v1.7.1 / v1.7.2 - Alter opensearches table to add "encoding" column re: https://github.com/ChrisNZL/Fauxbar/issues/23
+// Copying these things here because I am not convinced the below `chrome.runtime.onInstalled` method is getting called reliably.
+// re: https://github.com/ChrisNZL/Fauxbar/issues/31
+$(document).ready(function(){
+
+	if (!localStorage.option_recordErrors) {
+		localStorage.option_recordErrors = 1;
+	}
+
+	if (openDb()) {
+
+		window.db.transaction(function(tx){
+			tx.executeSql('ALTER TABLE opensearches ADD COLUMN encoding TEXT DEFAULT ""');
+		});
+
+		window.db.transaction(function(tx){
+			tx.executeSql('VACUUM');
+		});
+	}
+
+	localStorage.currentVersion = "1.7.2";
+});
+
 chrome.runtime.onInstalled.addListener(function(details){
-	var currentVersion = "1.7.1";
+	var currentVersion = "1.7.2";
+
 	switch (details.reason) {
 	
 		case 'install':
@@ -1173,11 +1197,6 @@ chrome.runtime.onInstalled.addListener(function(details){
 							}
 						}
 					}*/
-					
-					// New options for v1.7.1
-					if (!localStorage.option_recordErrors) {
-						localStorage.option_recordErrors = 1;
-					}
 
 					// New options for v1.6.0
 					if (!localStorage.option_highlightedWordColor_normal) {
@@ -1332,18 +1351,6 @@ chrome.runtime.onInstalled.addListener(function(details){
 					}
 
 					if (openDb()) {
-
-						// Vacuum the DB upon start, to help keep it speedy. Added in 0.5.0
-						// Disabled in 1.0.3. Possibly the cause of dropping tables (issue #47).
-						// Reinstated in 1.0.4, as it's not the cause.
-						window.db.transaction(function(tx){
-							tx.executeSql('VACUUM');
-						});
-
-						// v1.7.1 - Alter opensearches table to add "encoding" column re: https://github.com/ChrisNZL/Fauxbar/issues/23
-						window.db.transaction(function(tx){
-							tx.executeSql('ALTER TABLE opensearches ADD COLUMN encoding TEXT DEFAULT ""');
-						});
 
 						// Update Google search URLs to use HTTPS - v1.4.0
 						window.db.transaction(function(tx){
