@@ -64,11 +64,17 @@ If you answered yes, then Fauxbar is for you.
 
 ### Articles from around the Web
 
+[Fauxbar Brings Firefox's 'Awesome Bar' To Chrome](https://www.lifehacker.com.au/2014/06/fauxbar-brings-firefoxs-awesome-bar-to-chrome/):
+
+>Both Firefox and Chrome try to populate the address bar with quick shortcuts as you type, but they focus on different things. Chrome mostly gives search suggestions, while Firefox gives suggestions from your history, bookmarks and open tabs. As a Firefox-turned-Chrome user, I'm very used to the latter, and needed a replacement in Chrome. Enter Fauxbar.
+
+— _Lifehacker Australia_, 2014
+
 [Replacing Chrome’s Omnibox with Fauxbar](http://www.anotherwindowsblog.com/2011/09/replacing-chrome-omnibox-fauxbar.html):
 
 > I feel like what Adblock Plus did for me in switching over to Firefox is what Fauxbar is doing for me in switching over to Chrome. It’s surprising how a single addon can have such a major impact on a browser.
 
-— _AnotherWindowsBlog_
+— _AnotherWindowsBlog_, 2011
 
 ---
 
