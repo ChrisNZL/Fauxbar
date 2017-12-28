@@ -1097,11 +1097,11 @@ $(document).ready(function(){
 		});
 	}
 
-	localStorage.currentVersion = "1.7.2";
+	localStorage.currentVersion = "1.7.3";
 });
 
 chrome.runtime.onInstalled.addListener(function(details){
-	var currentVersion = "1.7.2";
+	var currentVersion = "1.7.3";
 
 	switch (details.reason) {
 	

@@ -238,6 +238,7 @@ function recordInputUrl(url) {
 }
 
 function deleteHistoryUrl(url, bookmarkId) {
+	url = str_replace('&quot;', '"', url);
 	if (openDb() && localStorage.option_quickdelete_confirm == 0 || confirm("Delete \""+url+"\" from your Chrome browsing history?"
 	 + (bookmarkId > 0 ? "\n\nYour bookmark(s) for this URL will remain intact, though they may seem to disappear from Fauxbar for a moment." : ""))) {
 		window.db.transaction(function(tx){
@@ -748,8 +749,9 @@ function showContextMenu(e) {
 				}
 				html += '	<div class="menuHr"></div>';
 
-				html += '	<div class="menuOption">Delete from History'+(localStorage.option_quickdelete_confirm == 1 ? "..." : "")+'</div>';
-				html += '	<div class="menuHr"></div>';
+				// Disabling for issue #32 https://github.com/ChrisNZL/Fauxbar/issues/32
+				//html += '	<div class="menuOption">Delete from History'+(localStorage.option_quickdelete_confirm == 1 ? "..." : "")+'</div>';
+				//html += '	<div class="menuHr"></div>';
 
 				if (!$(window.rightClickedResult).attr("keyword")) {
 					html += '	<div class="menuOption fauxbar16">Add Keyword...</div>';
@@ -1641,7 +1643,8 @@ $("#awesomeinput").bind("keydown",function(e){
 	}
 
 	// Delete - if user has a result selected/hovered, delete it if Quick Delete is enabled in the options
-	if (e.keyCode == 46 && localStorage.option_quickdelete && localStorage.option_quickdelete == 1) {
+	// Commenting out for issue #32 https://github.com/ChrisNZL/Fauxbar/issues/32
+	/*if (e.keyCode == 46 && localStorage.option_quickdelete && localStorage.option_quickdelete == 1) {
 		if ($(".arrowed").length) {
 			if ($('.arrowed.historyresult').length > 0 && localStorage.option_quickdelete && localStorage.option_quickdelete == 1) {
 				if (openDb()) {
@@ -1667,7 +1670,7 @@ $("#awesomeinput").bind("keydown",function(e){
 			}
 			return false;
 		}
-	}
+	}*/
 
 	// Esc - hide results and/or select all the text (user doesn't want what's currently there)
 	if (e.keyCode == 27) {
@@ -1842,7 +1845,8 @@ $("#opensearchinput").bind("keydown", function(e){
 	}
 
 	// Delete - Use Quick Delete to remove a selected/hovered query from the Search Box's history
-	if (e.keyCode == 46) {
+	// Commenting out for issue #32 https://github.com/ChrisNZL/Fauxbar/issues/32
+	/*if (e.keyCode == 46) {
 		if ($('.arrowed.historyresult').length > 0 && localStorage.option_quickdelete && localStorage.option_quickdelete == 1) {
 			if (openDb()) {
 				window.db.transaction(function(tx){
@@ -1859,7 +1863,7 @@ $("#opensearchinput").bind("keydown", function(e){
 		} else {
 			return true;
 		}
-	}
+	}*/
 
 	// Esc - hide queries/suggestions and focus the input; user doesn't want what's there
 	if (e.keyCode == 27) {
@@ -2406,15 +2410,6 @@ function changeOptionPage(el) {
 	localStorage.option_optionpage = $(el).attr("id");
 	if ($(el).attr("id") == "option_section_support" && !window.clickedSupportMenu) {
 		window.clickedSupportMenu = true;
-
-		// Twitter follow button
-		$("head").append('<script src="https://platform.twitter.com/widgets.js" type="text/javascript"></script>');
-
-		// Facebook Like button
-		$("#likeBox").html('<iframe src="http://www.facebook.com/plugins/like.php?app_id=112814858817841&amp;href=http%3A%2F%2Fwww.facebook.com%2Fpages%2FFauxbar%2F147907341953576&amp;send=false&amp;layout=standard&amp;width=450&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font=arial&amp;height=35" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:35px;" allowTransparency="true"></iframe>');
-		
-		// Google+
-		//$('head').append('<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>');
 	}
 }
 
@@ -2777,11 +2772,14 @@ function getResults(noQuery) {
 									}
 								}
 
+								// Replace quote characters to fix issue #29 https://github.com/ChrisNZL/Fauxbar/issues/29
+								var urlWithQuotesReplaced = str_replace('"', '&quot;', hI.url);
+
 								// When searching the database, Fauxbar returns both history and bookmarks. <strike>History items</strike> Bookmarks come first.
 								// If this is a bookmark result, add a bookmark icon to the existing history result.
 								// Then, cancel continuing on with this result.
-								if (resultIsOkay && $('.result[url="'+hI.url+'"]').length > 0) {
-									if ($('.result[url="'+hI.url+'"] img.favstar').length == 0) {
+								if (resultIsOkay && $('.result[url="'+urlWithQuotesReplaced/*hI.url*/+'"]').length > 0) {
+									if ($('.result[url="'+urlWithQuotesReplaced/*hI.url*/+'"] img.favstar').length == 0) {
 										if (!strstr(getAiSansSelected().toLowerCase(), "is:fav")) {
 											//if (hI.isBookmark && !noQuery) { // bookmark
 												//$('.result_title[url="'+hI.url+'"]').html('<img class="result_favicon" src="chrome://favicon/'+hI.url+'" />'+titleText);
@@ -2928,12 +2926,12 @@ function getResults(noQuery) {
 
 										// If URL starts with file:/// handle the URL with Fauxbar, since Chrome doesn't interpret it as a link.
 										if (hI.url.length >= 8 && hI.url.substring(0, 8) == "file:///") {
-											newHref = "/html/loadfile.html#"+hI.url;
+											newHref = "/html/loadfile.html#"+urlWithQuotesReplaced/*hI.url*/;
 										} else {
-											newHref = hI.url;
+											newHref = urlWithQuotesReplaced; //hI.url;
 										}
 
-										resultHtml += '<a class="result '+arrowedClass+'" url="'+hI.url+'" href="'+newHref+'" origtitle="'+str_replace('"','&quot;',hI.title)+'" number="'+(currentRows+1)+'" '+resultOnClick + bookmarkFolderAttribute+' bmid="'+hI.id+'" keyword="'+hI.tag+'">';
+										resultHtml += '<a class="result '+arrowedClass+'" url="'+urlWithQuotesReplaced/*hI.url*/+'" href="'+newHref+'" origtitle="'+str_replace('"','&quot;',hI.title)+'" number="'+(currentRows+1)+'" '+resultOnClick + bookmarkFolderAttribute+' bmid="'+hI.id+'" keyword="'+hI.tag+'">';
 										if (hI.isBookmark) {
 											resultHtml += '<img class="favstar" style="position:absolute;" />';
 										}
@@ -2944,9 +2942,9 @@ function getResults(noQuery) {
 
 										var faviconSrc = hI.isBookmarkFolder ? chrome.extension.getURL("img/folder_closed.png") : 'chrome://favicon/'+hI.url;
 
-										resultHtml += '	<div class="result_title" url="'+hI.url+'"><img class="result_favicon" src="'+faviconSrc+'" />'+titleText+'</div><br />';
+										resultHtml += '	<div class="result_title" url="'+urlWithQuotesReplaced/*hI.url*/+'"><img class="result_favicon" src="'+faviconSrc+'" />'+titleText+'</div><br />';
 										resultHtml += '	<div class="result_url">'+addTileText+urlText+'</div>';
-										resultHtml += ' <div class="visitinfo" id="hi_'+hI.id+'" url="'+hI.url+'"></div>';
+										resultHtml += ' <div class="visitinfo" id="hi_'+hI.id+'" url="'+urlWithQuotesReplaced/*hI.url*/+'"></div>';
 										resultHtml += ' <div class="result_url_hidden">'+urlTextAttr+'</div>';
 										resultHtml += ' <div class="result_bottom" height="1px"></div>';
 										resultHtml += '</a>\r\n';
@@ -3091,9 +3089,10 @@ function getResults(noQuery) {
 								window.db.transaction(function(tx){
 									tx.executeSql('SELECT url FROM inputurls WHERE input = ? LIMIT 1', [thisQuery.toLowerCase()], function(tx, results){
 										if (results.rows.length == 1 && thisQuery == window.actualUserInput) {
-											console.log("Requesting pre-render for "+results.rows.item(0).url);
-											$("body").append('<link rel="prerender" href="'+results.rows.item(0).url+'">');
-											window.prerenderedUrl = results.rows.item(0).url;
+											var itemUrl = results.rows.item(0).url;
+											console.log("Requesting pre-render for "+itemUrl);
+											$("body").append('<link rel="prerender" href="'+itemUrl+'">');
+											window.prerenderedUrl = itemUrl;
 										}
 									});
 								});
