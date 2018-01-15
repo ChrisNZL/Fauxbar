@@ -4,13 +4,13 @@
 
 _An alternative to Chrome's Omnibox._
 
-### Fauxbar brings Firefox's Awesome Bar functionality to Google Chrome.
+### Fauxbar brings Firefox's classic Awesome Bar functionality to Google Chrome.
 
 **[Download Fauxbar from the Chrome Web Store](https://chrome.google.com/webstore/detail/fauxbar/hibkhcnpkakjniplpfblaoikiggkopka)**
 
 [Fauxbar Lite](https://chrome.google.com/webstore/detail/bfimmnpbjccjihohjkimphfmmebffbmk) is also available. [What's the difference?](https://github.com/ChrisNZL/Fauxbar/wiki/FAQ#whats-the-difference-between-fauxbar-and-fauxbar-lite)
 
-Latest version: 1.7.3 (29 December 2017). [View changelog](https://github.com/ChrisNZL/Fauxbar/wiki/Changelog)
+Latest version: 1.7.4 (16 January 2018). [View changelog](https://github.com/ChrisNZL/Fauxbar/wiki/Changelog)
 
 ---
 
@@ -18,7 +18,7 @@ Latest version: 1.7.3 (29 December 2017). [View changelog](https://github.com/Ch
 
 ![Fauxbar screenshot](http://i.imgur.com/ZHOMS.png)
 
-Fauxbar is a free, open-source Google Chrome extension that provides a page that acts like Firefox's Awesome Bar. Fauxbar is developed by Chris McFarland.
+Fauxbar is a free, open-source Google Chrome extension that provides a page that acts like Firefox's classic Awesome Bar. Fauxbar is developed by Chris McFarland.
 
 Main features include:
 
