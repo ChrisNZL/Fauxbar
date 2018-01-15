@@ -18,7 +18,7 @@
 
         "name": "Fauxbar", //// Rename for Fauxbar Lite
 
-        "version": "1.7.3",
+        "version": "1.7.4",
         "description": "An alternative to Chrome's Omnibox. Replaces the New Tab page.", //// Remove last sentence for Fauxbar Lite
 
         "minimum_chrome_version": "49",
@@ -81,8 +81,8 @@
                 {
                         "matches": ["<all_urls>"],
                         "exclude_matches": ["https://chrome.google.com/webstore*"],
-                        "js": ["js/jquery-1.7.min.js"],
-                        "run_at": "document_start",
+                        "js": ["js/jquery-3.2.1.min.js"],
+                        "run_at": "document_end",
                         "all_frames": true
                 },
                 {
