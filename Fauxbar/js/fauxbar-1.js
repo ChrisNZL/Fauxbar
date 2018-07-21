@@ -445,19 +445,6 @@ function submitOpenSearch(query) {
 	var selectedMenuItem = '.menuitem[shortname="'+(window.keywordEngine ? window.keywordEngine.shortname : window.openSearchShortname)+'"]';
 	var searchUrl = $(selectedMenuItem).attr("searchurl");
 	var openSearchInputVal = query ? query : (window.keywordEngine ? $("#awesomeinput").val() : $("#opensearchinput").val());
-	searchUrl = str_replace('{searchTerms}', urlencode(openSearchInputVal), searchUrl);
-
-	var encoding = "";
-	if (window.keywordEngine) {
-		encoding = window.keywordEngine.encoding;
-	}
-	else if (window.openSearchEncoding) {
-		encoding = window.openSearchEncoding;
-	}
-
-	if (encoding == "other") {
-		searchUrl = str_replace("+", "%20", searchUrl);
-	}
 
 	if (localStorage.option_recordsearchboxqueries == 1 && openDb()){
 		window.db.transaction(function(tx){
@@ -468,6 +455,20 @@ function submitOpenSearch(query) {
 	}
 
 	if ($(selectedMenuItem).length && $(selectedMenuItem).attr("method") && $(selectedMenuItem).attr("method").length && $(selectedMenuItem).attr("method").toLowerCase() == 'get') {
+		searchUrl = str_replace('{searchTerms}', urlencode(openSearchInputVal), searchUrl);
+
+		var encoding = "";
+		if (window.keywordEngine) {
+			encoding = window.keywordEngine.encoding;
+		}
+		else if (window.openSearchEncoding) {
+			encoding = window.openSearchEncoding;
+		}
+
+		if (encoding == "other") {
+			searchUrl = str_replace("+", "%20", searchUrl);
+		}
+
 		if (window.keywordEngine) {
 			window.executingKeywordSearch = true;
 		} else {
@@ -476,6 +477,8 @@ function submitOpenSearch(query) {
 		goToUrl(searchUrl);
 	}
 	else {
+		searchUrl = str_replace('{searchTerms}', openSearchInputVal, searchUrl);
+
 		$("#tempform").remove();
 		$("body").append('<form method="post" action="'+ searchUrl.split('?')[0] +'" id="tempform" style="position:absolute;z-index:-999;opacity:0"></form>');
 		var bits = explode('?', searchUrl);
