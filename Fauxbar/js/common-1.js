@@ -33,7 +33,6 @@ function saveOptionsToCloud () {
 						for (var st in siteTiles) {
 							optionsToPush['siteTile_'+st] = siteTiles[st];
 						}
-						
 					}
 					
 					// Set a var to say how many search engines there are
@@ -323,6 +322,8 @@ function resetOptions() {
 	localStorage.option_topopacity = 12;					// Fauxbar wrapper top gradient background opacity.
 	localStorage.option_topsitecols = 4;					// Top site tiles, max columns.
 	localStorage.option_topsiterows = 2;					// Top site titles, max rows.
+	localStorage.option_trimPastedText = 1;
+	localStorage.option_trimSearchQueries = 1;
 	localStorage.option_underline = "0";					// Underline matching words in Address Box results. Off by default, looks a bit too busy/messy.
 	localStorage.option_urlcolor = "#0066CC";				// Result URL font color.
 	localStorage.option_urlsize = window.OS == "Mac" ? 11 : window.OS == "Linux" ? 13 : 12;		// Result URL font size (px).
@@ -406,7 +407,6 @@ function fileErrorHandler(e) {
   console.log(msg);
 }
 
-
 // canvas.toBlob is not implemented in Chrome yet! So we have to build the blob ourselves.
 // http://mustachified.com/master.js
 // via http://lists.whatwg.org/pipermail/whatwg-whatwg.org/2011-April/031243.html
@@ -433,7 +433,6 @@ function dataURItoBlob(dataURI, callback) {
 	var blob = new Blob([dataView], { type: mimeString });
 	return blob;
 }
-
 
 // http://phpjs.org/functions/urlencode:573
 function urlencode (str) {

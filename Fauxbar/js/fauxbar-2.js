@@ -31,7 +31,6 @@ function truncatePageTileTitle(tileTitle) {
 	}
 }
 
-
 function resizeTileThumbs() {
 	var shortestHeight = 132;
 	$("#topthumbs div.thumb img").each(function(){
@@ -391,4 +390,27 @@ $("#apps .app, #menubar [apps] a[extensionname], #menubar [apps] a[launchApp]").
 		chrome.management.launchApp($(this).attr("appid"));
 		return false;
 	}
+});
+
+// Manage input box text trimming, v1.8.0
+function trimPastedText (elementID) {
+	if (localStorage.option_trimPastedText && localStorage.option_trimPastedText == 1) {
+		setTimeout(function(){
+			var text = $(elementID).val();
+			var trimmedText = text.trim();
+			if (trimmedText != text) {
+				$(elementID).val(trimmedText);
+			}
+		}, 0);
+	}
+}
+
+$(document).ready(function(){
+	$("#awesomeinput").live("paste", function(){
+		trimPastedText("#awesomeinput");
+	});
+
+	$("#opensearchinput").live("paste", function(){
+		trimPastedText("#opensearchinput");
+	});
 });

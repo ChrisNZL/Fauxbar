@@ -445,6 +445,9 @@ function submitOpenSearch(query) {
 	var selectedMenuItem = '.menuitem[shortname="'+(window.keywordEngine ? window.keywordEngine.shortname : window.openSearchShortname)+'"]';
 	var searchUrl = $(selectedMenuItem).attr("searchurl");
 	var openSearchInputVal = query ? query : (window.keywordEngine ? $("#awesomeinput").val() : $("#opensearchinput").val());
+	if (localStorage.option_trimSearchQueries && localStorage.option_trimSearchQueries == 1) {
+		openSearchInputVal = openSearchInputVal.trim();
+	}
 
 	if (localStorage.option_recordsearchboxqueries == 1 && openDb()){
 		window.db.transaction(function(tx){
@@ -1102,7 +1105,6 @@ $("#contextMenu .menuOption").live("mousedown", function(){
 				window.navigating = true;
 				$("#"+elId).val("");
 				document.execCommand("paste");
-
 				setTimeout(function(){
 					if ($("#"+elId).val().trim().length) {
 						submitOpenSearch($("#"+elId).val());

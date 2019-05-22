@@ -1198,6 +1198,12 @@ chrome.runtime.onInstalled.addListener(function(details){
 						}
 					}*/
 
+					// New options for v1.8.0
+					if (!localStorage.option_trimPastedText) {
+						localStorage.option_trimPastedText = 1;
+						localStorage.option_trimSearchQueries = 1;
+					}
+
 					// New options for v1.6.0
 					if (!localStorage.option_highlightedWordColor_normal) {
 						localStorage.option_highlightMatchingWords = 0;

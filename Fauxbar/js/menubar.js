@@ -330,20 +330,15 @@ $('body :not(#menubar)').live('mousedown', function(){
 function refreshChromeMenu() {
 	$('menu[chrome]').html('<menuName>Chrome</menuName>' +
 		'<items><group>'+
-			(localStorage.option_chromeMenu_showBookmarks == 1 ? '<item style="background-image:url(/img/bookmarks_favicon.png)"><a href="chrome://bookmarks">Bookmarks</a></item>' : '') +
+			(localStorage.option_chromeMenu_showBookmarks == 1 ? '<item style="background-image:url(chrome://favicon/chrome://bookmarks/)"><a href="chrome://bookmarks">Bookmarks</a></item>' : '') +
 			(localStorage.option_chromeMenu_showDownloads == 1 ? '<item style="background-image:url(chrome://favicon/chrome://downloads/)"><a href="chrome://downloads">Downloads</a></item>' : '') +
 			(localStorage.option_chromeMenu_showExtensions == 1 ?
 				'<item style="background-image:url(chrome://favicon/chrome://extensions)"><a href="chrome://extensions">Extensions</a></item>' : '') +
 			(localStorage.option_chromeMenu_showHistory == 1 ?
 				'<item style="background-image:url(chrome://favicon/chrome://history/)"><a href="chrome://history'+(chromeVersion<17&&localStorage.option_menuBar_useHistory2==1?'2':'')+'">History</a></item>' : '') +
 			(localStorage.option_chromeMenu_showOptions == 1 ?
-				'<item style="background-image:url(/img/wrench.png)">' +
+				'<item style="background-image:url(chrome://favicon/chrome://settings)">' +
 					'<items>' +
-						/*'<item><a href="chrome://settings/browser">Basics</a></item>' +
-						'<item><a href="chrome://settings/personal">Personal stuff</a></item>' +
-						'<item><a href="chrome://settings/advanced">Under the hood</a></item>' +
-						'<item><a href="chrome://extensions">Extensions</a></item>' +
-						'<hr/>' +*/
 						'<item><a href="chrome://settings/clearBrowserData">Clear browsing data...</a></item>' +
 						'<item><a href="chrome://settings/importData">Import bookmarks and settings...</a></item>' +
 						'<hr/>' +
@@ -726,7 +721,7 @@ function refreshHistoryMenu() {
 			$('menu[history] group').append('<item style="background-image:url(chrome://favicon/chrome://history)"><a href="chrome://history'+(chromeVersion<17&&localStorage.option_menuBar_useHistory2==1?'2':'')+'">View full history</a></item>');
 		}
 		if (localStorage.option_historyMenu_showClearDataLink == 1) {
-			$('menu[history] group').append('<item style="background-image:url(/img/wrench.png)"><a href="chrome://settings/clearBrowserData">Clear browsing data...</a></item>');
+			$('menu[history] group').append('<item style="background-image:url(chrome://favicon/chrome://settings)"><a href="chrome://settings/clearBrowserData">Clear browsing data...</a></item>');
 		}
 		repositionMenus();
 	});
@@ -744,7 +739,6 @@ function populateChildBookmarks(nodeId) {
 				bookmarkBarNodeId = nodes[0].id;
 				otherBookmarksNodeId = nodes[1].id;
 			}
-			//if (nodeId > 1) {
 			if (nodeId != bookmarkBarNodeId && nodeId != '0') {
 				$('menu[bookmarks] item[nodeId="'+nodeId+'"]').prepend('<items><group bookmarkFolders></group><group bookmarkLinks></group></items>');
 			}
@@ -839,7 +833,7 @@ function refreshBookmarkMenu() {
 	$('menu[bookmarks]').html('<menuName>Bookmarks</menuName><items class="displayNone"><group main></group>' +
 		'<group bottom>' +
 		(localStorage.option_bookmarksMenu_showBookmarkManagerLink == 1 || localStorage.option_bookmarksMenu_showRecentBookmarks == 1 ? '<hr />' : '') +
-		(localStorage.option_bookmarksMenu_showBookmarkManagerLink == 1 ? '<item style="background-image:url(/img/bookmarks_favicon.png)"><a href="chrome://bookmarks">Bookmark manager</a></item>' : '') +
+		(localStorage.option_bookmarksMenu_showBookmarkManagerLink == 1 ? '<item style="background-image:url(chrome://favicon/chrome://bookmarks)"><a href="chrome://bookmarks">Bookmark manager</a></item>' : '') +
 		(localStorage.option_bookmarksMenu_showRecentBookmarks == 1 ? '<item><items recent></items><a><arrow>&#x25BC;</arrow>Recently added</a></item>' : '') +
 		'</group></items>');
 	if (localStorage.option_bookmarksMenu_showRecentBookmarks == 1) {
@@ -880,28 +874,12 @@ function refreshFauxbarMenu() {
 		'<item><a href="https://github.com/ChrisNZL/Fauxbar/wiki/Changelog">Changelog</a></item>' +
 		'<item><a href="https://github.com/ChrisNZL/Fauxbar/">Source code</a></item>' +
 		'<item><a href="https://github.com/ChrisNZL/Fauxbar/issues">Issues</a></item>' +
-		/*
-		'<item style="background-image:url(/img/fauxbar16.png)"><a href="http://code.google.com/p/fauxbar/">Project overview</a></item>' +
-		'<item><a href="http://code.google.com/p/fauxbar/wiki/Changelog">Changelog</a></item>' +
-		'<item><a href="http://code.google.com/p/fauxbar/w/list">Documentation</a></item>' +
-		'<item><a href="http://code.google.com/p/fauxbar/issues/list">Suggestions and bug reports</a></item>' +
-		'<item><a href="http://code.google.com/p/fauxbar/source/browse/trunk#trunk%2FFauxbar">Source code</a></item>' +
-		*/
 		'<hr/>' +
 		'<item style="background-image:url(/img/icon-webstore.png)"><items>' +
 			'<item><a href="https://chrome.google.com/webstore/detail/hibkhcnpkakjniplpfblaoikiggkopka">Fauxbar</a></item>' +
 			'<item><a href="https://chrome.google.com/webstore/detail/bfimmnpbjccjihohjkimphfmmebffbmk">Fauxbar Lite</a></item>' +
 			'<item><a href="https://chrome.google.com/webstore/detail/domhiadbdhomljcdankobiglghedagkm">Fauxbar Memory Helper</a></item>' +
 			'</items><a href="https://chrome.google.com/webstore/search/intitle%3AFauxbar"><arrow>&#x25BC;</arrow>Chrome Web Store</a></item>' +
-		/*
-		'<item style="background-image:url(/img/icon-facebook.png)"><a href="http://facebook.com/Fauxbar">Facebook</a></item>' +
-		//'<item style="background-image:url(/img/icon-gplus.png)"><a href="https://plus.google.com/106763880873922603221">Google+</a></item>' +
-		'<item style="background-image:url(/img/icon-twitter.png)"><a href="http://twitter.com/Fauxbar">Twitter</a></item>' +
-		//'<item style="background-image:url(/img/icon-reddit.png)"><a href="http://reddit.com/r/Fauxbar">Reddit</a></item>' +
-		'<hr/>' +
-		'<item style="background-image:url(/img/icon-paypal.png)"><a href="/html/loadpaypal.html">Donate via PayPal</a></item>' +
-		//'<hr/>' +
-		//'<item><a reloadFauxbar>Reload '+localStorage.extensionName+'</a></item>' +*/
 	'</group></items>');
 }
 
