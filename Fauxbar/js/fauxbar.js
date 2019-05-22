@@ -53,6 +53,10 @@ else {
 
 // Create the HTML for a page tile
 function renderPageTile(url, title, startHidden) {
+	if (!url) {
+		return '';
+	}
+
 	var thumbs = '';
 
 	// Handle file:/// link if needed
@@ -73,7 +77,6 @@ function renderPageTile(url, title, startHidden) {
 	var height = window.tileEditMode && $("div.thumb").length ? ' style="height:'+$("div.thumb").first().innerHeight()+'px"' : '';
 
 	thumbs += '		<div class="thumb" '+height+'>';
-	//thumbs += '			<img src="filesystem:'+chrome.extension.getURL("/persistent/thumbs/"+hex_md5(url)+".png")+'" />';
 	thumbs += '			<img src="filesystem:'+chrome.extension.getURL("/persistent/thumbs/"+chrome.extension.getBackgroundPage().hex_md5(url)+".png")+'" />';
 	thumbs += '		</div>';
 	thumbs += '		<span class="toptitle"><img src="chrome://favicon/'+url+'" />';

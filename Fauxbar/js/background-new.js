@@ -1097,11 +1097,11 @@ $(document).ready(function(){
 		});
 	}
 
-	localStorage.currentVersion = "1.7.4";
+	localStorage.currentVersion = "1.8.0";
 });
 
 chrome.runtime.onInstalled.addListener(function(details){
-	var currentVersion = "1.7.4";
+	var currentVersion = "1.8.0";
 
 	switch (details.reason) {
 	
@@ -2218,27 +2218,10 @@ function index() {
 													iconUrl: '/img/fauxbar128.png',
 													title: localStorage.extensionName + ' is now ready for use.',
 													message: "From here on, "+localStorage.extensionName+" will silently update its index on-the-fly for you." +
-															"  The default configuration should get you started, but feel free to customize things in the options."
+															"  Feel free to customize things in the options if desired."
 												},
 												function(){}
 											);
-
-											// Old notification from 1.4.0 and eariler. Broken.
-											/*if (window.webkitNotifications.createHTMLNotification) {
-												window.webkitNotifications.createHTMLNotification('/html/notification_setupComplete.html').show();
-											} else {
-												chrome.notifications.create("setupComplete",
-													{
-														type: 'list',
-														iconUrl: '/img/fauxbar128.png',
-														title: localStorage.extensionName + ' is now ready for use.',
-														message: "From here on, "+localStorage.extensionName+" will silently update its index on-the-fly for you." +
-																"  The default configuration should get you started, but feel free to customize things in the options." +
-																"  Enjoy!"
-													},
-													function(){}
-												);
-											}*/
 										}
 										localStorage.indexedbefore = 1;
 										delete localStorage.reindexForMaintenance;

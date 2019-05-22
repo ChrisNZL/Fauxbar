@@ -3,10 +3,12 @@ window.onTitleModified = function(newTitle) {
 }
 
 var target = document.querySelector('head > title');
-var observer = new window.WebKitMutationObserver(function(mutations) {
-    mutations.forEach(function(mutation) {
-        var newTitle = mutation.target.textContent;
-        window.onTitleModified(newTitle);
-    });
-});
-observer.observe(target, { subtree: true, characterData: true, childList: true });
+if (target) {
+	var observer = new window.WebKitMutationObserver(function(mutations) {
+	    mutations.forEach(function(mutation) {
+	        var newTitle = mutation.target.textContent;
+	        window.onTitleModified(newTitle);
+	    });
+	});
+	observer.observe(target, { subtree: true, characterData: true, childList: true });
+}

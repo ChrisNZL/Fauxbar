@@ -40,7 +40,7 @@
 					<img src="/img/fauxbar48.png" style="height:28px; width:28px; vertical-align:middle; position:relative; top:-2px; padding-right:2px" />
 					Tile Options
 				</h1>
-				<span class="extensionName">Fauxbar</span>'s tiles let you quickly access your top websites and Chrome apps.
+				<span class="extensionName">Fauxbar</span>'s tiles let you quickly access your favorite websites.
 				<table>
 					<tr><td colspan="2" class="tdhr"><div></div></td></tr>
 					<tr>
@@ -114,26 +114,29 @@
 					</tr>
 					<tr><td colspan="2" class="tdhr"><div></div></td></tr>
 					<tr>
-						<th>App Tiles</th>
+						<th>Font Size</th>
 						<td>
-							<label class="legend" style="margin-top:1px">
-								<input type="checkbox" name="option_showapps" id="option_showapps" />
-								Show my installed Chrome apps as tiles
-							</label>
-							<label class="legend" style="margin-top:1px">
-								<input type="checkbox" name="option_showNewlyInstalledApps" id="option_showNewlyInstalledApps" />
-								Show my app tiles when a new app is installed
-								<span style="opacity:.5; cursor:help" title="Re-enables the above option &quot;Show my installed Chrome apps as tiles&quot; when a new Chrome app is installed.">(?)</span>
+							<label class="legend" style="margin-top:-2px">
+								Font size:
+								<input name="option_sappsfontsize" id="option_sappsfontsize" class="fontsize" type="number" min="12" maxlength="2" size="3" spellcheck="false" style="text-align:center" /> pixels
 							</label>
 						</td>
 					</tr>
 					<tr><td colspan="2" class="tdhr"><div></div></td></tr>
 					<tr>
-						<th>All Tiles</th>
+						<th>App Tiles</th>
 						<td>
-							<label class="legend" style="margin-top:-4px">
-								Font size:
-								<input name="option_sappsfontsize" id="option_sappsfontsize" class="fontsize" type="number" min="12" maxlength="2" size="3" spellcheck="false" style="text-align:center" /> pixels
+							<div class="optionstip" style="line-height:150%; margin-top:-4px; margin-bottom:10px">
+								Chrome Apps were deprecated in 2017. App tiles should not be needed anymore.
+							</div>
+							<label class="legend" style="margin-top:1px">
+								<input type="checkbox" name="option_showapps" id="option_showapps" />
+								Show my installed Chrome Apps as tiles
+							</label>
+							<label class="legend" style="margin-top:1px">
+								<input type="checkbox" name="option_showNewlyInstalledApps" id="option_showNewlyInstalledApps" />
+								Show my app tiles when a new app is installed
+								<span style="opacity:.5; cursor:help" title="Re-enables the above option &quot;Show my installed Chrome Apps as tiles&quot; when a new Chrome app is installed.">(?)</span>
 							</label>
 						</td>
 					</tr>
@@ -355,9 +358,9 @@ But if you don't normally visit local intranet sites that use custom domain name
 					<tr>
 						<th>Search Engines</th>
 						<td>
-							<div class="optionstip" style="line-height:150%; margin-top:-3px; margin-bottom:10px">
-								<span class="extensionName" style="font-size:12px">Fauxbar</span>'s search engines are separate from Chrome's search engines.<br />
-								Keywords let you access search engines from both the Address Box and Search Box.<br />
+							<div class="optionstip" style="line-height:150%; margin-top:-4px; margin-bottom:10px">
+								Below are <span class="extensionName" style="font-size:12px">Fauxbar</span>'s search engines. <span class="extensionName" style="font-size:12px">Fauxbar</span> cannot access nor import Chrome's search engines.<br />
+								Keywords let you access <span class="extensionName" style="font-size:12px">Fauxbar</span>'s search engines from both the Address Box and Search Box.<br />
 								Drag an icon to rearrange the display order, or <a sortSearchEnginesAlphabetically style="text-decoration:underline; cursor:pointer">sort alphabetically</a>.
 							</div>
 							<div id="opensearchengines" style="margin-top:-3px">You haven't added any search engines to Fauxbar yet.</div>
@@ -458,9 +461,7 @@ But if you don't normally visit local intranet sites that use custom domain name
 						<td>
 							<div style="margin-top:1px">To view or modify <span class="extensionName">Fauxbar</span>'s keyboard shortcuts:</div>
 							<ol>
-								<li><a href="chrome://extensions" target="_blank" class="fakelink forceNewTab" style="text-decoration:underline; color:rgba(0,102,204,1);">Open Chrome's Extensions page.</a></li>
-								<li>Scroll to the bottom of the page.</li>
-								<li>Click the "Keyboard shortcuts" link.</li>
+								<li>Open <a href="chrome://extensions/shortcuts" target="_blank" class="fakelink forceNewTab" style="text-decoration:underline; color:rgba(0,102,204,1);">Chrome's Keyboard Shortcuts</a>.</li>
 								<li>Under <span class="extensionName">Fauxbar</span>, several shortcut options will be available.</li>
 								<li>To modify a shortcut, click an input box, then press your desired keys.</li>
 							<ol>
@@ -468,15 +469,15 @@ But if you don't normally visit local intranet sites that use custom domain name
 					</tr>
 					<tr class="defaultShortcuts"><td colspan="2" class="tdhr"><div></div></td></tr>
 					<tr class="defaultShortcuts">
-						<th>Default Shortcuts</th>
+						<th>Suggested Shortcuts</th>
 						<td>
 							<table id="defaultKeyboardShortcuts">
 								<tr><td>Activate the extension: <span style="opacity:.5; cursor:help"
-									  title="This is the equivalent of clicking Fauxbar's toolbar icon (located beside Chrome's Omnibox).">(?)</span></td><td>Not set</td></tr>
-								<tr><td>Open <span class="extensionName">Fauxbar</span>'s Address Box in the current tab:</td><td>Alt+D</td></tr>
-								<tr><td>Open <span class="extensionName">Fauxbar</span>'s Address Box in a new tab:</td><td>Ctrl+T</td></tr>
-								<tr><td>Open <span class="extensionName">Fauxbar</span>'s Search Box in the current tab:</td><td>Ctrl+K</td></tr>
-								<tr><td>Open <span class="extensionName">Fauxbar</span>'s Search Box in a new tab:</td><td>Ctrl+Shift+K</td></tr>
+									  title="This is the equivalent of clicking Fauxbar's toolbar icon (located beside Chrome's Omnibox).">(?)</span></td><td>&nbsp;Not set</td></tr>
+								<tr><td>Open <span class="extensionName">Fauxbar</span>'s Address Box in the current tab:</td><td><kbd>Alt</kbd>+<kbd>D</kbd></td></tr>
+								<tr><td>Open <span class="extensionName">Fauxbar</span>'s Address Box in a new tab:</td><td><kbd>Ctrl</kbd>+<kbd>T</kbd></td></tr>
+								<tr><td>Open <span class="extensionName">Fauxbar</span>'s Search Box in the current tab:</td><td><kbd>Ctrl</kbd>+<kbd>K</kbd></td></tr>
+								<tr><td>Open <span class="extensionName">Fauxbar</span>'s Search Box in a new tab:</td><td><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>K</kbd></td></tr>
 							</table>
 						</td>
 					</tr>
@@ -885,7 +886,7 @@ If disabled, a hyphen will be displayed between the URL and title.">(?)</span>
 									  title="To help ensure result titles are shown, long URLs that exceed the specified character limit will be shortened.">(?)</span>
 							</label>
 							<div class="optionstip" style="margin-top:3px">
-								To use <span class="extensionName" style="font-size:12px">Fauxbar</span> from Chrome's Omnibox, focus the Omnibox and press <b>F</b>+<b>Spacebar</b>
+								To use <span class="extensionName" style="font-size:12px">Fauxbar</span> from Chrome's Omnibox, focus the Omnibox and press <kbd>F</kbd>+<kbd>Spacebar</kbd>
 							</div>
 							<div class="optionstip">
 								Certain <span style="text-decoration:underline; cursor:pointer; font-size:12px" class="fakelink" addressBoxOptions>Address Box options</span>
@@ -903,7 +904,7 @@ If disabled, a hyphen will be displayed between the URL and title.">(?)</span>
 					<img src="/img/fauxbar48.png" style="height:28px; width:28px; vertical-align:middle; position:relative; top:-2px; padding-right:2px;" />
 					Management
 				</h1>
-				<span class="extensionName">Fauxbar</span> version 1.7.4 &nbsp;<span style="opacity:.5">(16 January 2018)</span>
+				<span class="extensionName">Fauxbar</span> version 1.8.0 &nbsp;<span style="opacity:.5">(22 May, 2019)</span>
 				<table>
 					<tr><td colspan="2" class="tdhr"><div></div></td></tr>
 					<tr>
@@ -1177,20 +1178,6 @@ If disabled, a hyphen will be displayed between the URL and title.">(?)</span>
 					</tr>
 					<tr class="menuOptions"><td colspan="2" class="tdhr"><div></div></td></tr>
 					<tr class="menuOptions">
-						<th>Apps</th>
-						<td class="menuOptions appsMenu">
-							<label class="legend" style="margin-top:1px">
-								<input name="option_showAppsMenu" id="option_showAppsMenu" type="checkbox" />
-								Display the Apps menu
-							</label>
-							<!--<label class="legend appsMenu">
-								<input name="option_appsMenu_showWebStoreLink" id="option_appsMenu_showWebStoreLink" type="checkbox" />
-								Display a Chrome Web Store link
-							</label>-->
-						</td>
-					</tr>
-					<tr class="menuOptions"><td colspan="2" class="tdhr"><div></div></td></tr>
-					<tr class="menuOptions">
 						<th>Extensions</th>
 						<td class="menuOptions extensionsMenu">
 							<label class="legend" style="margin-top:1px">
@@ -1256,6 +1243,21 @@ If disabled, a hyphen will be displayed between the URL and title.">(?)</span>
 								<input name="option_showFauxbarMenu" id="option_showFauxbarMenu" type="checkbox" />
 								Display the <span class="extensionName">Fauxbar</span> menu
 							</label>
+						</td>
+					</tr>
+					<tr class="menuOptions"><td colspan="2" class="tdhr"><div></div></td></tr>
+					<tr class="menuOptions">
+						<th>Apps</th>
+						<td class="menuOptions appsMenu">
+							<label class="legend" style="margin-top:1px">
+								<input name="option_showAppsMenu" id="option_showAppsMenu" type="checkbox" />
+								Display the Apps menu
+								<span style="opacity:.5; cursor:help" title="Chrome Apps were deprecated in 2017. This option should not be needed anymore.">(?)</span>
+							</label>
+							<!--<label class="legend appsMenu">
+								<input name="option_appsMenu_showWebStoreLink" id="option_appsMenu_showWebStoreLink" type="checkbox" />
+								Display a Chrome Web Store link
+							</label>-->
 						</td>
 					</tr>
 					<!--<tr class="menuOptions history2"><td colspan="2" class="tdhr"><div></div></td></tr>

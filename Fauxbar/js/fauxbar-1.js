@@ -891,7 +891,7 @@ $("#contextMenu .menuOption").live("mousedown", function(){
 		switch ($(this).text()) {
 
 			case "Edit Bookmark...":
-				chrome.tabs.create({url:"chrome://bookmarks/?#q="+$(window.rightClickedResult).attr("url"), selected:false});
+				chrome.tabs.create({url:"chrome://bookmarks/?q="+$(window.rightClickedResult).attr("url"), selected:true});
 				break;
 
 			case "Add Bookmark":

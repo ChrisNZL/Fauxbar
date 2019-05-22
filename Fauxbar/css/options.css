@@ -71,3 +71,15 @@ input[type="number"] { width:62px; }
 table#defaultKeyboardShortcuts, table#defaultKeyboardShortcuts td { width:auto; padding-right:11px; padding-bottom:5px; }
 
 .searchenginebutton img { height:16px; width:16px; }
+
+/* Keyboard key styling */
+kbd {
+	font-size: inherit !important;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0.1em 0.5em;
+    margin: 0 0.2em;
+    box-shadow: 0 1px 0px rgba(0, 0, 0, 0.2), 0 0 0 2px #fff inset;
+    background-color: #f7f7f7;
+}

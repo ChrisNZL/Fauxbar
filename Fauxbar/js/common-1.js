@@ -303,8 +303,8 @@ function resetOptions() {
 	localStorage.option_highlightedWordColor_normal = "#F8FFBF";	// Highlighted color for matching words - normal result style. Added in 1.6.0.
 	localStorage.option_highlightedWordColor_highlighted = "#79BCFF";	// Highlighted color for matching words - highlighted result style. Added in 1.6.0.
 	localStorage.option_shadow = 1;							// Drop shadow for the Fauxbar.
-	localStorage.option_showapps = 1;						// Display app tiles.
-	localStorage.option_showNewlyInstalledApps = 1;			// Re-enable localStorage.option_showapps when an app is installed.
+	localStorage.option_showapps = 0;						// Display app tiles.
+	localStorage.option_showNewlyInstalledApps = 0;			// Re-enable localStorage.option_showapps when an app is installed.
 	localStorage.option_showErrorCount = 0;					// Show an error count on the Options' side menu.
 	localStorage.option_showjsonsuggestions = 1;			// Show Search Box suggestions from the selected search engine when user is typing a query.
 	localStorage.option_showmatchingfavs = 1;				// Search for and display matching bookmarks from the Address Box.
@@ -354,7 +354,7 @@ function resetMenuBarOptions() {
 	localStorage.option_bookmarksMenu_showBookmarkManagerLink = 1;
 	localStorage.option_bookmarksMenu_showRecentBookmarks = 1;
 	localStorage.option_bookmarksMenu_numberOfRecentBookmarks = 15;
-	localStorage.option_showAppsMenu = 1;
+	localStorage.option_showAppsMenu = 0;
 	localStorage.option_showExtensionsMenu = 1;
 	localStorage.option_extensionsMenu_showExtensionsLink = 1;
 	localStorage.option_showChromeMenu = 1;

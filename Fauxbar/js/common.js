@@ -212,6 +212,9 @@ function urldecode (str) {
 	} catch(e) {
 		console.log(e);
 		if (e.message) {
+			if (e.message == "URI malformed") {
+				return str;
+			}
 			return 'Error: '+e.message;
 		} else {
 			return 'Error: Unable to decode URL';
