@@ -10,7 +10,7 @@ _An alternative to Chrome's Omnibox._
 
 [Fauxbar Lite](https://chrome.google.com/webstore/detail/bfimmnpbjccjihohjkimphfmmebffbmk) is also available. [What's the difference?](https://github.com/ChrisNZL/Fauxbar/wiki/FAQ#whats-the-difference-between-fauxbar-and-fauxbar-lite)
 
-Latest version: 1.7.4 (16 January 2018). [View changelog](https://github.com/ChrisNZL/Fauxbar/wiki/Changelog)
+Latest version: 1.8.0 (23 May 2019). [View changelog](https://github.com/ChrisNZL/Fauxbar/wiki/Changelog)
 
 ---
 
@@ -26,7 +26,7 @@ Main features include:
 
 - **Search Box:** Use your favorite websites' search engines within Fauxbar, with the ability to display query suggestions as you type.
 
-- **Tiles**: Display thumbnails of your top sites and/or installed Chrome apps for quick access.
+- **Tiles**: Display thumbnails of your top sites for quick access.
 
 - **Omnibox Integration:** Use Fauxbar within Chrome's Omnibox by pressing **F**+**Spacebar**.
 
