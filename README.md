@@ -28,7 +28,7 @@ Main features include:
 
 - **Tiles**: Display thumbnails of your top sites for quick access.
 
-- **Omnibox Integration:** Use Fauxbar within Chrome's Omnibox by pressing **F**+**Spacebar**.
+- **Omnibox Integration:** Use Fauxbar within Chrome's Omnibox by pressing <kbd>F</kbd> + <kbd>Spacebar</kbd>
 
 - **Customizable Options:** Change Fauxbar's look, feel and functionality, with over 60 configurable settings, including page pre-rendering, colors, fonts, shortcut keys, number of results displayed, and more.
 
