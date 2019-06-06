@@ -6,6 +6,20 @@ _An alternative to Chrome's Omnibox._
 
 ### Fauxbar brings Firefox's classic Awesome Bar functionality to Google Chrome.
 
+---
+
+## ⚠️ Incompatibility with Chrome 75
+
+In June 2019, Chrome 75 was released, which unfortunately introduced a database locking issue with the WebSQL/SQLite technology that Fauxbar uses, and has rendered Fauxbar unstable.
+
+As such, I've removed Fauxbar from the Chrome Web Store for the time being.
+
+I recommend disabling the Fauxbar extension from `chrome://extensions` for now.
+
+For updates, please subscribe to [Issue #48](https://github.com/ChrisNZL/Fauxbar/issues/48). 
+
+---
+
 **[Download Fauxbar from the Chrome Web Store](https://chrome.google.com/webstore/detail/fauxbar/hibkhcnpkakjniplpfblaoikiggkopka)**
 
 [Fauxbar Lite](https://chrome.google.com/webstore/detail/bfimmnpbjccjihohjkimphfmmebffbmk) is also available. [What's the difference?](https://github.com/ChrisNZL/Fauxbar/wiki/FAQ#whats-the-difference-between-fauxbar-and-fauxbar-lite)
