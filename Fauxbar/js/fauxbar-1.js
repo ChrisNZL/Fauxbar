@@ -772,7 +772,6 @@ function showContextMenu(e) {
 
 	if (usingSuperTriangle || $("#awesomeinput:focus").length) {
 		$("#super_triangle .triangle").addClass("glow");
-		// += '	<div class="menuOption" style="background-image:url(chrome://favicon/null); background-repeat:no-repeat; background-position:'+(window.OS == "Mac" ? "4px 1px" : "4px 2px")+';">History &amp; Bookmarks</div>';
 		html += '	<div class="menuOption" style="background-image:url(/img/null.png); background-repeat:no-repeat; background-position:'+(window.OS == "Mac" ? "4px 3px" : "4px 2px")+';">History &amp; Bookmarks</div>';
 		html += '	<div class="menuHr"></div>';
 	}
@@ -933,7 +932,7 @@ $("#contextMenu .menuOption").live("mousedown", function(){
 
 			case "Add Keyword...":
 				$("#contextMenu").css("opacity",0);
-				var keyword = prompt('Add a keyword for '+$(window.rightClickedResult).attr("url"));
+				var keyword = prompt('Add a keyword for '+$(window.rightClickedResult).attr("url")+'\n\nTyping the keyword will ensure the result appears first when using the Address Box.');
 				if (keyword) {
 					keyword = str_replace('"', '', keyword.trim());
 					if (keyword.length && openDb()) {
@@ -1954,18 +1953,21 @@ if (localStorage.indexComplete != 1) {
 		$("#apps").remove();
 		if (localStorage.reindexForMaintenance == 1) {
 			$("#indexinginfo b").html(localStorage.extensionName+" needs to reindex for maintenance");
-			$("#indexinginfo span#indexingInfo2").html(localStorage.extensionName+" needs to reindex your Chrome data to correct a bookmark-naming issue that was present in the previous version of "+localStorage.extensionName+".");
+			$("#indexinginfo span#indexingInfo2").html(localStorage.extensionName+" needs to reindex Chrome's data to correct a database issue that was present in the previous version of "+localStorage.extensionName+".");
 			$("#currentstatus").html("Click <b>Start Indexing</b> to begin.");
-		} else if (localStorage.needToReindex && localStorage.needToReindex == 1) {
+		}
+		else if (localStorage.needToReindex && localStorage.needToReindex == 1) {
 			$("#indexinginfo b").html(localStorage.extensionName+" needs to reindex your Chrome data");
 			$("#indexinginfo span#indexingInfo2").html(localStorage.extensionName+"'s database structure has been modified, so "+localStorage.extensionName+" needs to reindex your Chrome data. On the plus side, indexing is now approximately 70% faster than&nbsp;before.");
 			$("#currentstatus").html("Click <b>Start Indexing</b> to begin.");
-		} else if (localStorage.indexedbefore == 1) {
+		}
+		else if (localStorage.indexedbefore == 1) {
 			$("#indexinginfo b").html(localStorage.extensionName+" is reindexing");
 			$("#indexinginfo span#indexingInfo2").html(localStorage.extensionName+" is reindexing your history items and bookmarks.");
 			$("#currentstatus").html("Reindexing...");
 			$("button").last().prop('disabled',true).html('Please Wait...').blur();
-		} else if (localStorage.issue47 == 1) {
+		}
+		else if (localStorage.issue47 == 1) {
 			$("#indexinginfo b").html(localStorage.extensionName+" is rebuilding");
 			$("#indexinginfo span#indexingInfo2").html(localStorage.extensionName+" is rebuilding its database, and reindexing your history items and bookmarks. Any custom keywords and search engines you had will also be restored shortly after.");
 			$("#currentstatus").html("Rebuilding...");
@@ -3070,8 +3072,9 @@ function getResults(noQuery) {
 
 							var scrollbarWidth = window.resultsAreScrollable ? getScrollBarWidth() : 0;
 
-							var favstarMarginTop = window.OS == "Mac" ? "-1px" : "2px";
-							$("#results .favstar").attr("src", $("#fauxstar").attr("src")).css("margin-left",($("#results").innerWidth()-25-scrollbarWidth)+"px").css("margin-top",favstarMarginTop);
+							var favstarMarginTop = window.OS == "Mac" ? "-1px" : "0px";
+							var favstarMarginLeft = ($("#results").innerWidth()-26-scrollbarWidth)+"px";
+							$("#results .favstar").attr("src", $("#fauxstar").attr("src")).css("margin-top",favstarMarginTop).css("margin-left",favstarMarginLeft);
 							$(".resultTag").each(function(){
 								$(this).css("left", $("#results").offset().left + $("#results").outerWidth() - $(this).outerWidth() - $(this).offset().left - ($(this).prev(".favstar").length*16) - scrollbarWidth);
 							});

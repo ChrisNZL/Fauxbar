@@ -1087,22 +1087,19 @@ $(document).ready(function(){
 	}
 
 	if (openDb()) {
-
 		window.db.transaction(function(tx){
 			tx.executeSql('ALTER TABLE opensearches ADD COLUMN encoding TEXT DEFAULT ""');
 		});
-
 		window.db.transaction(function(tx){
 			tx.executeSql('VACUUM');
 		});
 	}
 
-	localStorage.currentVersion = "1.8.0";
+	localStorage.currentVersion = chrome.runtime.getManifest().version;
 });
 
 chrome.runtime.onInstalled.addListener(function(details){
-	var currentVersion = "1.8.0";
-
+	var currentVersion = chrome.runtime.getManifest().version;
 	switch (details.reason) {
 	
 		case 'install':
@@ -1130,7 +1127,6 @@ chrome.runtime.onInstalled.addListener(function(details){
 				var url = localStorage.extensionName == 'Fauxbar' ? '/html/notification_updated.html' : '/html/notification_updated_lite.html';
 				chrome.tabs.create({url:url, active:true});
 			}*/
-
 
 			if (localStorage.justRetrievedFromCloud && localStorage.justRetrievedFromCloud == 1) {
 				delete localStorage.justRetrievedFromCloud;
@@ -1197,6 +1193,12 @@ chrome.runtime.onInstalled.addListener(function(details){
 							}
 						}
 					}*/
+
+					// If updating to v1.8.1, force reindex in case database got wonky with Issue #48
+					if (localStorage.indexedbefore == 1 && localStorage.completedMaintenanceForIssue48 != 1) {
+						localStorage.reindexForMaintenance = 1;
+						localStorage.indexComplete = 0;
+					}
 
 					// New options for v1.8.0
 					if (!localStorage.option_trimPastedText) {
@@ -1468,7 +1470,6 @@ chrome.runtime.onInstalled.addListener(function(details){
 			break;
 			
 		case 'chrome_update':
-		
 			break;
 	}
 });
@@ -2207,6 +2208,7 @@ function index() {
 									var secs = parseFloat(date("U"))-parseFloat(startTime);
 									window.reindexing = false;
 									localStorage.indexComplete = 1;
+									localStorage.completedMaintenanceForIssue48 = 1;
 									localStorage.issue47 = 0;
 									localStorage.almostdone = 1;
 									localStorage.needToReindex = 0;
@@ -2287,60 +2289,3 @@ chrome.idle.onStateChanged.addListener(function(newState){
 			break;
 	}
 });*/
-
-
-/*
-chrome.notifications.create("updated",
-	{
-		type: 'list',
-		iconUrl: '/img/fauxbar128.png',
-		title: 'Fauxbar has been updated',
-		message: 'Yay!',
-		buttons: [
-			{ title: 'View full changelog' }
-		],
-		items: [
-			{ title:'Title 1', message:'Message' },
-			{ title:'Title 2', message:'Message' },
-			{ title:'Title 3', message:'Message' }
-		]
-	},
-	function(){}
-);
-*/
-
-// Options sync, added in v1.4.0
-
-// Send local options to Google's server
-/*function pushOptions () {
-	var localKeyNames = new Array();
-	var keyName;
-	for (keyName in localStorage) {
-		if (substr(keyName, 0, 7) == 'option_' && keyName != 'option_bgimg') {
-			localKeyNames.push(keyName);
-		}
-	}
-	console.log('localKeyNames:',localKeyNames);
-	chrome.storage.sync.get(localKeyNames, function(items){
-		console.log('existing items:', items);
-		var optionsToPush = {};
-		for (var i in localKeyNames) {
-			keyName = localKeyNames[i];
-			if (!items[keyName] || items[keyName] != localStorage[keyName]) {
-				optionsToPush[keyName] = localStorage[keyName];
-			}
-		}
-		console.log('Wanting to push ' + Object.keys(optionsToPush).length + ' options to Google!');
-		console.log('optionsToPush:', optionsToPush);
-		if (Object.keys(optionsToPush).length > 0) {
-			//console.log('Wanting to push ' + Object.keys(optionsToPush).length + ' options to Google!');
-			chrome.storage.sync.set(optionsToPush, function(){
-				if (chrome.runtime.lastError) {
-					console.warn('Failed to push options because: ' + chrome.runtime.lastError.message);
-				} else {
-					console.log('Options have been pushed successfully.');
-				}
-			});
-		}
-	});
-}*/

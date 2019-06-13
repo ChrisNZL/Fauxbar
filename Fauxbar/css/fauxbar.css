@@ -74,7 +74,7 @@ button { padding:3px 12px; }
 
 /* More Address Box results and Search Box suggestions/queries */
 /* .arrowed is for hovered/highlighted/selected results */
-.result, .resultpreview { border-bottom:1px solid rgba(0,0,0,.11); padding: 4px 5px 5px 5px; display:block; }
+.result, .resultpreview { border-bottom:1px solid rgba(0,0,0,.11); padding: 5px 5px 6px 7px; display:block; }
 .arrowed, .rightClickedResult { background-color:#3399ff; color:#fff; }
 .result_url, #options .result_url { padding-left:21px; white-space:nowrap; font-size:12px; overflow:hidden; display:inline-block; }
 .result_title, #options .result_title { font-size:14px; line-height:140%; white-space:nowrap; overflow:hidden; display:inline-block; }
@@ -89,8 +89,8 @@ button { padding:3px 12px; }
 /* Highlight matching words within results. Added in 1.6.0. */
 .highlight { background-color:#f8ffbf; border-radius:2px; }
 
-/* Bookmark icon */
-.favstar { float:right; margin-top:2px; margin-right:-1px; }
+/* Bookmark icon. fauxbar-1.js overrides margins: `var favstarMarginTop` and `var favstarMarginLeft` */
+.favstar { float:right; }
 
 /* "Truncated" dotting for Address Box result titles and URLs */
 .dotdotdot { position:relative; float:right; }
@@ -217,7 +217,7 @@ progress { width:100%; margin-top:6px; }
 input::-webkit-input-placeholder { color:rgba(0,0,0,.5); font-style:italic; }
 input:focus::-webkit-input-placeholder { color:transparent; }
 
-.resultTag { padding:2px 5px 0 8px; text-decoration:none; }
+.resultTag { padding:0px 4px 0 8px; text-decoration:none; }
 
 #addressbaricon { margin-top:1px; height:16px; width:16px; }
 
