@@ -1,16 +1,34 @@
 // This file contains functions that are used by both the main Fauxbar page and its background page. //
 
-// http://stackoverflow.com/questions/4155032/operating-system-detection-by-java-or-javascript/4155078#4155078
-window.OS = "Unknown";
-if (navigator.appVersion.indexOf("Win")!=-1) window.OS="Windows";
-if (navigator.appVersion.indexOf("Mac")!=-1) window.OS="Mac";
-if (navigator.appVersion.indexOf("X11")!=-1) window.OS="UNIX";
-if (navigator.appVersion.indexOf("Linux")!=-1) window.OS="Linux";
+// Create a function to wrap around .focus() for debugging GitHub issue #47. Derived from https://stackoverflow.com/a/26450186/206410
+// $(document).ready(function(){
+	$.fn.FocusElement = function(breadcrumb) {
+		console.log("FOCUSING ELEMENT: "+breadcrumb);
+	    return $(this).focus();
+	};
+// }
 
-if (window.OS == "Mac") {
+
+
+// http://stackoverflow.com/questions/4155032/operating-system-detection-by-java-or-javascript/4155078#4155078
+var appVersion = navigator.appVersion;
+if (appVersion.indexOf("Win") != -1) {
+	window.OS = "Windows";
+}
+else if (appVersion.indexOf("Mac") != -1) {
+	window.OS = "Mac";
 	$(document).ready(function(){
 		$("head").append('<link href="/css/fauxbar-mac.css" media="screen" rel="stylesheet" type="text/css" />');
 	});
+}
+else if (appVersion.indexOf("X11") != -1) {
+	window.OS = "UNIX";
+}
+else if (appVersion.indexOf("Linux") != -1) {
+	window.OS = "Linux";
+}
+else {
+	window.OS = "Unknown";
 }
 
 

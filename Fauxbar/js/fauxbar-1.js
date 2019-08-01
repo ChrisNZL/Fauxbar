@@ -94,14 +94,14 @@ function goToUrl(url, fromClickedResult, dontResolve) {
 			addTile($('.result[href="'+url+'"]'));
 		} else {
 			setTimeout(function(){
-				$("#awesomeinput").focus();
+				$("#awesomeinput").FocusElement("fauxbar-1.js, goToUrl function, line 97");
 			}, 10);
 		}
 		return false;
 	}
 
 	if (fromClickedResult) {
-		$("#awesomeinput").focus();
+		$("#awesomeinput").FocusElement("fauxbar-1.js, goToUrl function, line 104");
 		return true;
 	}
 
@@ -216,7 +216,7 @@ function goToUrl(url, fromClickedResult, dontResolve) {
 		chrome.tabs.create({url:url, selected:selected});
 		if (window.keywordEngine) {
 			setTimeout(function(){
-				$("#awesomeinput").focus();
+				$("#awesomeinput").FocusElement("fauxbar-1.js, goToUrl function, line 219");
 			}, 100);
 		}
 	} else {
@@ -348,9 +348,9 @@ window.clickResult = function(resultEl) {
 	setTimeout(function(){
 		window.dontGetResults = true;
 		if ($("#awesomeinput").val().substr(0, window.actualUserInput.length) == window.actualUserInput) {
-			$("#awesomeinput").focus().setSelection(window.actualUserInput.length, $("#awesomeinput").val().length);
+			$("#awesomeinput").FocusElement("fauxbar-1.js, window.clickResult function, line 351").setSelection(window.actualUserInput.length, $("#awesomeinput").val().length);
 		} else {
-			$("#awesomeinput").focus();
+			$("#awesomeinput").FocusElement("fauxbar-1.js, window.clickResult function, line 353");
 		}
 	}, 1);
 
@@ -410,7 +410,7 @@ $(document).mousemove(function(e){
 
 	// If search queries/suggestions are displayed but the Search Box isn't focused for some reason (maybe user just clicked on a result?), focus the Search Box.
 	if ($(".historyresult, .jsonresult").length && $("#opensearchinput").val().length && !$("#opensearchinput:focus").length && !window.keywordEngine) {
-		$("#opensearchinput").focus();
+		$("#opensearchinput").FocusElement("fauxbar-1.js, mousemove, line 413");
 	}
 
 	// If user is dragging the handle between the two Boxes, apply the new widths so the user can see what they're changing
@@ -905,7 +905,7 @@ $("#contextMenu .menuOption").live("mousedown", function(){
 									if ($("#awesomeinput").val().length) {
 										getResults();
 									} else {
-										$("#awesomeinput").focus();
+										$("#awesomeinput").FocusElement("fauxbar-1.js, context menu 'Add Bookmark', line 908");
 										getResults(true);
 									}
 								}, 100);
@@ -946,7 +946,7 @@ $("#contextMenu .menuOption").live("mousedown", function(){
 							if ($("#awesomeinput").val().length) {
 								getResults();
 							} else {
-								$("#awesomeinput").focus();
+								$("#awesomeinput").FocusElement("fauxbar-1.js, context menu 'Add Keyword', line 949");
 								getResults(true);
 							}
 							chrome.runtime.sendMessage(null, "backup keywords");
@@ -970,7 +970,7 @@ $("#contextMenu .menuOption").live("mousedown", function(){
 							if ($("#awesomeinput").val().length) {
 								getResults();
 							} else {
-								$("#awesomeinput").focus();
+								$("#awesomeinput").FocusElement("fauxbar-1.js, context menu 'Edit Keyword', line 973");
 								getResults(true);
 							}
 							chrome.runtime.sendMessage(null, "backup keywords");
@@ -986,7 +986,7 @@ $("#contextMenu .menuOption").live("mousedown", function(){
 							if ($("#awesomeinput").val().length) {
 								getResults();
 							} else {
-								$("#awesomeinput").focus();
+								$("#awesomeinput").FocusElement("fauxbar-1.js, context menu 'Edit Keyword', line 989");
 								getResults(true);
 							}
 							chrome.runtime.sendMessage(null, "backup keywords");
@@ -1094,7 +1094,7 @@ $("#contextMenu .menuOption").live("mousedown", function(){
 							$("#awesomeinput").blur();
 						},1);
 					} else {
-						$("#awesomeinput").focus();
+						$("#awesomeinput").FocusElement("fauxbar-1.js, context menu 'Paste & Go', line 1097");
 					}
 				},1);
 				break;
@@ -1113,7 +1113,7 @@ $("#contextMenu .menuOption").live("mousedown", function(){
 							},1);
 						}
 					} else {
-						$("#"+elId).focus();
+						$("#"+elId).FocusElement("fauxbar-1.js, context menu 'Paste & Search', line 1116");
 					}
 				},1);
 				break;
@@ -1133,7 +1133,7 @@ $("#contextMenu .menuOption").live("mousedown", function(){
 				//$("#addressbaricon").attr("src","chrome://favicon/null");
 				$("#addressbaricon").attr("src","/img/null.png");
 				$(".switchtext").html("Switch to tab:").css("display","");
-				$("#awesomeinput").attr("placeholder",window.placeholder).focus();
+				$("#awesomeinput").attr("placeholder",window.placeholder).FocusElement("fauxbar-1.js, context menu 'History & Bookmarks', line 1136");
 				break;
 
 			case "Edit Search Engines...":
@@ -1177,12 +1177,12 @@ $("#contextMenu .menuOption").live("mousedown", function(){
 					var doAddressBoxEngineStuff = function(el) {
 						if (!window.keywordEngine) {
 							if ($(el).attr("keyword").length) {
-								$("#awesomeinput").val($(el).attr("keyword")+" "+$("#awesomeinput").val()).focus();
+								$("#awesomeinput").val($(el).attr("keyword")+" "+$("#awesomeinput").val()).FocusElement("fauxbar-1.js, context menu search engines, line 1180");
 								setTimeout(getResults,1);
 							}
 						} else {
 							var newKeyword = $(el).attr("keyword");
-							$("#awesomeinput").blur().val(newKeyword+" "+$("#awesomeinput").val()).focus();
+							$("#awesomeinput").blur().val(newKeyword+" "+$("#awesomeinput").val()).FocusElement("fauxbar-1.js, context menu search engines, line 1185");
 							setTimeout(getResults,1);
 						}
 					};
@@ -1192,7 +1192,7 @@ $("#contextMenu .menuOption").live("mousedown", function(){
 						$("#opensearch_results").css("display","none").html("");
 						selectOpenSearchType($('.menuitem[shortname="'+str_replace('"','&quot;',$(this).attr("shortname"))+'"]'), true);
 						if ($("#opensearch_triangle .glow").length) {
-							$("#opensearchinput").focus();
+							$("#opensearchinput").FocusElement("fauxbar-1.js, context menu search engines, line 1195");
 						}
 						if ($("#opensearchinput").val().trim().length) {
 							setTimeout(getSearchSuggestions,1);
@@ -1288,7 +1288,7 @@ function microtime (get_as_float) {
 $("*").live("keydown", function(e){
 	if (e.keyCode == 68 && e.altKey == true && !e.ctrlKey) {
 		if (localStorage.option_altd == 1) {
-			$("#awesomeinput").focus().select();
+			$("#awesomeinput").FocusElement("fauxbar-1.js, live keydown, line 1291").select();
 			return false;
 		} else {
 			$(this).blur();
@@ -1296,7 +1296,7 @@ $("*").live("keydown", function(e){
 	}
 	if (e.keyCode == 76 && e.ctrlKey == true && !e.altKey) {
 		if (localStorage.option_ctrll == 1) {
-			$("#awesomeinput").focus().select();
+			$("#awesomeinput").FocusElement("fauxbar-1.js, live keydown, line 1299").select();
 			return false;
 		} else {
 			$(this).blur();
@@ -1304,7 +1304,7 @@ $("*").live("keydown", function(e){
 	}
 	else if (e.keyCode == 75 && e.ctrlKey == true && !e.altKey) {
 		if (localStorage.option_ctrlk == 1) {
-			$("#opensearchinput").focus().select();
+			$("#opensearchinput").FocusElement("fauxbar-1.js, live keydown, line 1307").select();
 			return false;
 		} else {
 			$(this).blur();
@@ -1354,6 +1354,7 @@ $("#opensearchinput").live("focus", function(e){
 
 // When the Search Box is focused, hide Address Box results and make the Search Box look good
 $("#opensearchinput").focus(function(){
+	console.log("FOCUS ELEMENT: fauxbar-1.js, #opensearchinput.focus, line 1357");
 	hideResults();
 	$(this).attr("title","");
 });
@@ -1388,7 +1389,7 @@ $("#addressbox_triangle").bind("mousedown", function(){
 		if (($(".historyresult").length > 0 || $(".jsonresult").length > 0 ) || $(".result").length == 0 || $("#results").attr("noquery") == 0) {
 			$("#addressbox_triangle .triangle").addClass("glow");
 			if ($("#awesomeinput:focus").length == 0) {
-				$("#awesomeinput").focus();
+				$("#awesomeinput").FocusElement("fauxbar-1.js, addressbox_triangle mousedown, line 1392")();
 			}
 			$(this).attr("title","");
 			getResults(true);
@@ -1501,7 +1502,7 @@ $("#awesomeinput").bind("keydown", function(e){
 			}
 		}
 		if (engineToUse && $(engineToUse).attr('keyword') && $(engineToUse).attr('keyword').length) {
-			$("#awesomeinput").val( $(engineToUse).attr("keyword")+" "+$("#awesomeinput").val() ).focus();
+			$("#awesomeinput").val( $(engineToUse).attr("keyword")+" "+$("#awesomeinput").val() ).FocusElement("fauxbar-1.js, #awesomeinput keydown, line 1505");
 			setTimeout(getResults,1);
 		}
 		return false;
@@ -1523,7 +1524,7 @@ $("#awesomeinput").bind("keydown", function(e){
 	// Ctrl+K
 	else if (e.keyCode == 75 && e.ctrlKey == true && !e.altKey) {
 		if (localStorage.option_ctrlk == 1) {
-			$("#opensearchinput").focus();
+			$("#opensearchinput").FocusElement("fauxbar-1.js, #awesomeinput keydown, line 1527")();
 			return false;
 		} else {
 			$(this).blur();
@@ -1586,7 +1587,7 @@ $("#opensearchinput").bind("keydown", function(e){
 	// Ctrl+L
 	else if (e.keyCode == 76 && e.ctrlKey == true && !e.altKey) {
 		if (localStorage.option_ctrll == 1) {
-			$("#awesomeinput").focus();
+			$("#awesomeinput").FocusElement("fauxbar-1.js, #opensearchinput keydown, line 1590");
 			return false;
 		} else {
 			$(this).blur();
@@ -1596,7 +1597,7 @@ $("#opensearchinput").bind("keydown", function(e){
 	// Alt+D
 	else if (e.keyCode == 68 && e.altKey == true && !e.ctrlKey) {
 		if (localStorage.option_altd == 1) {
-			$("#awesomeinput").focus();
+			$("#awesomeinput").FocusElement("fauxbar-1.js, #opensearchinput keydown, line 1600");
 			return false;
 		} else {
 			$(this).blur();
@@ -2308,13 +2309,13 @@ function navigateResults(e) {
 
 function focusAddressBox () {
 	$("#opensearchinput").blur();
-	$("#awesomeinput").focus().setSelection(0,$("#awesomeinput").val().length);
+	$("#awesomeinput").FocusElement("fauxbar-1.js, function focusAddressBox, line 2312").setSelection(0,$("#awesomeinput").val().length);
 }
 
 function focusSearchBox () {
 	setTimeout(function(){
 		$("#awesomeinput").blur();
-		$("#opensearchinput").focus().setSelection(0,$("#opensearchinput").val().length);
+		$("#opensearchinput").FocusElement("fauxbar-1.js, function focusSearchBox, line 2318").setSelection(0,$("#opensearchinput").val().length);
 	}, 1);
 }
 

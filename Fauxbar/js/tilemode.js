@@ -54,7 +54,6 @@ function cancelTiles() {
 }
 
 // Initialise page tile editing mode
-
 delete window.keywordEngine;
 $("#awesomeInsetButton").removeClass("insetButton").addClass("noInsetButton");
 //$("#addressbaricon").attr("src","chrome://favicon/null");
@@ -62,7 +61,7 @@ $("#addressbaricon").attr("src","/img/null.png");
 $(".switchtext").html("Switch to tab:").css("display","");
 $("#address_goarrow img").attr("src","/img/plus.png");
 $("#address_goarrow").attr("title","Add the entered address as a tile");
-$("#awesomeinput").focus();
+$("#awesomeinput").FocusElement("tilemode.js, line 64");
 
 window.document.title = "Fauxbar: Edit Tiles";
 window.onbeforeunload = function() {
@@ -202,10 +201,10 @@ if (window.tiles) {
 function addTile(el) {
 	hideResults();
 	setTimeout(function(){
-		$("#awesomeinput").val(window.actualUserInput).focus().setSelection(0,window.actualUserInput.length);
+		$("#awesomeinput").val(window.actualUserInput).FocusElement("tilemode.js, addTile function, line 204").setSelection(0,window.actualUserInput.length);
 	}, 10);
 	toggleSwitchText();
-	$("#awesomeinput").focus();
+	$("#awesomeinput").FocusElement("tilemode.js, addTile function, line 207");
 	$("#topthumbs").append(renderPageTile($(el).attr("url"), $(el).attr("origtitle"), true));
 	setTileOnLoads();
 	$("#topthumbs a").last().animate({opacity:1}, 500);

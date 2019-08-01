@@ -5,7 +5,7 @@ $('#awesomeinput').ready(function(){
 		$('#awesomeinput:focus').live('focus', function(){
 			$(this).attr('placeholder', 'Go to a website');
 		});
-		$('#awesomeinput').focus().live('blur', function(){
+		$('#awesomeinput').FocusElement("finishLoadingInputBoxes.js, line 8").live('blur', function(){
 			$(this).attr('placeholder', 'Go to a website');
 		});
 	}
@@ -17,7 +17,7 @@ $('#opensearchinput').ready(function(){
 		$('#opensearchinput:focus').live('focus', function(){
 			$(this).attr('placeholder', str_replace('"', '&quot;', localStorage.osshortname));
 		});
-		$('#opensearchinput').focus().live('blur', function(){
+		$('#opensearchinput').FocusElement("finishLoadingInputBoxes.js, line 20").live('blur', function(){
 			$(this).attr('placeholder', str_replace('"', '&quot;', localStorage.osshortname));
 		});
 	}
